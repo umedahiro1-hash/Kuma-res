@@ -268,6 +268,7 @@ CREATE TABLE IF NOT EXISTS board_threads (
   title TEXT NOT NULL,
   body TEXT NOT NULL,
   city TEXT,
+  photo_path TEXT,
   owner_token TEXT,
   created ${bigint} NOT NULL,
   updated ${bigint} NOT NULL

@@ -880,13 +880,13 @@ function boardOwnerToken(req) {
 async function serializeThreadListItem(t, ownerToken) {
   const commentCount = (await db.prepare('SELECT COUNT(*) c FROM board_comments WHERE thread_id = ?').get(t.id)).c;
   const canDelete = !!ownerToken && t.owner_token === ownerToken && Number(commentCount) === 0;
-  return { id: t.id, title: t.title, body: t.body, city: t.city, created: Number(t.created), updated: Number(t.updated), commentCount: Number(commentCount), canDelete };
+  return { id: t.id, title: t.title, body: t.body, city: t.city, photoPath: t.photo_path, created: Number(t.created), updated: Number(t.updated), commentCount: Number(commentCount), canDelete };
 }
 async function serializeThreadDetail(t, ownerToken) {
   const commentRows = await db.prepare('SELECT id, text, created, owner_token FROM board_comments WHERE thread_id = ? ORDER BY created ASC').all(t.id);
   const comments = commentRows.map(c => ({ id: c.id, text: c.text, created: Number(c.created), canDelete: !!ownerToken && c.owner_token === ownerToken }));
   const canDelete = !!ownerToken && t.owner_token === ownerToken && commentRows.length === 0;
-  return { id: t.id, title: t.title, body: t.body, city: t.city, created: Number(t.created), updated: Number(t.updated), comments, canDelete };
+  return { id: t.id, title: t.title, body: t.body, city: t.city, photoPath: t.photo_path, created: Number(t.created), updated: Number(t.updated), comments, canDelete };
 }
 
 app.get('/api/board', ah(async (req, res) => {
@@ -905,15 +905,23 @@ app.post('/api/board', ah(async (req, res) => {
   const title = ((req.body && req.body.title) || '').trim();
   const body = ((req.body && req.body.body) || '').trim();
   const city = ((req.body && req.body.city) || '').trim() || null;
+  const photoDataUrl = req.body && req.body.photoDataUrl;
   if (!title) return res.status(400).json({ error: 'タイトルを入力してください' });
   if (!body) return res.status(400).json({ error: '内容を入力してください' });
   if (title.length > BOARD_TITLE_MAX) return res.status(400).json({ error: `タイトルは${BOARD_TITLE_MAX}文字以内で入力してください` });
   if (body.length > BOARD_BODY_MAX) return res.status(400).json({ error: `内容は${BOARD_BODY_MAX}文字以内で入力してください` });
 
+  let photoPath = null;
+  try {
+    photoPath = await saveDataUrlImage(photoDataUrl, 'board');
+  } catch (e) {
+    return res.status(e.status || 400).json({ error: e.message });
+  }
+
   const ownerToken = boardOwnerToken(req) || null;
   const id = 'th' + Date.now() + Math.random().toString(36).slice(2, 6);
   const now = Date.now();
-  await db.prepare('INSERT INTO board_threads (id, title, body, city, owner_token, created, updated) VALUES (?,?,?,?,?,?,?)').run(id, title, body, city, ownerToken, now, now);
+  await db.prepare('INSERT INTO board_threads (id, title, body, city, photo_path, owner_token, created, updated) VALUES (?,?,?,?,?,?,?,?)').run(id, title, body, city, photoPath, ownerToken, now, now);
   res.status(201).json(await serializeThreadListItem(await db.prepare('SELECT * FROM board_threads WHERE id = ?').get(id), ownerToken));
 }));
 
@@ -957,7 +965,7 @@ app.delete('/api/board/:id/comments/:commentId', ah(async (req, res) => {
 
 const GOV_TITLE_MAX = 100;
 const GOV_BODY_MAX = 2000;
-const GOV_MAX_PHOTOS = 3;
+const GOV_MAX_PHOTOS = 1;
 
 function serializeGovNotice(row) {
   let photoPaths = [];
