@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>物資の支援 - Kumamoto Tsunagaru</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "cream-bg": "#F9F7F2",
+                        "muted-gray": "#6A7178",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-container": "#25694b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#002113",
+                        "surface-variant": "#e1e3df",
+                        "mustard-accent": "#D97706",
+                        "on-surface-variant": "#3f4943",
+                        "surface": "#f8faf6",
+                        "secondary": "#645d54",
+                        "outline-variant": "#bec9c0",
+                        "on-surface": "#191c1a",
+                        "primary-fixed-dim": "#90d5b0",
+                        "surface-container-highest": "#e1e3df",
+                        "secondary-fixed-dim": "#cfc5ba",
+                        "outline": "#6f7a72",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#6a635a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#ffcdb4",
+                        "on-secondary-fixed": "#201b14",
+                        "background": "#f8faf6",
+                        "error-container": "#ffdad6",
+                        "divider-line": "#E5E7E9",
+                        "primary": "#005135",
+                        "surface-container-high": "#e7e9e5",
+                        "on-secondary-fixed-variant": "#4c463d",
+                        "on-background": "#191c1a",
+                        "secondary-fixed": "#ebe1d5",
+                        "surface-container-low": "#f3f4f0",
+                        "inverse-primary": "#90d5b0",
+                        "on-tertiary-fixed-variant": "#763301",
+                        "primary-fixed": "#acf2cb",
+                        "tertiary-fixed-dim": "#ffb68e",
+                        "charcoal-text": "#191C1A",
+                        "surface-container": "#edeeeb",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#944918",
+                        "on-primary-fixed-variant": "#015236",
+                        "soft-terracotta": "#C2410C",
+                        "inverse-surface": "#2e312f",
+                        "inverse-on-surface": "#f0f1ed",
+                        "surface-tint": "#266a4c",
+                        "surface-bright": "#f8faf6",
+                        "tertiary-fixed": "#ffdbca",
+                        "secondary-container": "#ebe1d5",
+                        "on-primary-container": "#a1e6c0",
+                        "tertiary": "#763200",
+                        "surface-dim": "#d9dad7",
+                        "forest-deep": "#0A5238",
+                        "on-tertiary-fixed": "#331200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "stack-gap": "12px",
+                        "gutter": "16px",
+                        "touch-target-min": "48px",
+                        "unit": "8px",
+                        "section-gap": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Hanken Grotesk"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "label-lg": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-lg": ["15px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "800" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F9F7F2;
+            /* cream-bg */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .premium-shadow {
+            box-shadow: 0 10px 40px -10px rgba(100, 93, 84, 0.08);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+
+        /* Logic specific styles overlaid on premium theme */
+        .overlay { position: fixed; inset: 0; background: rgba(25,28,26,.6); display: none; align-items: flex-end; justify-content: center; z-index: 100; backdrop-filter: blur(2px); }
+        .overlay.show { display: flex; animation: fade-in 0.2s ease; }
+        .sheet { background: #ffffff; width: 100%; max-width: 640px; border-radius: 24px 24px 0 0; max-height: 90vh; overflow-y: auto; padding: 24px 20px 32px; position: relative; animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 40px rgba(0,0,0,0.1); }
+        @media(min-width:640px){ .overlay { align-items: center; } .sheet { border-radius: 24px; max-height: 85vh; padding: 32px; } }
+        
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        .sheet-close { position: absolute; right: 16px; top: 16px; width: 36px; height: 36px; border-radius: 50%; background: #f3f4f0; display: flex; align-items: center; justify-content: center; color: #6a635a; cursor: pointer; transition: all 0.2s; border: none; }
+        .sheet-close:hover { background: #e1e3df; }
+        .sheet-handle { width: 40px; height: 4px; background: #e1e3df; border-radius: 2px; margin: -12px auto 20px; display: block; }
+        @media(min-width:640px){ .sheet-handle { display: none; } }
+
+        /* Form elements */
+        .input-group { margin-bottom: 16px; }
+        .input-label { display: block; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; color: #191C1A; margin-bottom: 8px; }
+        .input-label .opt { color: #6A7178; font-weight: 400; font-size: 12px; }
+        .form-input { width: 100%; padding: 12px 16px; border: 1.5px solid #E5E7E9; border-radius: 12px; font-family: "Be Vietnam Pro", sans-serif; font-size: 16px; background: #ffffff; transition: all 0.2s; }
+        .form-input:focus { outline: none; border-color: #25694b; box-shadow: 0 0 0 3px rgba(37,105,75,0.1); }
+        textarea.form-input { min-height: 100px; resize: vertical; }
+
+        /* Buttons within sheet */
+        .btn-primary { background: #0A5238; color: white; border: none; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; box-shadow: 0 4px 12px rgba(10,82,56,0.2); text-align: center; }
+        .btn-primary:hover { background: #002113; }
+        .btn-primary:disabled { background: #bec9c0; box-shadow: none; cursor: not-allowed; }
+        .btn-ghost { background: white; color: #191C1A; border: 1.5px solid #E5E7E9; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; text-align: center; }
+        .btn-ghost:hover { background: #f3f4f0; }
+        .btn-danger { background: white; color: #ba1a1a; border: 1.5px solid #ffdad6; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; text-align: center; }
+        .btn-danger:hover { background: #fff8f7; }
+        .btn-row { display: flex; gap: 12px; margin-top: 24px; }
+        .btn-row > * { flex: 1; }
+
+        /* Checklist & Segments */
+        .chk-item { display: flex; align-items: flex-start; gap: 12px; padding: 16px; border: 1.5px solid #E5E7E9; border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; background: white; }
+        .chk-item.on { background: rgba(144, 213, 176, 0.1); border-color: #0A5238; }
+        .chk-item input { width: 20px; height: 20px; margin-top: 2px; accent-color: #0A5238; flex: none; }
+        .chk-item .chk-content { flex: 1; }
+        .chk-item .chk-title { font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; color: #191C1A; }
+        .chk-item .chk-desc { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #6A7178; margin-top: 2px; }
+
+        .seg-control { display: flex; background: #e7e9e5; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
+        .seg-control button { flex: 1; padding: 10px 8px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; color: #6a635a; border-radius: 8px; transition: all 0.2s; }
+        .seg-control button.on { background: white; color: #0A5238; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+        /* Badges & Status */
+        .status-badge { display: inline-flex; align-items: center; justify-content: center; padding: 4px 10px; border-radius: 6px; font-family: "Hanken Grotesk", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
+        .sb-open { background: rgba(37,105,75,0.1); color: #0A5238; }
+        .sb-nego { background: rgba(217,119,6,0.1); color: #D97706; }
+        .sb-resv { background: #efe7fb; color: #6b46c1; }
+        .sb-done { background: rgba(10,82,56,0.05); color: #6A7178; }
+
+        .notice-box { background: rgba(144, 213, 176, 0.15); border: 1px solid rgba(144, 213, 176, 0.4); border-radius: 12px; padding: 16px; margin: 16px 0; display: flex; gap: 12px; }
+        .notice-box.warn { background: rgba(217,119,6,0.05); border-color: rgba(217,119,6,0.2); }
+        .notice-icon { color: #0A5238; flex: none; font-size: 20px; }
+        .notice-box.warn .notice-icon { color: #D97706; }
+        .notice-content { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #191c1a; line-height: 1.5; }
+
+        /* Chat */
+        .chat-container { background: #f8faf6; border-radius: 16px; padding: 16px; max-height: 300px; overflow-y: auto; margin-bottom: 16px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #E5E7E9; }
+        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; position: relative; }
+        .chat-meta { font-size: 11px; color: #6A7178; margin-bottom: 4px; font-family: "Hanken Grotesk", sans-serif; }
+        .chat-bubble.me { align-self: flex-end; background: #0A5238; color: white; border-bottom-right-radius: 4px; }
+        .chat-bubble.me .chat-meta { color: rgba(255,255,255,0.8); }
+        .chat-bubble.you { align-self: flex-start; background: white; border: 1px solid #E5E7E9; color: #191c1a; border-bottom-left-radius: 4px; }
+
+        /* Toast */
+        .toast-msg { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #191c1a; color: white; padding: 14px 24px; border-radius: 99px; font-family: "Hanken Grotesk", sans-serif; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,0.15); text-align: center; width: max-content; max-width: 90vw; }
+        .toast-msg.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        @media(min-width:768px){ .toast-msg { bottom: 40px; } }
+
+        /* Details KV */
+        .kv-row { display: flex; padding: 12px 0; border-bottom: 1px dashed #E5E7E9; font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; align-items: baseline; gap: 16px; }
+        .kv-row:last-child { border-bottom: none; }
+        .kv-key { color: #6a635a; font-weight: 600; min-width: 80px; flex: none; font-family: "Hanken Grotesk", sans-serif; font-size: 13px; }
+        .kv-val { color: #191C1A; }
+
+        /* Step Progress */
+        .step-progress { display: flex; align-items: center; justify-content: space-between; margin: 24px 0; position: relative; }
+        .step-progress::before { content: ''; position: absolute; top: 12px; left: 20px; right: 20px; height: 2px; background: #e1e3df; z-index: 1; }
+        .step-item { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; z-index: 2; flex: 1; }
+        .step-dot { width: 24px; height: 24px; border-radius: 50%; background: #ffffff; border: 2px solid #bec9c0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; color: #bec9c0; background-clip: padding-box; }
+        .step-label { font-family: "Hanken Grotesk", sans-serif; font-size: 11px; font-weight: 700; color: #6a635a; text-align: center; }
+        .step-item.done .step-dot { background: #0A5238; border-color: #0A5238; color: white; }
+        .step-item.done .step-label { color: #0A5238; }
+        .step-item.active .step-dot { border-color: #D97706; border-width: 3px; }
+        .step-item.active .step-label { color: #D97706; font-weight: 800; }
+        
+        /* Review Stars */
+        .star-rating { display: flex; justify-content: center; gap: 8px; margin: 16px 0; font-size: 32px; color: #e1e3df; cursor: pointer; }
+        .star-rating .star { transition: color 0.2s; }
+        .star-rating .star.active { color: #D97706; }
+        
+        .temp-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 99px; background: rgba(217,119,6,0.1); color: #D97706; font-family: "Hanken Grotesk", sans-serif; font-size: 12px; font-weight: 700; }
+        
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body class="text-on-background min-h-screen pb-[100px] md:pb-0">
+<!-- Vue App Mount Point -->
+<div id="app" v-cloak="">
+<!-- TopAppBar (From JSON) -->
+<header aria-label="Top Navigation" class="fixed top-0 w-full z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm hidden md:flex">
+<div class="flex items-center gap-4">
+<button aria-label="Menu" class="text-on-surface-variant hover:opacity-80 transition-opacity scale-95 duration-200 p-2 touch-target-min flex items-center justify-center rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md italic text-forest-deep">Kumamoto Tsunagaru</h1>
+</div>
+<div class="flex items-center">
+<div @click="openLoginSim()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a friendly Japanese woman in her 30s, smiling softly. Warm, natural sunlight highlights her features. The aesthetic is clean, modern, and light, reflecting a community-focused, altruistic vibe. Subtle background blurring emphasizes her face." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg9JHahaZaSf6jssAf4e2loS8il7SZW87wMZ_64xOYO5lNbfDlrqMsGgqQ8wRASgrlWmNIrcXEGEmqxOj5YCp6peY3vSBR7z4Ry_6uIBZRxDHe8jXXaPnt2WmOSt0XCovVL6g7HZVgs6yzG_cySmUeB6fgIZmArh9G1nebrrFzcyzuhaVAw8tdv4zucCPGaXIhnRWKNvneU-SHHkPLqejV_gKoX7FHHW_qA9ISJnE6JV88tICgwgYvEw" v-if="me === 'あなた'"/>
+<span class="font-label-lg text-forest-deep" v-else="">{{ me.charAt(0) }}</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="max-w-[640px] mx-auto w-full px-margin-mobile md:px-margin-desktop pt-6 md:pt-24 pb-section-gap">
+<!-- Page Header -->
+<div class="mb-section-gap text-center space-y-unit">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep">物資の支援</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">無料でゆずり合う、ご近所の助け合い</p>
+<div class="text-xs text-muted-gray mt-2">操作中アカウント: <strong>{{ me }}</strong> (タップして切替)</div>
+</div>
+<!-- Filter & Area Section -->
+<div class="space-y-stack-gap mb-section-gap sticky top-0 md:top-16 z-40 bg-cream-bg/90 backdrop-blur-md py-4 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0">
+<!-- Type Filters -->
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2">
+<button :class="goodsType === 'all' ? 'bg-surface-container-high text-on-surface' : 'bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low'" @click="goodsType = 'all'" class="px-6 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content]">
+                        すべて
+                    </button>
+<button :class="goodsType === 'offer' ? 'bg-surface-container-high text-on-surface' : 'bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low'" @click="goodsType = 'offer'" class="px-6 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content]">
+                        ゆずる
+                    </button>
+<button :class="goodsType === 'request' ? 'bg-surface-container-high text-on-surface' : 'bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low'" @click="goodsType = 'request'" class="px-6 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content]">
+                        もとめる
+                    </button>
+<div class="relative min-w-[min-content]">
+<button :class="goodsType === 'progress' ? 'bg-surface-container-high text-on-surface' : 'bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low'" @click="goodsType = 'progress'; markSeen()" class="px-6 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors">
+                            進行中
+                        </button>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-mustard-accent rounded-full border-2 border-cream-bg flex items-center justify-center text-[10px] text-white font-bold" v-if="newProgressCount &gt; 0">{{ newProgressCount }}</span>
+</div>
+</div>
+<!-- Area Filters -->
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar" v-show="goodsType !== 'progress'">
+<button :class="goodsArea === 'all' ? 'bg-forest-deep text-white' : 'bg-white border border-divider-line text-muted-gray hover:bg-surface-container-low'" @click="goodsArea = 'all'" class="font-label-sm text-label-sm px-4 py-1.5 rounded-md transition-colors whitespace-nowrap">
+                        全エリア
+                    </button>
+<button :class="goodsArea === area ? 'bg-forest-deep text-white' : 'bg-white border border-divider-line text-muted-gray hover:bg-surface-container-low'" :key="area" @click="goodsArea = area" class="font-label-sm text-label-sm px-4 py-1.5 rounded-md transition-colors whitespace-nowrap" v-for="area in ['中央', '県北', '県南', '阿蘇']">
+                        {{ area }}
+                    </button>
+</div>
+</div>
+<!-- List Section -->
+<div class="space-y-stack-gap">
+<div class="py-12 text-center flex flex-col items-center justify-center opacity-70" v-if="filteredGoods.length === 0">
+<span class="material-symbols-outlined text-5xl text-muted-gray mb-3">inventory_2</span>
+<p class="font-headline-sm text-charcoal-text">該当する投稿がありません</p>
+<p class="font-body-sm text-muted-gray mt-2">条件を変えてお試しください</p>
+</div>
+<article :key="item.id" @click="openItem(item)" class="bg-surface-container-lowest rounded-xl p-5 premium-shadow border border-divider-line cursor-pointer hover:scale-[0.98] transition-transform duration-200" v-for="item in filteredGoods">
+<div class="flex flex-col gap-3">
+<div class="flex flex-wrap gap-2 items-center justify-between w-full">
+<div class="flex flex-wrap gap-2 items-center">
+<span class="bg-primary-container text-on-primary-container font-label-sm text-label-sm px-2.5 py-1 rounded" v-if="item.type === 'offer'">ゆずります</span>
+<span class="bg-mustard-accent/10 text-mustard-accent font-label-sm text-label-sm px-2.5 py-1 rounded border border-mustard-accent/20" v-else="">もとめています</span>
+<span class="bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded" v-if="item.type === 'offer'">無料</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded">{{ item.cat }}</span>
+<span class="flex items-center gap-1 text-forest-deep font-label-sm text-label-sm px-2.5 py-1 rounded bg-primary-fixed-dim/20" v-if="item.status === 'open' &amp;&amp; countMatches(item) &gt; 0">
+<span class="material-symbols-outlined text-[14px]">link</span> 対の投稿 {{ countMatches(item) }}件
+                                </span>
+</div>
+<div>
+<span class="status-badge sb-open" v-if="item.status === 'open'">募集中</span>
+<span class="status-badge sb-nego" v-else-if="item.status === 'nego'">交渉中</span>
+<span class="status-badge sb-resv" v-else-if="item.status === 'reserved'">予約済み</span>
+<span class="status-badge sb-done" v-else-if="item.status === 'done'">受渡完了</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text line-clamp-2">
+                                    {{ item.title }}
+                                </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 font-body-sm text-body-sm text-muted-gray mt-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>{{ item.district }} {{ item.place }}</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>{{ item.when }}</span>
+</div>
+</div>
+</div>
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line" v-if="getImageForCat(item.cat)">
+<img :src="getImageForCat(item.cat)" alt="Item photo" class="w-full h-full object-cover"/>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden flex items-center justify-center font-label-sm text-on-surface-variant">
+<img alt="" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg5vFETHgjeRmx7KYMPo1ejZfEm_ZqKIO-eWQ49Dl5iyIiQrhhNw7BIU_0wJYUuOvIBKDEcRFV8ZvqtfYGoPRhQDm5AMSdCg1UkjgTLXcfSIUJHQ8hPvIzrsIZXOGb3353wv0CPivAIZOiZkA3RQy6EqsohMUx7WvPXX1xtfmbH-yOw5_2Th93BVmHtWTjG454ZlK5w5Rr0bcyMlFR5Tm_Jg8s1kQKpbbMMyIq0osKFgeB-bBK5GG4Og" v-if="item.nick === 'たかし'"/>
+<span v-else="">{{ item.nick.charAt(0) }}</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-charcoal-text">
+                                        {{ item.nick }}
+                                        <span class="ml-2 text-[10px] bg-surface-container-high px-1.5 py-0.5 rounded text-muted-gray" v-if="item.nick === me">あなた</span>
+</p>
+</div>
+</div>
+<div class="temp-badge">
+<span class="material-symbols-outlined text-[14px]">favorite</span>
+<span>{{ getTemp(item.nick) }}℃</span>
+</div>
+</div>
+<!-- Progress specific info snippet -->
+<div class="bg-surface-container-low rounded-lg p-3 mt-2 font-body-sm text-sm text-charcoal-text border border-surface-container-high" v-if="goodsType === 'progress' &amp;&amp; item.status !== 'open'">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold">相手: {{ getPartnerName(item) }}</span>
+<span class="text-xs text-muted-gray">{{ item.chat ? item.chat.length : 0 }}件のメッセージ</span>
+</div>
+<div class="text-xs text-muted-gray truncate">
+                                最終更新: {{ formatDate(item.updated || item.created) }}
+                            </div>
+</div>
+</div>
+</article>
+<!-- Decorative Empty State / End of list -->
+<div class="py-8 text-center flex flex-col items-center justify-center opacity-60" v-if="filteredGoods.length &gt; 0">
+<span class="material-symbols-outlined text-4xl text-muted-gray mb-2">volunteer_activism</span>
+<p class="font-body-sm text-body-sm text-muted-gray">すべての投稿を表示しました</p>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button @click="openCreate()" aria-label="物資を登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="font-label-lg text-label-lg">物資を登録</span>
+</button>
+<!-- BottomNavBar -->
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 w-full z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg md:hidden">
+<button aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button aria-current="page" aria-label="支援" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+<span class="absolute top-1 right-2 w-3 h-3 bg-mustard-accent rounded-full border-2 border-white" v-if="newProgressCount &gt; 0"></span>
+</button>
+<button aria-label="つながり" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">つながり</span>
+</button>
+<button aria-label="設定" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm mt-1">設定</span>
+</button>
+</nav>
+<!-- Overlays / Bottom Sheets -->
+<!-- Registration Form -->
+<div :class="{show: showCreateForm}" @click.self="showCreateForm = false" class="overlay">
+<div class="sheet">
+<span class="sheet-handle"></span>
+<button @click="showCreateForm = false" class="sheet-close">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h2 class="font-headline-md text-charcoal-text mb-2">🎁 物資を登録</h2>
+<p class="font-body-sm text-muted-gray mb-6">「ゆずる（無料）」か「もとめる」を選んで投稿します。お金のやり取りはありません。</p>
+<div class="seg-control">
+<button :class="{on: ng.type === 'offer'}" @click="ng.type = 'offer'">🎁 ゆずります（無料）</button>
+<button :class="{on: ng.type === 'request'}" @click="ng.type = 'request'">🙏 もとめています</button>
+</div>
+<div class="input-group">
+<label class="input-label">カテゴリ</label>
+<select class="form-input" v-model="ng.cat">
+<option :key="c" v-for="c in cats">{{ c }}</option>
+</select>
+</div>
+<div class="input-group">
+<label class="input-label">タイトル</label>
+<input class="form-input" placeholder="例）飲料水を分けます／毛布を探しています" v-model="ng.title"/>
+</div>
+<div class="input-group">
+<label class="input-label">数量・内容</label>
+<input class="form-input" placeholder="例）2L×6本／毛布5枚" v-model="ng.qty"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="input-group">
+<label class="input-label">受け渡し場所</label>
+<input class="form-input" placeholder="例）美里町中央公民館前" v-model="ng.place"/>
+</div>
+<div class="input-group">
+<label class="input-label">希望日時</label>
+<input class="form-input" placeholder="例）今日中／平日夕方" v-model="ng.when"/>
+</div>
+</div>
+<div class="notice-box mt-4">
+<span class="material-symbols-outlined notice-icon">info</span>
+<div class="notice-content">連絡はアプリ内チャットで行います。受け渡し確定まで電話番号は公開されません。</div>
+</div>
+<div class="btn-row">
+<button @click="showCreateForm = false" class="btn-ghost">やめる</button>
+<button :disabled="!ng.title || !ng.qty" @click="submitGoods" class="btn-primary">この内容で投稿</button>
+</div>
+</div>
+</div>
+<!-- Item Detail Sheet -->
+<div :class="{show: activeItem}" @click.self="closeItem" class="overlay">
+<div class="sheet" v-if="activeItem">
+<span class="sheet-handle"></span>
+<button @click="closeItem" class="sheet-close">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Header Info -->
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-primary-container text-on-primary-container font-label-sm px-2.5 py-1 rounded" v-if="activeItem.type === 'offer'">ゆずります</span>
+<span class="bg-mustard-accent/10 text-mustard-accent border border-mustard-accent/20 font-label-sm px-2.5 py-1 rounded" v-else="">もとめています</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm px-2.5 py-1 rounded">{{ activeItem.cat }}</span>
+<span class="bg-surface-container-highest text-on-surface-variant font-label-sm px-2.5 py-1 rounded" v-if="activeItem.type === 'offer'">無料</span>
+</div>
+<h2 class="font-headline-md text-charcoal-text mb-3 leading-tight">{{ activeItem.title }}</h2>
+<div class="flex items-center gap-3 mb-6">
+<div class="temp-badge">
+<span class="material-symbols-outlined text-[14px]">favorite</span>
+<span>{{ getTemp(activeItem.nick) }}℃</span>
+</div>
+<div class="font-body-sm text-muted-gray">投稿者: <span class="font-bold text-charcoal-text">{{ activeItem.nick }}</span></div>
+<span class="bg-surface-variant text-on-surface-variant text-[10px] px-1.5 py-0.5 rounded font-bold" v-if="isOwner(activeItem)">あなたの投稿</span>
+</div>
+<!-- Progress Steps -->
+<div class="step-progress">
+<div :class="{done: stepIndex &gt;= 0, active: stepIndex === 0}" class="step-item">
+<div class="step-dot">1</div>
+<div class="step-label">募集中</div>
+</div>
+<div :class="{done: stepIndex &gt;= 1, active: stepIndex === 1}" class="step-item">
+<div class="step-dot">2</div>
+<div class="step-label">交渉中</div>
+</div>
+<div :class="{done: stepIndex &gt;= 2, active: stepIndex === 2}" class="step-item">
+<div class="step-dot">3</div>
+<div class="step-label">予約済み</div>
+</div>
+<div :class="{done: stepIndex &gt;= 3, active: stepIndex === 3}" class="step-item">
+<div class="step-dot">4</div>
+<div class="step-label">受渡完了</div>
+</div>
+</div>
+<!-- Basic Details -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-divider-line mb-6">
+<div class="kv-row">
+<div class="kv-key">数量</div>
+<div class="kv-val">{{ activeItem.qty }}</div>
+</div>
+<div class="kv-row">
+<div class="kv-key">受渡場所</div>
+<div class="kv-val">{{ activeItem.place }} ({{ activeItem.district }})</div>
+</div>
+<div class="kv-row">
+<div class="kv-key">希望日時</div>
+<div class="kv-val">{{ activeItem.when }}</div>
+</div>
+</div>
+<!-- Chat Interface (Visible if nego, reserved, or if I have applied) -->
+<div v-if="activeItem.status !== 'open' || hasApplied(activeItem)">
+<label class="input-label">💬 アプリ内チャット <span class="opt">(連絡先は非公開)</span></label>
+<div class="chat-container" ref="chatbox">
+<div class="text-center text-sm text-muted-gray py-4" v-if="!activeItem.chat || activeItem.chat.length === 0">
+                            まだメッセージはありません。
+                        </div>
+<div :class="c.from === me ? 'me' : 'you'" :key="idx" class="chat-bubble" v-for="(c, idx) in activeItem.chat">
+<div class="chat-meta">{{ c.from }} • {{ formatDate(c.at) }}</div>
+<div>{{ c.text }}</div>
+</div>
+</div>
+<div class="flex gap-2" v-if="activeItem.status !== 'done'">
+<input @keyup.enter="sendChat" class="form-input py-2" placeholder="メッセージを入力..." v-model="chatInput"/>
+<button @click="sendChat" class="bg-forest-deep text-white px-4 rounded-xl font-bold flex-shrink-0 hover:bg-opacity-90">送信</button>
+</div>
+</div>
+<!-- STATUS: OPEN -->
+<div v-if="activeItem.status === 'open' &amp;&amp; !hasApplied(activeItem)">
+<div class="notice-box warn" v-if="isOwner(activeItem)">
+<span class="material-symbols-outlined notice-icon">info</span>
+<div class="notice-content">これはあなたの投稿です。他の方から申し出があるとここに表示されます。<br/>※デモ用: 画面右上のアイコンから別ユーザーに切り替えると応募を試せます。</div>
+</div>
+<div v-else="">
+<label class="input-label mt-4">{{ activeItem.type === 'offer' ? 'この提供を受け取りたい' : 'この依頼に応える（提供する）' }}</label>
+<textarea class="form-input mb-4" placeholder="ひとこと（受け渡し可能な日時・数量など）" v-model="applyMsg"></textarea>
+<button @click="applyGoods" class="btn-primary">{{ activeItem.type === 'offer' ? '受け取りを希望する' : '提供を申し出る' }}</button>
+</div>
+</div>
+<!-- STATUS: NEGO -->
+<div v-if="activeItem.status === 'nego'">
+<div class="mt-6" v-if="isOwner(activeItem)">
+<h3 class="font-headline-sm mb-3">申し出 ({{ activeItem.applicants ? activeItem.applicants.length : 0 }}件)</h3>
+<div :key="app.nick" class="border border-divider-line rounded-xl p-4 mb-3 flex items-center justify-between" v-for="app in activeItem.applicants">
+<div>
+<div class="font-bold text-charcoal-text">{{ app.nick }} <span class="temp-badge text-[10px] py-0.5 px-2 ml-1">{{ getTemp(app.nick) }}℃</span></div>
+<div class="text-sm text-muted-gray mt-1">{{ app.msg || 'よろしくお願いします' }}</div>
+</div>
+<button @click="openAppointment(app.nick)" class="bg-primary-container text-white px-4 py-2 rounded-lg font-bold text-sm flex-shrink-0">
+                                この方と約束
+                            </button>
+</div>
+</div>
+<div class="notice-box warn mt-4" v-else="">
+<span class="material-symbols-outlined notice-icon">hourglass_empty</span>
+<div class="notice-content">投稿者が受け渡し相手を選定中です。チャットで条件を伝えておきましょう。</div>
+</div>
+</div>
+<!-- STATUS: RESERVED -->
+<div v-if="activeItem.status === 'reserved' &amp;&amp; activeItem.deal">
+<div class="notice-box">
+<span class="material-symbols-outlined notice-icon">event_available</span>
+<div class="notice-content">
+<b>{{ getOtherParty(activeItem) }}</b> さんと予約成立しました。<br/>
+                            受渡予定: <b>{{ activeItem.deal.date }} {{ activeItem.deal.time }} @ {{ activeItem.deal.place }}</b>
+</div>
+</div>
+<div class="bg-surface-container-high rounded-xl p-4 mb-6">
+<h4 class="font-bold text-sm mb-2 text-forest-deep flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">verified</span> 事前すり合わせ確認済</h4>
+<div class="grid grid-cols-2 gap-2 text-sm text-charcoal-text">
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-green-700">check_circle</span> 数量: {{ activeItem.qty }}</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-green-700">check_circle</span> 状態の確認</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-green-700">check_circle</span> 場所の合意</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-green-700">check_circle</span> 日時の合意</div>
+</div>
+</div>
+<h4 class="font-headline-sm mb-3 text-center">受け渡し完了の相互確認</h4>
+<p class="text-xs text-center text-muted-gray mb-4">トラブル防止のため、双方がボタンを押すと完了になります。</p>
+<div class="flex gap-4 mb-6">
+<div class="flex-1 flex flex-col items-center">
+<div class="text-xs font-bold text-muted-gray mb-2">渡す側 ({{ getGiver(activeItem) }})</div>
+<button :class="activeItem.deal.giverDone ? 'bg-surface-variant text-forest-deep cursor-default' : 'bg-forest-deep text-white hover:bg-primary'" :disabled="me !== getGiver(activeItem) &amp;&amp; !activeItem.deal.giverDone" @click="confirmDeal('giver')" class="w-full py-3 rounded-xl font-bold shadow-sm transition-colors relative">
+<span class="flex items-center justify-center gap-1" v-if="activeItem.deal.giverDone"><span class="material-symbols-outlined text-[18px]">check</span> 渡しました</span>
+<span v-else="">渡しました</span>
+<div class="absolute inset-0 bg-white/50 rounded-xl cursor-not-allowed" v-if="me !== getGiver(activeItem) &amp;&amp; !activeItem.deal.giverDone"></div>
+</button>
+</div>
+<div class="flex-1 flex flex-col items-center">
+<div class="text-xs font-bold text-muted-gray mb-2">受け取る側 ({{ getTaker(activeItem) }})</div>
+<button :class="activeItem.deal.takerDone ? 'bg-surface-variant text-forest-deep cursor-default' : 'bg-mustard-accent text-white hover:bg-opacity-90'" :disabled="me !== getTaker(activeItem) &amp;&amp; !activeItem.deal.takerDone" @click="confirmDeal('taker')" class="w-full py-3 rounded-xl font-bold shadow-sm transition-colors relative">
+<span class="flex items-center justify-center gap-1" v-if="activeItem.deal.takerDone"><span class="material-symbols-outlined text-[18px]">check</span> 受け取りました</span>
+<span v-else="">受け取りました</span>
+<div class="absolute inset-0 bg-white/50 rounded-xl cursor-not-allowed" v-if="me !== getTaker(activeItem) &amp;&amp; !activeItem.deal.takerDone"></div>
+</button>
+</div>
+</div>
+<div class="flex justify-between border-t border-divider-line pt-4 mt-2">
+<button @click="reportNoShow" class="text-sm font-bold text-error flex items-center gap-1 hover:bg-error-container px-3 py-1.5 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">warning</span> 相手が来なかった
+                        </button>
+<button @click="cancelDeal" class="text-sm font-bold text-muted-gray hover:bg-surface-variant px-3 py-1.5 rounded-lg transition-colors">
+                            予約をキャンセル
+                        </button>
+</div>
+</div>
+<!-- STATUS: DONE -->
+<div v-if="activeItem.status === 'done' &amp;&amp; activeItem.deal">
+<div class="notice-box">
+<span class="material-symbols-outlined notice-icon text-green-700">check_circle</span>
+<div class="notice-content text-forest-deep font-bold">
+                            受け渡しが完了しました。ご協力ありがとうございました！
+                        </div>
+</div>
+<div class="mt-6 border border-divider-line rounded-xl p-5 bg-surface" v-if="!hasReviewed(activeItem) &amp;&amp; isParticipant(activeItem)">
+<h4 class="font-headline-sm text-center mb-1">お相手の評価</h4>
+<p class="text-xs text-center text-muted-gray mb-4">この評価は相手の「信頼温度」に影響します</p>
+<div class="star-rating">
+<span :class="{active: reviewStar &gt;= n}" :key="n" @click="reviewStar = n" class="star" v-for="n in 5">★</span>
+</div>
+<textarea class="form-input mt-4 mb-4 h-20" placeholder="ひとこと（任意）例：時間通りに来てくださり助かりました" v-model="reviewMsg"></textarea>
+<button :disabled="reviewStar === 0" @click="submitReview" class="btn-primary">評価を送信する</button>
+</div>
+<div class="text-center py-6 text-muted-gray font-bold" v-else-if="hasReviewed(activeItem)">
+                        評価送信済みです。
+                    </div>
+</div>
+</div>
+</div>
+<!-- Appointment Setup Sheet -->
+<div :class="{show: showAppointmentForm}" @click.self="showAppointmentForm = false" class="overlay">
+<div class="sheet" v-if="showAppointmentForm &amp;&amp; activeItem">
+<span class="sheet-handle"></span>
+<button @click="showAppointmentForm = false" class="sheet-close">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h2 class="font-headline-md text-charcoal-text mb-2">受け渡しの約束</h2>
+<p class="font-body-sm text-muted-gray mb-6"><b>{{ apptForm.partner }}</b> さんと予約します。当日の認識違いを防ぐため、条件を確認してください。</p>
+<div class="input-group">
+<label class="input-label">待ち合わせ場所 <span class="opt">(安全な公共の場所を推奨)</span></label>
+<input class="form-input" list="safe-places" v-model="apptForm.place"/>
+<datalist id="safe-places">
+<option value="美里町中央公民館前"></option>
+<option value="砥用支所前"></option>
+<option value="各地区避難所"></option>
+<option value="コンビニ駐車場（明るい場所）"></option>
+</datalist>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="input-group">
+<label class="input-label">受け渡し日</label>
+<input class="form-input" type="date" v-model="apptForm.date"/>
+</div>
+<div class="input-group">
+<label class="input-label">時間</label>
+<input class="form-input" type="time" v-model="apptForm.time"/>
+</div>
+</div>
+<label class="input-label mt-4 mb-3">✅ 事前すり合わせ確認 <span class="opt">(すべてチェック)</span></label>
+<div :class="{on: apptForm.chkQty}" @click="apptForm.chkQty = !apptForm.chkQty" class="chk-item">
+<input @click.stop="" type="checkbox" v-model="apptForm.chkQty"/>
+<div class="chk-content">
+<div class="chk-title">数量の合意</div>
+<div class="chk-desc">「{{ activeItem.qty }}」で合意した</div>
+</div>
+</div>
+<div :class="{on: apptForm.chkCond}" @click="apptForm.chkCond = !apptForm.chkCond" class="chk-item">
+<input @click.stop="" type="checkbox" v-model="apptForm.chkCond"/>
+<div class="chk-content">
+<div class="chk-title">状態の確認</div>
+<div class="chk-desc">写真や説明で状態を確認し合った</div>
+</div>
+</div>
+<div :class="{on: apptForm.chkPlace}" @click="apptForm.chkPlace = !apptForm.chkPlace" class="chk-item">
+<input @click.stop="" type="checkbox" v-model="apptForm.chkPlace"/>
+<div class="chk-content">
+<div class="chk-title">場所の把握</div>
+<div class="chk-desc">指定場所を双方が把握している</div>
+</div>
+</div>
+<div :class="{on: apptForm.chkTime}" @click="apptForm.chkTime = !apptForm.chkTime" class="chk-item">
+<input @click.stop="" type="checkbox" v-model="apptForm.chkTime"/>
+<div class="chk-content">
+<div class="chk-title">日時の把握</div>
+<div class="chk-desc">指定日時を双方が把握している</div>
+</div>
+</div>
+<div class="btn-row mt-6">
+<button @click="showAppointmentForm = false" class="btn-ghost">戻る</button>
+<button :disabled="!isApptFormValid" @click="finalizeAppointment" class="btn-primary">この内容で予約</button>
+</div>
+</div>
+</div>
+<!-- User Simulator Sheet (For Demo) -->
+<div :class="{show: showLoginSim}" @click.self="showLoginSim = false" class="overlay">
+<div class="sheet">
+<h2 class="font-headline-md mb-4">🔄 ユーザー切り替え (デモ用)</h2>
+<p class="text-sm text-muted-gray mb-4">取引の双方フローを確認するため、別のアカウントになりきって操作できます。</p>
+<div class="space-y-2">
+<div :class="me === name ? 'border-forest-deep bg-primary-container/5' : 'border-divider-line'" :key="name" @click="switchUser(name)" class="p-4 border rounded-xl cursor-pointer hover:bg-surface flex items-center justify-between" v-for="(profile, name) in profiles">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center font-bold text-on-surface-variant">
+                                {{ name.charAt(0) }}
+                            </div>
+<div>
+<div class="font-bold text-charcoal-text">{{ name }}</div>
+<div class="text-xs text-muted-gray">信頼度: {{ profile.temp }}℃</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-forest-deep" v-if="me === name">check_circle</span>
+</div>
+</div>
+<button @click="showLoginSim = false" class="btn-ghost mt-6">閉じる</button>
+</div>
+</div>
+<!-- Toast Notification -->
+<div :class="{show: toast.visible}" class="toast-msg">
+            {{ toast.msg }}
+        </div>
+</div>
+<!-- Scripts -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    me: 'みさと母',
+                    profiles: {
+                        'たかし': { temp: 42.1, completed: 8, noshow: 0, praises: 6 },
+                        'ボランティアM': { temp: 55.3, completed: 31, noshow: 0, praises: 25 },
+                        'みさと母': { temp: 37.8, completed: 2, noshow: 0, praises: 1 },
+                        '子育て中': { temp: 36.5, completed: 0, noshow: 0, praises: 0 },
+                        'あなた': { temp: 36.5, completed: 0, noshow: 0, praises: 0 }
+                    },
+                    cats: ['水', '食料', '衛生用品', '毛布・衣類', '日用品', 'その他'],
+                    goodsType: 'all',
+                    goodsArea: 'all',
+                    goodsList: [],
+                    
+                    activeItem: null,
+                    chatInput: '',
+                    applyMsg: '',
+                    
+                    showCreateForm: false,
+                    ng: { type: 'offer', cat: '水', title: '', qty: '', place: '', when: '' },
+                    
+                    showAppointmentForm: false,
+                    apptForm: { partner: '', place: '', date: '', time: '', chkQty: false, chkCond: false, chkPlace: false, chkTime: false },
+                    
+                    reviewStar: 0,
+                    reviewMsg: '',
+                    
+                    toast: { msg: '', visible: false, timeout: null },
+                    
+                    showLoginSim: false,
+                    lastSeenTime: Date.now() - 100000
+                }
+            },
+            computed: {
+                filteredGoods() {
+                    let list = [...this.goodsList];
+                    
+                    if (this.goodsType === 'progress') {
+                        // In progress: items I'm involved in that are not done
+                        return list.filter(g => 
+                            (g.status === 'nego' || g.status === 'reserved') && 
+                            this.isParticipant(g)
+                        ).sort((a, b) => (b.updated || b.created) - (a.updated || a.created));
+                    }
+                    
+                    if (this.goodsType !== 'all') {
+                        list = list.filter(g => g.type === this.goodsType);
+                    }
+                    if (this.goodsArea !== 'all') {
+                        list = list.filter(g => g.district === this.goodsArea || g.district.includes(this.goodsArea));
+                    }
+                    
+                    // Hide completed/reserved in general views
+                    list = list.filter(g => g.status === 'open' || g.status === 'nego');
+                    
+                    return list.sort((a, b) => b.created - a.created);
+                },
+                stepIndex() {
+                    if (!this.activeItem) return -1;
+                    const map = { 'open': 0, 'nego': 1, 'reserved': 2, 'done': 3 };
+                    return map[this.activeItem.status] || 0;
+                },
+                isApptFormValid() {
+                    return this.apptForm.place && this.apptForm.date && this.apptForm.time && 
+                           this.apptForm.chkQty && this.apptForm.chkCond && 
+                           this.apptForm.chkPlace && this.apptForm.chkTime;
+                },
+                newProgressCount() {
+                    return this.goodsList.filter(g => 
+                        (g.status === 'nego' || g.status === 'reserved') && 
+                        this.isParticipant(g) && 
+                        (g.updated || g.created) > this.lastSeenTime &&
+                        g.nick !== this.me // don't count my own updates as new
+                    ).length;
+                }
+            },
+            methods: {
+                showToast(msg) {
+                    this.toast.msg = msg;
+                    this.toast.visible = true;
+                    if (this.toast.timeout) clearTimeout(this.toast.timeout);
+                    this.toast.timeout = setTimeout(() => { this.toast.visible = false; }, 3000);
+                },
+                getTemp(nick) {
+                    return this.profiles[nick] ? this.profiles[nick].temp.toFixed(1) : '36.5';
+                },
+                getImageForCat(cat) {
+                    const imgMap = {
+                        '水': 'https://storage.googleapis.com/aida-studio-stage-bucket/AB6AXuAMsZ4g8n0v7F5Xw9XGg_c45w-C6pL_e4rA4sA7tT0gBfL2c4x609y2d02c89285098e9b8979c4501a343b4_d24666cf-448a-4db3-9827-c10444dd115f.jpeg',
+                        '毛布・衣類': 'https://storage.googleapis.com/aida-studio-stage-bucket/AB6AXuAh7tS4B07yq3zGk9G9Tf7m0B3wR8z1c8yL9H4lQ6bN1eX8e9g8e3a89e9f60f4e1f74811a4cf1356fcf7c4_fcd4843b-be49-41b4-82a9-c0bb6fdbd42b.jpeg',
+                        '食料': 'https://storage.googleapis.com/aida-studio-stage-bucket/AB6AXuAQ6m0G4s1D0c6b1Q8V0D3R6v5M8W5N3Z2B3x1X3b8w5y5E0p7Q2Y4X3p9q4V9b3u1D3M2X3B9L8v9A0_5e9f8485-6126-4076-afde-86efba5e6d6d.jpeg'
+                    };
+                    return imgMap[cat] || null;
+                },
+                formatDate(ts) {
+                    if (!ts) return '';
+                    const d = new Date(ts);
+                    return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+                },
+                countMatches(item) {
+                    const opp = item.type === 'request' ? 'offer' : 'request';
+                    return this.goodsList.filter(g => g.type === opp && g.cat === item.cat && g.status === 'open').length;
+                },
+                isOwner(item) {
+                    return item.nick === this.me;
+                },
+                isParticipant(item) {
+                    if (this.isOwner(item)) return true;
+                    if (item.deal && (item.deal.partner === this.me || item.deal.owner === this.me)) return true;
+                    if (item.applicants && item.applicants.some(a => a.nick === this.me)) return true;
+                    return false;
+                },
+                hasApplied(item) {
+                    return item.applicants && item.applicants.some(a => a.nick === this.me);
+                },
+                getPartnerName(item) {
+                    if (item.deal) {
+                        return item.deal.partner === this.me ? item.deal.owner : item.deal.partner;
+                    }
+                    return this.isOwner(item) ? `応募 ${item.applicants.length}件` : item.nick;
+                },
+                getOtherParty(item) {
+                    return item.nick === this.me ? item.deal.partner : item.nick;
+                },
+                getGiver(item) {
+                    return item.type === 'offer' ? item.nick : item.deal.partner;
+                },
+                getTaker(item) {
+                    return item.type === 'offer' ? item.deal.partner : item.nick;
+                },
+                
+                openItem(item) {
+                    this.activeItem = item;
+                    this.applyMsg = '';
+                    setTimeout(() => {
+                        if (this.$refs.chatbox) {
+                            this.$refs.chatbox.scrollTop = this.$refs.chatbox.scrollHeight;
+                        }
+                    }, 50);
+                },
+                closeItem() {
+                    this.activeItem = null;
+                },
+                
+                openCreate() {
+                    this.ng = { type: 'offer', cat: '水', title: '', qty: '', place: '', when: '' };
+                    this.showCreateForm = true;
+                },
+                submitGoods() {
+                    const newItem = {
+                        id: 'g' + Date.now(),
+                        type: this.ng.type,
+                        cat: this.ng.cat,
+                        district: '中央区',
+                        title: this.ng.title,
+                        qty: this.ng.qty,
+                        place: this.ng.place || '応相談',
+                        when: this.ng.when || '応相談',
+                        nick: this.me,
+                        status: 'open',
+                        chat: [],
+                        applicants: [],
+                        deal: null,
+                        created: Date.now(),
+                        updated: Date.now()
+                    };
+                    this.goodsList.unshift(newItem);
+                    this.showCreateForm = false;
+                    this.showToast('✅ 投稿しました');
+                    
+                    if (this.goodsType === 'all' || this.goodsType === this.ng.type) {
+                        // Already in correct tab
+                    } else {
+                        this.goodsType = 'all';
+                    }
+                },
+                
+                applyGoods() {
+                    if (!this.activeItem) return;
+                    const item = this.activeItem;
+                    
+                    if (!item.applicants) item.applicants = [];
+                    item.applicants.push({ nick: this.me, msg: this.applyMsg, at: Date.now() });
+                    
+                    if (!item.chat) item.chat = [];
+                    item.chat.push({
+                        from: this.me, 
+                        text: this.applyMsg || (item.type === 'request' ? '提供できます。' : '受け取りを希望します。'),
+                        at: Date.now()
+                    });
+                    
+                    item.status = 'nego';
+                    item.updated = Date.now();
+                    
+                    this.showToast('✅ 申し出ました。チャットで調整しましょう');
+                },
+                
+                sendChat() {
+                    if (!this.activeItem || !this.chatInput.trim()) return;
+                    if (!this.activeItem.chat) this.activeItem.chat = [];
+                    
+                    this.activeItem.chat.push({
+                        from: this.me,
+                        text: this.chatInput.trim(),
+                        at: Date.now()
+                    });
+                    this.activeItem.updated = Date.now();
+                    this.chatInput = '';
+                    
+                    setTimeout(() => {
+                        if (this.$refs.chatbox) {
+                            this.$refs.chatbox.scrollTop = this.$refs.chatbox.scrollHeight;
+                        }
+                    }, 50);
+                },
+                
+                openAppointment(partnerNick) {
+                    const today = new Date();
+                    const tomorrow = new Date(today.getTime() + 864e5).toISOString().slice(0, 10);
+                    
+                    this.apptForm = {
+                        partner: partnerNick,
+                        place: this.activeItem.place === '応相談' ? '' : this.activeItem.place,
+                        date: tomorrow,
+                        time: '12:00',
+                        chkQty: false, chkCond: false, chkPlace: false, chkTime: false
+                    };
+                    this.showAppointmentForm = true;
+                },
+                
+                finalizeAppointment() {
+                    if (!this.activeItem) return;
+                    
+                    this.activeItem.status = 'reserved';
+                    this.activeItem.deal = {
+                        partner: this.apptForm.partner,
+                        owner: this.activeItem.nick,
+                        place: this.apptForm.place,
+                        date: this.apptForm.date,
+                        time: this.apptForm.time,
+                        checklist: { qty: true, condition: true, place: true, time: true },
+                        giverDone: false,
+                        takerDone: false,
+                        reviewed: {}
+                    };
+                    
+                    if (!this.activeItem.chat) this.activeItem.chat = [];
+                    this.activeItem.chat.push({
+                        from: this.me,
+                        text: `予約しました：${this.apptForm.date} ${this.apptForm.time} ＠${this.apptForm.place}`,
+                        at: Date.now()
+                    });
+                    
+                    this.activeItem.updated = Date.now();
+                    this.showAppointmentForm = false;
+                    this.showToast('📅 予約成立。当日は双方で受け渡し確認を');
+                },
+                
+                confirmDeal(role) {
+                    if (!this.activeItem || !this.activeItem.deal) return;
+                    const d = this.activeItem.deal;
+                    
+                    if (role === 'giver') d.giverDone = true;
+                    if (role === 'taker') d.takerDone = true;
+                    
+                    this.activeItem.updated = Date.now();
+                    
+                    if (d.giverDone && d.takerDone) {
+                        this.activeItem.status = 'done';
+                        const giver = this.getGiver(this.activeItem);
+                        const taker = this.getTaker(this.activeItem);
+                        if (this.profiles[giver]) this.profiles[giver].completed++;
+                        if (this.profiles[taker]) this.profiles[taker].completed++;
+                        
+                        this.showToast('🎉 受け渡し完了！相互評価をお願いします');
+                    } else {
+                        this.showToast('確認しました。相手の確認をお待ちください');
+                    }
+                },
+                
+                hasReviewed(item) {
+                    return item.deal && item.deal.reviewed && item.deal.reviewed[this.me];
+                },
+                
+                submitReview() {
+                    if (!this.activeItem || this.reviewStar === 0) return;
+                    
+                    const otherParty = this.getOtherParty(this.activeItem);
+                    const p = this.profiles[otherParty];
+                    
+                    if (p) {
+                        const delta = {5: 1.0, 4: 0.5, 3: 0.1, 2: -0.5, 1: -1.0}[this.reviewStar] || 0;
+                        p.temp = Math.max(0, Math.min(99, +(p.temp + delta).toFixed(1)));
+                        if (this.reviewStar >= 4) p.praises++;
+                    }
+                    
+                    if (!this.activeItem.deal.reviewed) this.activeItem.deal.reviewed = {};
+                    this.activeItem.deal.reviewed[this.me] = this.reviewStar;
+                    
+                    this.showToast('⭐ 評価を送信しました。ありがとうございました');
+                    setTimeout(() => { this.closeItem(); }, 1500);
+                },
+                
+                reportNoShow() {
+                    if (!confirm(`お相手をノーショー（無断キャンセル）として報告しますか？\n信頼温度が下がり、募集中に戻ります。`)) return;
+                    
+                    const otherParty = this.getOtherParty(this.activeItem);
+                    const p = this.profiles[otherParty];
+                    if (p) {
+                        p.noshow++;
+                        p.temp = Math.max(0, +(p.temp - 3.0).toFixed(1));
+                    }
+                    
+                    this.activeItem.status = 'open';
+                    if (this.activeItem.applicants) {
+                        this.activeItem.applicants = this.activeItem.applicants.filter(a => a.nick !== this.activeItem.deal.partner);
+                    }
+                    this.activeItem.deal = null;
+                    this.activeItem.updated = Date.now();
+                    
+                    this.showToast(`ノーショーを報告しました。募集中に戻りました`);
+                },
+                
+                cancelDeal() {
+                    if (!confirm('予約を取り消して募集中に戻しますか？')) return;
+                    this.activeItem.status = 'open';
+                    this.activeItem.deal = null;
+                    this.activeItem.updated = Date.now();
+                    this.showToast('予約をキャンセルしました');
+                },
+
+                markSeen() {
+                    this.lastSeenTime = Date.now();
+                },
+
+                openLoginSim() {
+                    this.showLoginSim = true;
+                },
+                
+                switchUser(name) {
+                    this.me = name;
+                    this.showLoginSim = false;
+                    this.showToast(`🔄 ${name} に切り替えました`);
+                }
+            },
+            mounted() {
+                // Initialize with sample data
+                const now = Date.now();
+                this.goodsList = [
+                    {
+                        id: 'g1', type: 'offer', cat: '水', title: 'ミネラルウォーター 2L×12本 無料でゆずります',
+                        qty: '12本', district: '中央区', place: '大江', when: '本日 14:00まで',
+                        nick: 'たかし', status: 'open', chat: [], applicants: [], deal: null,
+                        created: now - 9000000
+                    },
+                    {
+                        id: 'g2', type: 'request', cat: '水', title: '飲料水を分けてください',
+                        qty: '2Lを6本ほど', district: '東区', place: '健軍', when: '明日 終日可能',
+                        nick: 'みさと母', status: 'open', chat: [], applicants: [], deal: null,
+                        created: now - 12000000
+                    },
+                    {
+                        id: 'g3', type: 'offer', cat: '毛布・衣類', title: '毛布5枚・タオル多数 ゆずります',
+                        qty: '毛布5・タオル20', district: '宇城市', place: '松橋', when: 'いつでも',
+                        nick: 'ボランティアM', status: 'open', chat: [], applicants: [], deal: null,
+                        created: now - 3000000
+                    },
+                    {
+                        id: 'g4', type: 'offer', cat: '食料', title: 'アルファ米・レトルト食品 まとめてゆずります',
+                        qty: '30食分', district: '熊本市', place: '市民会館前', when: '土日に受け渡し可',
+                        nick: 'ボランティアM', status: 'open', chat: [], applicants: [], deal: null,
+                        created: now - 2000000
+                    },
+                    {
+                        id: 'g5', type: 'request', cat: '衛生用品', title: '紙おむつ（Mサイズ）が必要です',
+                        qty: '1〜2パック', district: '美里町', place: '払川公民館', when: 'なるべく早く',
+                        nick: '子育て中', status: 'reserved',
+                        chat: [
+                            { from: 'ボランティアM', text: 'Mサイズ2パックあります。明日10時に払川公民館でいかがですか？', at: now - 2100000 },
+                            { from: '子育て中', text: '助かります！お願いします。', at: now - 2000000 },
+                            { from: 'ボランティアM', text: '予約しました：明日 10:00 ＠払川公民館', at: now - 1900000 }
+                        ],
+                        applicants: [{ nick: 'ボランティアM', msg: '2パックお渡しできます', at: now - 2200000 }],
+                        deal: { 
+                            partner: 'ボランティアM', owner: '子育て中', place: '払川公民館', 
+                            date: new Date(now + 864e5).toISOString().slice(0, 10), time: '10:00', 
+                            checklist: { qty: true, condition: true, place: true, time: true }, 
+                            giverDone: false, takerDone: false, reviewed: {} 
+                        },
+                        created: now - 4000000, updated: now - 100000 // recently updated
+                    }
+                ];
+            }
+        }).mount('#app');
+    </script>
+</body></html>

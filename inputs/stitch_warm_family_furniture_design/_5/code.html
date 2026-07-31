@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<title>Kumamoto Tsunagaru - 人探し</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,700&amp;family=Be+Vietnam+Pro:wght@400;600&amp;family=Noto+Serif+JP:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "cream-bg": "#F9F7F2",
+                        "muted-gray": "#6A7178",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-container": "#25694b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#002113",
+                        "surface-variant": "#e1e3df",
+                        "mustard-accent": "#D97706",
+                        "on-surface-variant": "#3f4943",
+                        "surface": "#f8faf6",
+                        "secondary": "#645d54",
+                        "outline-variant": "#bec9c0",
+                        "on-surface": "#191c1a",
+                        "primary-fixed-dim": "#90d5b0",
+                        "surface-container-highest": "#e1e3df",
+                        "secondary-fixed-dim": "#cfc5ba",
+                        "outline": "#6f7a72",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#6a635a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#ffcdb4",
+                        "on-secondary-fixed": "#201b14",
+                        "background": "#f8faf6",
+                        "error-container": "#ffdad6",
+                        "divider-line": "#E5E7E9",
+                        "primary": "#005135",
+                        "surface-container-high": "#e7e9e5",
+                        "on-secondary-fixed-variant": "#4c463d",
+                        "on-background": "#191c1a",
+                        "secondary-fixed": "#ebe1d5",
+                        "surface-container-low": "#f3f4f0",
+                        "inverse-primary": "#90d5b0",
+                        "on-tertiary-fixed-variant": "#763301",
+                        "primary-fixed": "#acf2cb",
+                        "tertiary-fixed-dim": "#ffb68e",
+                        "charcoal-text": "#191C1A",
+                        "surface-container": "#edeeeb",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#944918",
+                        "on-primary-fixed-variant": "#015236",
+                        "soft-terracotta": "#C2410C",
+                        "inverse-surface": "#2e312f",
+                        "inverse-on-surface": "#f0f1ed",
+                        "surface-tint": "#266a4c",
+                        "surface-bright": "#f8faf6",
+                        "tertiary-fixed": "#ffdbca",
+                        "secondary-container": "#ebe1d5",
+                        "on-primary-container": "#a1e6c0",
+                        "tertiary": "#763200",
+                        "surface-dim": "#d9dad7",
+                        "forest-deep": "#0A5238",
+                        "on-tertiary-fixed": "#331200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "touch-target-min": "48px",
+                        "unit": "8px",
+                        "stack-gap": "12px",
+                        "section-gap": "32px",
+                        "gutter": "16px",
+                        "safe-bottom": "env(safe-area-inset-bottom, 20px)"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Hanken Grotesk", "sans-serif"],
+                        "headline-sm": ["Hanken Grotesk", "sans-serif"],
+                        "body-sm": ["Be Vietnam Pro", "sans-serif"],
+                        "body-md": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-md": ["Hanken Grotesk", "sans-serif"],
+                        "label-sm": ["Hanken Grotesk", "sans-serif"],
+                        "headline-lg": ["Hanken Grotesk", "sans-serif"],
+                        "headline-lg-mobile": ["Hanken Grotesk", "sans-serif"],
+                        "body-lg": ["Be Vietnam Pro", "sans-serif"],
+                        "serif": ["Noto Serif JP", "serif"]
+                    },
+                    "fontSize": {
+                        "label-lg": ["15px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F9F7F2; /* cream-bg */
+            color: #191c1a; /* on-background */
+            font-family: "Be Vietnam Pro", sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .text-balance {
+            text-wrap: balance;
+        }
+        .serif-text {
+            font-family: 'Noto Serif JP', serif;
+        }
+        /* Custom scrollbar hiding for horizontal scroll areas */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Overlay Base */
+        .overlay { position: fixed; inset: 0; background: rgba(25,28,26,0.6); display: none; align-items: flex-end; justify-content: center; z-index: 100; backdrop-filter: blur(4px); }
+        .overlay.show { display: flex; }
+        .sheet { background: #fff; width: 100%; max-width: 640px; border-radius: 24px 24px 0 0; max-height: 92vh; overflow: auto; padding: 24px 24px calc(24px + env(safe-area-inset-bottom)); animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1); position: relative; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        @media(min-width: 640px) { .overlay { align-items: center; } .sheet { border-radius: 24px; max-height: 85vh; padding: 32px; } }
+        
+        .toast { position: fixed; left: 50%; bottom: 100px; transform: translateX(-50%) translateY(20px); background: #191C1A; color: #fff; padding: 12px 24px; border-radius: 12px; font-size: 14px; opacity: 0; transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 110; pointer-events: none; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); white-space: nowrap; }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* Sheet UI elements */
+        .sheet h2 { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 700; color: #191C1A; margin-bottom: 8px; }
+        .sheet .sub { font-size: 14px; color: #6A7178; margin-bottom: 24px; line-height: 1.6; }
+        .sheet .close { position: absolute; right: 20px; top: 20px; width: 36px; height: 36px; border-radius: 50%; background: #F3F4F0; color: #6A7178; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+        .sheet label { display: block; font-size: 14px; font-weight: 700; color: #191C1A; margin: 20px 0 8px; }
+        .sheet label .opt { font-weight: 400; color: #6A7178; font-size: 12px; }
+        .sheet input, .sheet select, .sheet textarea { width: 100%; padding: 14px 16px; border: 1px solid #E5E7E9; border-radius: 12px; font-size: 16px; font-family: inherit; background: #fff; transition: all 0.2s; }
+        .sheet input:focus, .sheet select:focus, .sheet textarea:focus { outline: none; border-color: #0A5238; box-shadow: 0 0 0 4px rgba(10,82,56,0.1); }
+        .sheet textarea { min-height: 100px; resize: vertical; }
+        .sheet .two { display: flex; gap: 16px; } .sheet .two > div { flex: 1; }
+        .sheet .hint { font-size: 13px; color: #6A7178; margin-top: 8px; line-height: 1.5; }
+        .sheet .actions { display: flex; gap: 12px; margin-top: 32px; }
+        .sheet .actions button { flex: 1; padding: 16px; border-radius: 100px; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; }
+        .sheet .actions button.primary { background: #0A5238; color: #fff; border: none; }
+        .sheet .actions button.primary:hover { background: #063C28; }
+        .sheet .actions button.ghost { background: #fff; color: #191C1A; border: 1px solid #E5E7E9; }
+        .sheet .actions button.ghost:hover { background: #F3F4F0; }
+        .sheet .notice { background: #FDF6EB; border: 1px solid #F3D9A8; border-radius: 12px; padding: 16px; font-size: 14px; color: #78350F; margin: 16px 0; display: flex; gap: 12px; align-items: flex-start; }
+        .sheet .notice.warn { background: #FFF4F2; border-color: #FCD9D3; color: #9B2C1B; }
+        .sheet .notice.success { background: #F0FDF4; border-color: #BBF7D0; color: #166534; }
+        .sheet .kv { display: flex; py: 12px; border-bottom: 1px solid #E5E7E9; font-size: 15px; padding: 12px 0; }
+        .sheet .kv b { width: 100px; flex: none; color: #6A7178; font-weight: 600; }
+        .sheet .kv span { flex: 1; color: #191C1A; }
+        .sheet .msgbox { background: #F9F7F2; border: 1px solid #E5E7E9; border-radius: 16px; padding: 16px; font-size: 15px; margin-top: 12px; }
+        .sheet .msgbox .from { font-size: 13px; color: #6A7178; margin-bottom: 4px; font-weight: 600; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative shadow-2xl bg-cream-bg">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm border-b-0" style="left: 50%; transform: translateX(-50%);">
+<button aria-label="Menu" class="h-touch-target-min w-touch-target-min flex items-center justify-center text-forest-deep hover:opacity-80 transition-opacity scale-95 duration-200">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md italic text-forest-deep flex-1 text-center serif-text">Kumamoto Tsunagaru</h1>
+<button aria-label="User Profile" class="h-touch-target-min w-touch-target-min flex items-center justify-center text-forest-deep hover:opacity-80 transition-opacity scale-95 duration-200">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed-dim overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed">person</span>
+</div>
+</button>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop py-stack-gap flex flex-col gap-section-gap">
+<!-- Header Section -->
+<div class="flex flex-col gap-2">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-charcoal-text serif-text">人探し</h2>
+<p class="font-body-md text-body-md text-muted-gray">安否確認・情報共有掲示板</p>
+</div>
+<!-- Privacy Banner -->
+<div class="bg-[#FAF5ED] border border-[#D9CA9D] rounded-xl p-4 flex gap-4 items-start shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-[#D97706]"></div>
+<span class="material-symbols-outlined text-[#D97706] shrink-0 mt-0.5">privacy_tip</span>
+<div class="flex flex-col gap-1">
+<h3 class="font-label-lg text-label-lg text-[#78350F] serif-text">プライバシーに関するお願い</h3>
+<p class="font-body-sm text-body-sm text-[#92400E] leading-relaxed">
+                    氏名はプライバシー保護のため、一部伏せ字（例：田◯な）で表示されます。詳細な照合は登録者間のみで行われます。
+                </p>
+</div>
+</div>
+<!-- Summary Stats -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-4 flex flex-col items-center justify-center shadow-[0_2px_8px_rgba(100,93,84,0.04)]">
+<span class="font-body-sm text-body-sm text-muted-gray mb-1">登録数</span>
+<div class="flex items-baseline gap-1 text-charcoal-text">
+<span class="font-headline-lg-mobile text-headline-lg-mobile" id="stat-total">0</span>
+<span class="font-body-sm text-body-sm">件</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-4 flex flex-col items-center justify-center shadow-[0_2px_8px_rgba(100,93,84,0.04)]">
+<span class="font-body-sm text-body-sm text-muted-gray mb-1">確認済み</span>
+<div class="flex items-baseline gap-1 text-forest-deep">
+<span class="font-headline-lg-mobile text-headline-lg-mobile" id="stat-ok">0</span>
+<span class="font-body-sm text-body-sm">件</span>
+</div>
+</div>
+</div>
+<!-- Filters & Areas -->
+<div class="flex flex-col gap-4">
+<!-- Status Filter Segmented Control -->
+<div class="bg-surface-container-high rounded-xl p-1 flex shadow-inner border border-surface-variant" id="filter-status">
+<button class="flex-1 py-2 px-3 bg-surface-container-lowest rounded-lg shadow-sm font-label-sm text-label-sm text-charcoal-text transition-all text-center filter-btn active" data-val="all">すべて</button>
+<button class="flex-1 py-2 px-3 rounded-lg font-label-sm text-label-sm text-muted-gray hover:text-charcoal-text transition-all text-center filter-btn" data-val="wait">確認中</button>
+<button class="flex-1 py-2 px-3 rounded-lg font-label-sm text-label-sm text-muted-gray hover:text-charcoal-text transition-all text-center filter-btn" data-val="ok">確認済み</button>
+</div>
+<!-- Area Chips (Horizontal Scroll) -->
+<div class="flex gap-2 overflow-x-auto hide-scrollbar pb-1 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0" id="filter-area">
+<!-- Populated by JS -->
+</div>
+</div>
+<!-- List Section -->
+<div class="flex flex-col gap-3" id="find-list">
+<!-- Populated by JS -->
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-4 md:right-auto md:ml-[calc(640px-4rem-16px)] w-[160px] h-[56px] bg-soft-terracotta text-white rounded-full shadow-lg flex items-center justify-center gap-2 hover:bg-[#A3360A] transition-all active:scale-95 z-40" onclick="openFindForm()">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-lg text-label-lg">人探しを登録</span>
+</button>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-[env(safe-area-inset-bottom,20px)] h-20 bg-surface shadow-[0_-4px_16px_rgba(0,0,0,0.05)]" style="left: 50%; transform: translateX(-50%);">
+<button class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors flex-1 py-2">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-sm text-label-sm">ホーム</span>
+</button>
+<button class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors flex-1 py-2">
+<span class="material-symbols-outlined mb-1">volunteer_activism</span>
+<span class="font-label-sm text-label-sm">支援</span>
+</button>
+<button class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-4 py-1 flex-1 active:scale-90 transition-all duration-150 shadow-sm border border-primary-container/20">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">diversity_1</span>
+<span class="font-label-sm text-label-sm">つながり</span>
+</button>
+<button class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors flex-1 py-2">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span class="font-label-sm text-label-sm">設定</span>
+</button>
+</nav>
+<!-- Modals & Toasts -->
+<div class="overlay" id="overlay">
+<div class="sheet" id="sheet"></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+    // --- Mock Data & DB ---
+    const DB = { load(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}, save(k,v){localStorage.setItem(k,JSON.stringify(v))} };
+    function id(){return Math.random().toString(36).slice(2,9)}
+    
+    let persons = DB.load('tsunagaru_persons', null);
+    if(persons === null) {
+        persons = [
+            {id: id(), name: '田中はな', mobile: '090-1234-5678', home: '', pref: '熊本県', city: '美里町', email: 'family_a@example.com', requester: '田中一郎（長男）', status: 'wait', messages: [], created: Date.now() - 7200000},
+            {id: id(), name: '佐藤みのる', mobile: '', home: '0964-99-0000', pref: '熊本県', city: '宇城市', email: 'sato_family@example.com', requester: '佐藤ゆき（妻）', status: 'ok', messages: [{from: '近所の方', text: '避難所（中央公民館）でお元気にされています。', at: Date.now() - 86400000}], created: Date.now() - 172800000},
+            {id: id(), name: '山口けんじ', mobile: '080-2222-3333', home: '', pref: '熊本県', city: '八代市', email: 'yama_search@example.com', requester: '山口みき（娘）', status: 'wait', messages: [], created: Date.now() - 259200000}
+        ];
+        DB.save('tsunagaru_persons', persons);
+    }
+    
+    // --- Districts & Areas ---
+    const DISTRICTS = [
+      {name:'熊本市（中央区）', area:'中央'}, {name:'美里町', area:'中央'}, {name:'宇城市', area:'中央'},
+      {name:'荒尾市', area:'県北'}, {name:'玉名市', area:'県北'},
+      {name:'八代市', area:'県南'}, {name:'水俣市', area:'県南'},
+      {name:'阿蘇市', area:'阿蘇'}, {name:'南阿蘇村', area:'阿蘇'},
+      {name:'天草市', area:'天草'}
+    ];
+    const AREAS = ['中央', '県北', '県南', '阿蘇', '天草'];
+    
+    // --- State ---
+    let findFilter = 'all';
+    let findArea = 'all';
+    
+    // --- Utilities ---
+    function maskName(n) { const c = [...n]; if(c.length <= 1) return c[0] || '◯'; if(c.length === 2) return c[0] + '◯'; return c[0] + '◯'.repeat(c.length - 2) + c[c.length - 1]; }
+    function esc(s) { return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) }
+    function fmtRelTime(ts) { 
+        const ms = Date.now() - ts;
+        const h = Math.floor(ms / 3600000);
+        if (h < 1) return 'たった今';
+        if (h < 24) return `${h}時間前`;
+        const d = Math.floor(h / 24);
+        if (d === 1) return '昨日';
+        return `${d}日前`;
+    }
+    function fmtDate(ts) { const d = new Date(ts); return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
+    function normTel(s) { return (s||'').replace(/[^0-9]/g, ''); }
+    
+    // --- UI Helpers ---
+    function overlay(h) { document.getElementById('sheet').innerHTML = h; document.getElementById('overlay').classList.add('show'); }
+    function closeOverlay() { document.getElementById('overlay').classList.remove('show'); }
+    document.getElementById('overlay').addEventListener('click', e => { if(e.target.id === 'overlay') closeOverlay(); });
+    function toast(m) { const t = document.getElementById('toast'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+    
+    // --- Render Logic ---
+    function initFilters() {
+        // Status filters
+        document.querySelectorAll('#filter-status .filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('#filter-status .filter-btn').forEach(b => {
+                    b.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-charcoal-text');
+                    b.classList.add('text-muted-gray');
+                });
+                const target = e.target;
+                target.classList.remove('text-muted-gray');
+                target.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-charcoal-text');
+                findFilter = target.dataset.val;
+                renderFind();
+            });
+        });
+        
+        // Area filters
+        renderAreaChips();
+    }
+    
+    function renderAreaChips() {
+        const c = document.getElementById('filter-area');
+        let h = `<button class="shrink-0 h-10 px-4 rounded-full font-label-sm text-label-sm flex items-center justify-center transition-colors ${findArea === 'all' ? 'bg-primary-container text-on-primary-container shadow-sm' : 'bg-surface-container-lowest border border-divider-line text-charcoal-text hover:bg-surface-container-low'}" onclick="setFindArea('all')">全エリア</button>`;
+        AREAS.forEach(a => {
+            h += `<button class="shrink-0 h-10 px-4 rounded-full font-label-sm text-label-sm flex items-center justify-center transition-colors ${findArea === a ? 'bg-primary-container text-on-primary-container shadow-sm' : 'bg-surface-container-lowest border border-divider-line text-charcoal-text hover:bg-surface-container-low'}" onclick="setFindArea('${a}')">${a}</button>`;
+        });
+        c.innerHTML = h;
+    }
+    
+    function setFindArea(a) { findArea = a; renderAreaChips(); renderFind(); }
+    function personArea(p) { const d = DISTRICTS.find(x => x.name === p.city); return d ? d.area : '県外'; }
+    
+    function renderFind() {
+        const list = persons.filter(p => (findFilter === 'all' || (findFilter === 'ok' ? p.status === 'ok' : p.status === 'wait'))
+            && (findArea === 'all' || personArea(p) === findArea)).sort((a,b) => b.created - a.created);
+            
+        document.getElementById('stat-total').textContent = persons.length.toLocaleString();
+        document.getElementById('stat-ok').textContent = persons.filter(p => p.status === 'ok').length.toLocaleString();
+        
+        const el = document.getElementById('find-list');
+        if(!list.length) {
+            el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50">search_off</span><p>該当する登録はありません</p></div>`;
+            return;
+        }
+        
+        el.innerHTML = list.map(p => {
+            const isOk = p.status === 'ok';
+            const statusTag = isOk 
+                ? `<span class="inline-flex items-center px-2 py-1 bg-[#E6F4EA] text-[#137333] font-label-sm text-label-sm rounded-md tracking-wider gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span>確認済み</span>`
+                : `<span class="inline-flex items-center px-2 py-1 bg-surface-container text-on-surface-variant font-label-sm text-label-sm rounded-md tracking-wider">確認中</span>`;
+            
+            const msgs = p.messages.length ? `<div class="mt-2 text-primary font-label-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">chat</span> ${p.messages.length}件の情報</div>` : '';
+            const okNote = isOk && p.messages.length ? `
+                <div class="bg-surface-container rounded-lg p-3 flex items-start gap-3">
+                    <span class="material-symbols-outlined text-secondary mt-0.5">info</span>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">${esc(p.messages[0].text)}</p>
+                </div>` : '';
+
+            return `
+            <div class="bg-surface-container-lowest border border-divider-line rounded-2xl p-5 shadow-[0_4px_12px_rgba(100,93,84,0.05)] active:scale-[0.98] transition-transform duration-200 cursor-pointer ${isOk ? 'opacity-85' : ''}" onclick="openVerify('${p.id}')">
+                <div class="flex justify-between items-start mb-3">
+                    <div class="flex items-center gap-2">
+                        ${statusTag}
+                        <span class="font-body-sm text-body-sm text-muted-gray flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span>${fmtRelTime(p.created)}</span>
+                    </div>
+                    <button class="text-primary hover:bg-primary-container/10 p-1.5 rounded-full transition-colors" aria-label="More">
+                        <span class="material-symbols-outlined">more_vert</span>
+                    </button>
+                </div>
+                <div class="mb-4">
+                    <h4 class="font-headline-md text-headline-md ${isOk ? 'text-muted-gray' : 'text-charcoal-text'} serif-text tracking-widest mb-1 text-balance">${maskName(p.name)}</h4>
+                    <p class="font-body-sm text-body-sm text-secondary flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[18px]">location_on</span>${esc(p.pref)} ${esc(p.city)}
+                    </p>
+                    ${!isOk && msgs ? msgs : ''}
+                </div>
+                ${isOk ? okNote : `
+                <div class="flex justify-end border-t border-divider-line pt-3 mt-2">
+                    <button class="text-primary font-label-sm text-label-sm flex items-center gap-1 hover:opacity-80 transition-opacity">
+                        詳細・照合する <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                    </button>
+                </div>
+                `}
+            </div>`;
+        }).join('');
+    }
+    
+    // --- Modals Logic ---
+    function openVerify(pid) {
+        const p = persons.find(x => x.id === pid);
+        overlay(`
+            <button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+            <h2>${maskName(p.name)} さんの情報を確認</h2>
+            <p class="sub">この方の<b>電話番号（携帯 または 自宅）</b>をご存じの場合のみ、詳細を確認・連絡できます。</p>
+            
+            <div class="notice">
+                <span class="material-symbols-outlined mt-0.5">lock_person</span>
+                <div>
+                    <div class="font-bold mb-1">${esc(p.pref)} ${esc(p.city)}</div>
+                    <div>${p.status === 'ok' ? '確認済み' : '確認中'}</div>
+                </div>
+            </div>
+            
+            <label>電話番号を入力して照合</label>
+            <input id="v-phone" inputmode="tel" placeholder="例）090-1234-5678 または 0964-99-0000">
+            <div class="hint">ハイフンは有無どちらでも構いません。</div>
+            
+            <div class="actions">
+                <button class="ghost" onclick="closeOverlay()">閉じる</button>
+                <button class="primary" onclick="doVerify('${p.id}')">照合する</button>
+            </div>
+        `);
+        setTimeout(() => document.getElementById('v-phone').focus(), 150);
+    }
+    
+    function doVerify(pid) {
+        const p = persons.find(x => x.id === pid);
+        const inp = normTel(document.getElementById('v-phone').value);
+        if(!inp) { toast('電話番号を入力してください'); return; }
+        const ok = (p.mobile && normTel(p.mobile) === inp) || (p.home && normTel(p.home) === inp);
+        if(!ok) { toast('❌ 一致しませんでした。番号をご確認ください'); return; }
+        showPersonDetail(pid);
+    }
+    
+    function showPersonDetail(pid) {
+        const p = persons.find(x => x.id === pid);
+        const msgs = p.messages.map(m => `
+            <div class="msgbox">
+                <div class="from">${esc(m.from)}・${fmtDate(m.at)}</div>
+                ${esc(m.text)}
+            </div>
+        `).join('') || '<div class="hint mt-4">まだメッセージはありません。</div>';
+        
+        overlay(`
+            <button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+            <div class="notice success">
+                <span class="material-symbols-outlined">check_circle</span>
+                <div>照合成功。詳細を表示しています。</div>
+            </div>
+            
+            <h2>${esc(p.name)} さん</h2>
+            <p class="sub">捜索を登録した方へ連絡できます。</p>
+            
+            <div class="kv"><b>お名前</b><span>${esc(p.name)}</span></div>
+            <div class="kv"><b>在住</b><span>${esc(p.pref)} ${esc(p.city)}</span></div>
+            <div class="kv"><b>携帯</b><span>${esc(p.mobile) || '—'}</span></div>
+            <div class="kv"><b>自宅</b><span>${esc(p.home) || '—'}</span></div>
+            <div class="kv"><b>登録者</b><span>${esc(p.requester) || '—'}</span></div>
+            <div class="kv border-b-0"><b>状態</b><span class="${p.status === 'ok' ? 'text-primary font-bold' : ''}">${p.status === 'ok' ? '確認済み' : '確認中'}</span></div>
+            
+            ${p.status !== 'ok' ? `
+            <div class="mt-6 border-t border-divider-line pt-6">
+                <label>📩 捜索を登録した方へメッセージ<span class="opt">（安否や居場所など）</span></label>
+                <textarea id="m-text" placeholder="例）本人は◯◯避難所で無事です。落ち着いたらご連絡します。"></textarea>
+                
+                <label>あなたのお名前・関係 <span class="opt">（任意）</span></label>
+                <input id="m-from" placeholder="例）近所の△△／親戚">
+                
+                <div class="notice warn">
+                    <span class="material-symbols-outlined mt-0.5">warning</span>
+                    <div>送信すると状態が<b>「確認済み」</b>に更新され、登録者メール（${esc(p.email)}）へ<b>通知</b>されます。</div>
+                </div>
+                
+                <div class="actions">
+                    <button class="ghost" onclick="closeOverlay()">閉じる</button>
+                    <button class="primary" onclick="sendPersonMsg('${p.id}')">確認済みにして通知</button>
+                </div>
+            </div>
+            ` : `
+            <div class="actions">
+                <button class="ghost w-full" onclick="closeOverlay()">閉じる</button>
+            </div>
+            `}
+            
+            <div class="mt-8">
+                <h3 class="font-label-lg text-label-lg border-b border-divider-line pb-2">これまでの情報</h3>
+                ${msgs}
+            </div>
+        `);
+    }
+    
+    function sendPersonMsg(pid) {
+        const p = persons.find(x => x.id === pid);
+        const text = document.getElementById('m-text').value.trim();
+        if(!text) { toast('メッセージを入力してください'); return; }
+        const from = document.getElementById('m-from').value.trim() || '情報提供者';
+        p.messages.unshift({from, text, at: Date.now()});
+        p.status = 'ok';
+        DB.save('tsunagaru_persons', persons);
+        renderFind();
+        closeOverlay();
+        toast('✅ 確認済みとして通知を送信しました');
+    }
+    
+    function openFindForm() {
+        const cityOpts = AREAS.map(a => `
+            <optgroup label="${a}エリア">
+                ${DISTRICTS.filter(d => d.area === a).map(d => `<option>${d.name}</option>`).join('')}
+            </optgroup>
+        `).join('');
+        
+        overlay(`
+            <button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+            <h2>👤 人探しを登録</h2>
+            <p class="sub">探している方の情報を登録します。<br>氏名は一覧では頭1文字と末尾1文字のみ表示されます。</p>
+            
+            <label>探している方のお名前 <span class="opt">（必須）</span></label>
+            <input id="f-name" placeholder="例）田中はな">
+            
+            <div class="two">
+                <div>
+                    <label>電話番号（携帯）</label>
+                    <input id="f-mobile" inputmode="tel" placeholder="090-…">
+                </div>
+                <div>
+                    <label>電話番号（自宅）</label>
+                    <input id="f-home" inputmode="tel" placeholder="0964-…">
+                </div>
+            </div>
+            <div class="hint">携帯・自宅のどちらか一方、または両方をご入力ください（照合の鍵になります）。</div>
+            
+            <label>在住の都道府県</label>
+            <select id="f-pref">
+                <option>熊本県</option><option>福岡県</option><option>大分県</option><option>宮崎県</option><option>鹿児島県</option><option>長崎県</option><option>佐賀県</option><option>その他</option>
+            </select>
+            
+            <label>市区町村（エリアで探せます）</label>
+            <select id="f-city">
+                ${cityOpts}
+                <optgroup label="その他"><option>県外・その他</option></optgroup>
+            </select>
+            
+            <label>あなた（登録者）のメールアドレス <span class="opt">（必須・通知用）</span></label>
+            <input id="f-email" inputmode="email" placeholder="例）you@example.com">
+            <div class="hint">情報が寄せられると、このアドレスへ通知が届きます。</div>
+            
+            <label>あなたのお名前・関係 <span class="opt">（任意）</span></label>
+            <input id="f-req" placeholder="例）田中一郎（長男）">
+            
+            <div class="actions">
+                <button class="ghost" onclick="closeOverlay()">やめる</button>
+                <button class="primary" onclick="submitFind()">この内容で登録</button>
+            </div>
+        `);
+    }
+    
+    function submitFind() {
+        const g = i => document.getElementById(i).value.trim();
+        const name = g('f-name'), mobile = g('f-mobile'), home = g('f-home'), email = g('f-email');
+        if(!name) { toast('お名前を入力してください'); return; }
+        if(!mobile && !home) { toast('携帯か自宅、どちらかの電話番号が必要です'); return; }
+        if(!email || !email.includes('@')) { toast('通知用メールアドレスを入力してください'); return; }
+        
+        persons.unshift({
+            id: id(), name, mobile, home, pref: g('f-pref'), city: g('f-city'), email, requester: g('f-req'), status: 'wait', messages: [], created: Date.now()
+        });
+        DB.save('tsunagaru_persons', persons);
+        renderFind();
+        closeOverlay();
+        toast('✅ 登録しました。情報をお待ちください');
+    }
+
+    // --- Init ---
+    initFilters();
+    renderFind();
+</script>
+</body></html>

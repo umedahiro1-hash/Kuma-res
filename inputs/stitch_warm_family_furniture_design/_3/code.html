@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chat - Kumamoto Tsunagaru</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2e312f",
+                        "surface-container-high": "#e7e9e5",
+                        "on-error-container": "#93000a",
+                        "divider-line": "#E5E7E9",
+                        "on-tertiary-fixed-variant": "#763301",
+                        "on-surface-variant": "#3f4943",
+                        "surface-container": "#edeeeb",
+                        "surface-dim": "#d9dad7",
+                        "surface": "#f8faf6",
+                        "tertiary-container": "#944918",
+                        "on-surface": "#191c1a",
+                        "primary-container": "#25694b",
+                        "surface-container-highest": "#e1e3df",
+                        "tertiary-fixed-dim": "#ffb68e",
+                        "muted-gray": "#6A7178",
+                        "background": "#f8faf6",
+                        "mustard-accent": "#D97706",
+                        "soft-terracotta": "#C2410C",
+                        "secondary": "#645d54",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e1e3df",
+                        "on-primary-fixed": "#002113",
+                        "on-tertiary-fixed": "#331200",
+                        "tertiary-fixed": "#ffdbca",
+                        "primary": "#005135",
+                        "on-primary": "#ffffff",
+                        "forest-deep": "#0A5238",
+                        "surface-container-low": "#f3f4f0",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f0f1ed",
+                        "outline-variant": "#bec9c0",
+                        "surface-bright": "#f8faf6",
+                        "primary-fixed-dim": "#90d5b0",
+                        "on-secondary-fixed-variant": "#4c463d",
+                        "secondary-fixed-dim": "#cfc5ba",
+                        "on-background": "#191c1a",
+                        "on-tertiary-container": "#ffcdb4",
+                        "surface-container-lowest": "#ffffff",
+                        "cream-bg": "#F9F7F2",
+                        "on-primary-container": "#a1e6c0",
+                        "surface-tint": "#266a4c",
+                        "secondary-container": "#ebe1d5",
+                        "tertiary": "#763200",
+                        "inverse-primary": "#90d5b0",
+                        "on-secondary-fixed": "#201b14",
+                        "on-primary-fixed-variant": "#015236",
+                        "outline": "#6f7a72",
+                        "primary-fixed": "#acf2cb",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#6a635a",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#ebe1d5",
+                        "charcoal-text": "#191C1A"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "32px",
+                        "margin-mobile": "16px",
+                        "touch-target-min": "48px",
+                        "margin-desktop": "32px",
+                        "gutter": "16px",
+                        "stack-gap": "12px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "label-lg": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+                        "label-lg": ["15px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F9F7F2;
+        }
+        /* Custom scrollbar for chat area */
+        .chat-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .chat-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .chat-scroll::-webkit-scrollbar-thumb {
+            background-color: #e1e3df;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-cream-bg text-on-surface flex flex-col h-screen md:max-w-2xl mx-auto md:shadow-xl md:bg-surface-container-lowest">
+<!-- Header -->
+<header class="bg-cream-bg dark:bg-on-background flex justify-between items-center w-full px-margin-mobile h-touch-target-min border-b border-divider-line flex-shrink-0 z-10 sticky top-0">
+<button aria-label="Go back" class="h-touch-target-min w-touch-target-min flex items-center justify-center text-forest-deep dark:text-primary-fixed hover:bg-surface-container-low dark:hover:bg-inverse-surface rounded-full transition-transform duration-200 active:scale-95">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex flex-col items-center justify-center">
+<h1 class="text-headline-sm font-headline-sm font-bold text-forest-deep dark:text-primary-fixed">佐藤 さん</h1>
+<p class="text-label-sm font-label-sm text-muted-gray">Re: 2L ミネラルウォーター</p>
+</div>
+<button aria-label="More options" class="h-touch-target-min w-touch-target-min flex items-center justify-center text-forest-deep dark:text-primary-fixed hover:bg-surface-container-low dark:hover:bg-inverse-surface rounded-full transition-transform duration-200 active:scale-95">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</header>
+<!-- Safety Banner -->
+<div class="bg-secondary-container text-on-secondary-container px-margin-mobile py-2 flex items-start gap-3 flex-shrink-0">
+<span class="material-symbols-outlined text-tertiary-container mt-0.5" data-icon="shield">shield</span>
+<div>
+<p class="text-label-lg font-label-lg font-bold text-tertiary-container">安全への取り組み</p>
+<p class="text-body-sm font-body-sm mt-1">受け渡しは日中の明るい公共の場所（避難所や役場など）で行うことを推奨します。</p>
+</div>
+</div>
+<!-- Chat Area -->
+<main class="flex-1 overflow-y-auto chat-scroll p-margin-mobile flex flex-col gap-stack-gap">
+<!-- Date Divider -->
+<div class="flex justify-center my-2">
+<span class="text-label-sm font-label-sm text-muted-gray bg-surface-container-highest px-3 py-1 rounded-full">本日</span>
+</div>
+<!-- Partner Message -->
+<div class="flex items-end gap-2 w-full max-w-[85%]">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex-shrink-0 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-muted-gray text-sm" data-icon="person">person</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="bg-surface-container-lowest border border-divider-line text-on-surface p-3 rounded-2xl rounded-bl-sm shadow-sm">
+<p class="text-body-md font-body-md">こんにちは。2Lのミネラルウォーターを3本、お譲りできます。まだ必要でしょうか？</p>
+</div>
+<span class="text-label-sm font-label-sm text-muted-gray ml-1">10:42</span>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-end gap-2 w-full max-w-[85%] self-end flex-row-reverse">
+<div class="flex flex-col gap-1 items-end">
+<div class="bg-forest-deep text-on-primary p-3 rounded-2xl rounded-br-sm shadow-sm">
+<p class="text-body-md font-body-md">ご連絡ありがとうございます！とても助かります。はい、まだ探しておりました。</p>
+</div>
+<span class="text-label-sm font-label-sm text-muted-gray mr-1">10:45</span>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex items-end gap-2 w-full max-w-[85%] self-end flex-row-reverse mt-1">
+<div class="flex flex-col gap-1 items-end">
+<div class="bg-forest-deep text-on-primary p-3 rounded-2xl rounded-br-sm shadow-sm">
+<p class="text-body-md font-body-md">今日の午後、中央区の避難所近くで受け取ることは可能でしょうか？</p>
+</div>
+<div class="flex items-center gap-1 mr-1">
+<span class="text-label-sm font-label-sm text-muted-gray">10:46</span>
+<span class="material-symbols-outlined text-[14px] text-primary" data-icon="done_all">done_all</span>
+</div>
+</div>
+</div>
+<!-- Partner Message -->
+<div class="flex items-end gap-2 w-full max-w-[85%] mt-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex-shrink-0 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-muted-gray text-sm" data-icon="person">person</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="bg-surface-container-lowest border border-divider-line text-on-surface p-3 rounded-2xl rounded-bl-sm shadow-sm">
+<p class="text-body-md font-body-md">はい、可能です。14時頃に中央区役所の正面玄関前はいかがでしょうか？</p>
+</div>
+<span class="text-label-sm font-label-sm text-muted-gray ml-1">10:50</span>
+</div>
+</div>
+</main>
+<!-- Quick Actions -->
+<div class="px-margin-mobile py-3 flex gap-2 overflow-x-auto flex-shrink-0 no-scrollbar border-t border-divider-line bg-surface">
+<button class="flex items-center gap-2 bg-surface-container-highest hover:bg-surface-dim text-on-surface-variant px-4 py-2 rounded-full text-label-sm font-label-sm whitespace-nowrap transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="location_on">location_on</span>
+            場所を提案
+        </button>
+<button class="flex items-center gap-2 bg-surface-container-highest hover:bg-surface-dim text-on-surface-variant px-4 py-2 rounded-full text-label-sm font-label-sm whitespace-nowrap transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="schedule">schedule</span>
+            時間を提案
+        </button>
+<button class="flex items-center gap-2 bg-primary-container text-on-primary-container hover:bg-primary-fixed-dim px-4 py-2 rounded-full text-label-sm font-label-sm whitespace-nowrap transition-colors">
+<span class="material-symbols-outlined text-base" data-icon="handshake">handshake</span>
+            受け渡し完了を報告
+        </button>
+</div>
+<!-- Input Area -->
+<footer class="bg-surface p-margin-mobile pt-2 border-t border-divider-line flex-shrink-0 z-10 pb-6 md:pb-margin-mobile">
+<div class="flex items-end gap-2 bg-surface-container-lowest border border-outline-variant rounded-2xl p-1 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<button aria-label="Attach file" class="h-10 w-10 flex items-center justify-center text-muted-gray hover:text-primary rounded-full transition-colors flex-shrink-0">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+</button>
+<textarea class="flex-1 max-h-32 bg-transparent border-none focus:ring-0 resize-none py-2.5 text-body-md font-body-md text-on-surface placeholder-muted-gray outline-none" placeholder="メッセージを入力..." rows="1" style="min-height: 44px;"></textarea>
+<button aria-label="Send message" class="h-10 w-10 flex items-center justify-center text-white bg-primary hover:bg-forest-deep rounded-full transition-colors flex-shrink-0">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</div>
+</footer>
+</body></html>

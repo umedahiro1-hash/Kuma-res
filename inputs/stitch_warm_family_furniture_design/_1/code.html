@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kumamoto Tsunagaru - Detail</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS Setup -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2e312f",
+                        "surface-container-high": "#e7e9e5",
+                        "on-error-container": "#93000a",
+                        "divider-line": "#E5E7E9",
+                        "on-tertiary-fixed-variant": "#763301",
+                        "on-surface-variant": "#3f4943",
+                        "surface-container": "#edeeeb",
+                        "surface-dim": "#d9dad7",
+                        "surface": "#f8faf6",
+                        "tertiary-container": "#944918",
+                        "on-surface": "#191c1a",
+                        "primary-container": "#25694b",
+                        "surface-container-highest": "#e1e3df",
+                        "tertiary-fixed-dim": "#ffb68e",
+                        "muted-gray": "#6A7178",
+                        "background": "#f8faf6",
+                        "mustard-accent": "#D97706",
+                        "soft-terracotta": "#C2410C",
+                        "secondary": "#645d54",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e1e3df",
+                        "on-primary-fixed": "#002113",
+                        "on-tertiary-fixed": "#331200",
+                        "tertiary-fixed": "#ffdbca",
+                        "primary": "#005135",
+                        "on-primary": "#ffffff",
+                        "forest-deep": "#0A5238",
+                        "surface-container-low": "#f3f4f0",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f0f1ed",
+                        "outline-variant": "#bec9c0",
+                        "surface-bright": "#f8faf6",
+                        "primary-fixed-dim": "#90d5b0",
+                        "on-secondary-fixed-variant": "#4c463d",
+                        "secondary-fixed-dim": "#cfc5ba",
+                        "on-background": "#191c1a",
+                        "on-tertiary-container": "#ffcdb4",
+                        "surface-container-lowest": "#ffffff",
+                        "cream-bg": "#F9F7F2",
+                        "on-primary-container": "#a1e6c0",
+                        "surface-tint": "#266a4c",
+                        "secondary-container": "#ebe1d5",
+                        "tertiary": "#763200",
+                        "inverse-primary": "#90d5b0",
+                        "on-secondary-fixed": "#201b14",
+                        "on-primary-fixed-variant": "#015236",
+                        "outline": "#6f7a72",
+                        "primary-fixed": "#acf2cb",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#6a635a",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#ebe1d5",
+                        "charcoal-text": "#191C1A"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "32px",
+                        "margin-mobile": "16px",
+                        "touch-target-min": "48px",
+                        "margin-desktop": "32px",
+                        "gutter": "16px",
+                        "stack-gap": "12px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "label-lg": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-lg": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+                        "label-lg": ["15px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-container-high min-h-screen flex justify-center text-charcoal-text font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Mobile Constraint Wrapper -->
+<div class="w-full max-w-[640px] bg-cream-bg min-h-screen relative shadow-2xl flex flex-col overflow-hidden">
+<!-- TopAppBar (From JSON) - Modified to act as a back nav for a detail page semantically, but keeping exact styling -->
+<header class="bg-cream-bg text-forest-deep flex justify-between items-center w-full px-margin-mobile h-touch-target-min flat no shadows sticky top-0 z-50">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-transform duration-200 active:scale-95 text-forest-deep">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<div class="text-headline-sm font-headline-sm font-bold text-forest-deep">Kumamoto Tsunagaru</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-transform duration-200 active:scale-95 text-forest-deep">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">more_vert</span>
+</button>
+</header>
+<!-- Main Scrollable Content -->
+<main class="flex-1 pb-32">
+<!-- Hero Image -->
+<div class="relative w-full h-[320px] bg-surface-container-low">
+<img class="w-full h-full object-cover" data-alt="A clean, high-quality, brightly lit photograph of a simple cardboard box open to reveal six clear 2-liter bottles of pristine mineral water with blue caps. The setting is a minimalist, warm, tactile light-mode environment with soft ambient shadows on a subtle cream-colored surface. The overall mood is altruistic, safe, and premium, resembling a modern catalog shot." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQf3EvxDF5waGQS2ANSCuHSOiV2_8sychWaJCRr-JxLh5Mkpk0-m75TxCrWLZmZbdXClmo9fZ1zmrOTZkEy7icC7Cj_SQKhAKVqn3edP9UEB6XRRd5HTZbOU5FdrRBVovUogcZjH0GFiNJE3774Q9pVfGbJwfPbde6azuJQVzURzjLMzEELpkOUioSaqCKgr7XSmDp7BqD7saMO0aZOP1nCvu_mYW1ARYfb6vIiKc0OilwARNq7zgNeg"/>
+<!-- Image Overlay Gradient -->
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+</div>
+<!-- Content Card (Pulled up over image) -->
+<div class="bg-surface rounded-t-[32px] -mt-10 relative z-20 px-margin-mobile pt-6 pb-8 shadow-[0_-4px_12px_rgba(100,93,84,0.08)]">
+<!-- Badges -->
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-md text-label-sm font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                        提供可能
+                    </span>
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-md text-label-sm font-label-sm">
+                        飲料水
+                    </span>
+</div>
+<!-- Title -->
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile text-charcoal-text mb-4 leading-tight">
+                    ミネラルウォーター 2L<br/>(6本入り 1箱)
+                </h1>
+<!-- Meta Info (Location & Distance) -->
+<div class="flex flex-col gap-2 mb-section-gap">
+<div class="flex items-start gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<div>
+<p class="text-label-lg font-label-lg text-charcoal-text">美里町 中央公民館 前</p>
+<p class="text-body-sm font-body-sm">現在地から約 2.4 km</p>
+</div>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant mt-1">
+<span class="material-symbols-outlined text-muted-gray">schedule</span>
+<p class="text-body-sm font-body-sm">3時間前に投稿</p>
+</div>
+</div>
+<hr class="border-divider-line mb-section-gap"/>
+<!-- Description -->
+<section class="mb-section-gap">
+<h2 class="text-headline-sm font-headline-sm text-charcoal-text mb-3">詳細情報</h2>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+                        未開封の2Lペットボトル6本入りの箱です。自宅の備蓄に余裕があるため、必要としている方にお譲りします。
+                        <br/><br/>
+                        受け渡しは美里町中央公民館の駐車場でお願いできればと思います。時間は本日の午後13時から17時の間であれば対応可能です。重いので車での引き取りをおすすめします。
+                    </p>
+</section>
+<!-- Donor Profile Card (Bento Style) -->
+<section class="bg-surface-container-lowest border border-divider-line rounded-2xl p-4 shadow-sm mb-4">
+<h3 class="text-label-sm font-label-sm text-muted-gray mb-3 uppercase tracking-wider">提供者</h3>
+<div class="flex items-center gap-4">
+<!-- Avatar -->
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="A warm, approachable portrait of a middle-aged Japanese person smiling gently. The lighting is soft and natural, emphasizing trust and community. The background is slightly blurred, minimalist, and light-toned, fitting a premium, altruistic app design. The style is modern, authentic, and calming." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDT3GOulnxrWxqJFIUlruVp3aNI2R4p7xfWC2tA4BKfogqH5ujltpOdV1y7jiKP4_LqtsaCJZ3FvJIDFHaQ-g56p_YmvOTXBJnJ5mXILDO0imO9EzMXKUDjhqXit8a1BFRPTqISE_9B54ga4iB4RQhZ8yoT2Ifh5GGURQqtM8C3pln65Z8QqbrGRhlu_vuVSXTqsr9y9f3E0uZNlE1bwOVjpBOLODjAJVIw0h8E9qW2MRPq6_QzD5OWag"/>
+</div>
+<!-- Info -->
+<div class="flex-1">
+<div class="flex items-center justify-between mb-1">
+<h4 class="text-headline-sm font-headline-sm text-charcoal-text">佐藤 健太</h4>
+<div class="flex items-center gap-1 text-soft-terracotta bg-error-container/30 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">thermostat</span>
+<span class="text-label-sm font-label-sm font-bold">42.1°C</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-muted-gray">
+<span class="material-symbols-outlined text-[16px]">handshake</span>
+<span>過去の取引: 18件</span>
+</div>
+</div>
+</div>
+<!-- Contact Action inside profile -->
+<button class="w-full mt-4 flex items-center justify-center gap-2 bg-surface-container border border-outline-variant text-on-surface py-2.5 rounded-lg text-label-lg font-label-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat</span>
+                        メッセージを送る
+                    </button>
+</section>
+</div>
+</main>
+<!-- Sticky Bottom Action Bar -->
+<div class="fixed bottom-0 left-0 w-full max-w-[640px] mx-auto bg-surface/90 backdrop-blur-md border-t border-divider-line px-margin-mobile py-4 shadow-[0_-12px_24px_rgba(100,93,84,0.05)] z-50 rounded-t-xl left-1/2 -translate-x-1/2 flex items-center gap-3">
+<button class="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-xl border border-divider-line bg-surface-container-lowest text-muted-gray hover:bg-surface-container-low hover:text-primary transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button class="flex-1 bg-forest-deep text-on-primary h-12 rounded-xl flex items-center justify-center gap-2 text-headline-sm font-headline-sm shadow-md hover:bg-primary transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">front_hand</span>
+                譲り受ける
+            </button>
+</div>
+</div>
+</body></html>

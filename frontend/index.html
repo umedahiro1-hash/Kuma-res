@@ -1,0 +1,2991 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ</title>
+<meta name="description" content="熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認（人探し）、迷子ペットの捜索、熊本地震関連の最新ニュースを一つのアプリで。"/>
+<meta name="robots" content="index,follow"/>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<meta property="og:site_name" content="つながるくまもと"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ"/>
+<meta property="og:description" content="物資の譲渡・募集、安否確認、迷子ペットの捜索、熊本地震関連ニュースを一つのアプリで。"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="つながるくまもと｜熊本地震 被災者支援アプリ"/>
+<meta name="twitter:description" content="物資の譲渡・募集、安否確認、迷子ペットの捜索、熊本地震関連ニュースを一つのアプリで。"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"つながるくまもと","alternateName":"Tsunagaru Kumamoto","description":"熊本地震の被災者支援アプリ。物資の譲渡・募集、安否確認、迷子ペットの捜索、熊本地震関連ニュースを提供します。","applicationCategory":"LifestyleApplication","operatingSystem":"Any","inLanguage":"ja"}
+</script>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://unpkg.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link rel="preconnect" href="https://news.google.com"/>
+<link rel="preconnect" href="https://api.open-meteo.com"/>
+<script src="https://cdn.tailwindcss.com?plugins=container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Shippori+Mincho:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "cream-bg": "#F9F7F2",
+                        "muted-gray": "#6A7178",
+                        "on-error-container": "#93000a",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-container": "#25694b",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#002113",
+                        "surface-variant": "#e1e3df",
+                        "mustard-accent": "#D97706",
+                        "on-surface-variant": "#3f4943",
+                        "surface": "#f8faf6",
+                        "secondary": "#645d54",
+                        "outline-variant": "#bec9c0",
+                        "on-surface": "#191c1a",
+                        "primary-fixed-dim": "#90d5b0",
+                        "surface-container-highest": "#e1e3df",
+                        "secondary-fixed-dim": "#cfc5ba",
+                        "outline": "#6f7a72",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#6a635a",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#ffcdb4",
+                        "on-secondary-fixed": "#201b14",
+                        "background": "#f8faf6",
+                        "error-container": "#ffdad6",
+                        "divider-line": "#E5E7E9",
+                        "primary": "#005135",
+                        "surface-container-high": "#e7e9e5",
+                        "on-secondary-fixed-variant": "#4c463d",
+                        "on-background": "#191c1a",
+                        "secondary-fixed": "#ebe1d5",
+                        "surface-container-low": "#f3f4f0",
+                        "inverse-primary": "#90d5b0",
+                        "on-tertiary-fixed-variant": "#763301",
+                        "primary-fixed": "#acf2cb",
+                        "tertiary-fixed-dim": "#ffb68e",
+                        "charcoal-text": "#191C1A",
+                        "surface-container": "#edeeeb",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#944918",
+                        "on-primary-fixed-variant": "#015236",
+                        "soft-terracotta": "#C2410C",
+                        "inverse-surface": "#2e312f",
+                        "inverse-on-surface": "#f0f1ed",
+                        "surface-tint": "#266a4c",
+                        "surface-bright": "#f8faf6",
+                        "tertiary-fixed": "#ffdbca",
+                        "secondary-container": "#ebe1d5",
+                        "on-primary-container": "#a1e6c0",
+                        "tertiary": "#763200",
+                        "surface-dim": "#d9dad7",
+                        "forest-deep": "#0A5238",
+                        "on-tertiary-fixed": "#331200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "stack-gap": "12px",
+                        "gutter": "16px",
+                        "touch-target-min": "48px",
+                        "unit": "8px",
+                        "section-gap": "32px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Hanken Grotesk"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-sm": ["Be Vietnam Pro"],
+                        "label-lg": ["Hanken Grotesk"],
+                        "headline-sm": ["Hanken Grotesk"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-lg": ["15px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "800" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F9F7F2;
+            /* cream-bg */
+            font-family: "Be Vietnam Pro", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .premium-shadow {
+            box-shadow: 0 10px 40px -10px rgba(100, 93, 84, 0.08);
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+
+        /* Logic specific styles overlaid on premium theme */
+        .overlay { position: fixed; inset: 0; background: rgba(25,28,26,.6); display: none; align-items: flex-end; justify-content: center; z-index: 100; backdrop-filter: blur(2px); }
+        .overlay.show { display: flex; animation: fade-in 0.2s ease; }
+        .sheet { background: #ffffff; width: 100%; max-width: 640px; border-radius: 24px 24px 0 0; max-height: 90vh; overflow-y: auto; padding: 24px 20px 32px; position: relative; animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 40px rgba(0,0,0,0.1); }
+        @media(min-width:640px){ .overlay { align-items: center; } .sheet { border-radius: 24px; max-height: 85vh; padding: 32px; } }
+        
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        .sheet-close { position: absolute; right: 20px; top: 20px; width: 36px; height: 36px; border-radius: 50%; background: #f3f4f0; display: flex; align-items: center; justify-content: center; color: #6a635a; cursor: pointer; transition: all 0.2s; border: none; }
+        .sheet-close:hover { background: #e1e3df; }
+        .sheet-handle { width: 40px; height: 4px; background: #e1e3df; border-radius: 2px; margin: -12px auto 20px; display: block; }
+        @media(min-width:640px){ .sheet-handle { display: none; } }
+
+        /* Form elements */
+        .input-group { margin-bottom: 0; }
+        .input-label { display: block; font-family: "Hanken Grotesk", sans-serif; font-size: 14px; font-weight: 700; color: #191C1A; margin: 20px 0 8px; }
+        .input-label .opt { color: #6A7178; font-weight: 400; font-size: 12px; }
+        .form-input { width: 100%; padding: 14px 16px; border: 1px solid #E5E7E9; border-radius: 12px; font-family: "Be Vietnam Pro", sans-serif; font-size: 16px; background: #ffffff; transition: all 0.2s; }
+        .form-input:focus { outline: none; border-color: #0A5238; box-shadow: 0 0 0 4px rgba(10,82,56,0.1); }
+        textarea.form-input { min-height: 100px; resize: vertical; }
+
+        /* Buttons within sheet */
+        .btn-primary { background: #0A5238; color: white; border: none; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; box-shadow: 0 4px 12px rgba(10,82,56,0.2); text-align: center; }
+        .btn-primary:hover { background: #002113; }
+        .btn-primary:disabled { background: #bec9c0; box-shadow: none; cursor: not-allowed; }
+        .btn-ghost { background: white; color: #191C1A; border: 1.5px solid #E5E7E9; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; text-align: center; }
+        .btn-ghost:hover { background: #f3f4f0; }
+        .btn-danger { background: white; color: #ba1a1a; border: 1.5px solid #ffdad6; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; text-align: center; }
+        .btn-danger:hover { background: #fff8f7; }
+        .btn-row { display: flex; gap: 12px; margin-top: 24px; }
+        .btn-row > * { flex: 1; }
+
+        /* Checklist & Segments */
+        .chk-item { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-top: 1px solid #E5E7E9; cursor: pointer; transition: all 0.2s; background: transparent; }
+        .chk-item.on { border-color: #E5E7E9; }
+        .chk-item input { width: 20px; height: 20px; margin-top: 2px; accent-color: #0A5238; flex: none; }
+        .chk-item .chk-content { flex: 1; }
+        .chk-item .chk-title { font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; color: #191C1A; }
+        .chk-item .chk-desc { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #6A7178; margin-top: 2px; }
+
+        .seg-control { display: flex; background: #e7e9e5; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
+        .seg-control button { flex: 1; padding: 10px 8px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; color: #6a635a; border-radius: 8px; transition: all 0.2s; }
+        .seg-control button.on { background: white; color: #0A5238; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+        /* Badges & Status */
+        .status-badge { display: inline-flex; align-items: center; justify-content: center; padding: 4px 10px; border-radius: 6px; font-family: "Hanken Grotesk", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
+        .sb-open { background: rgba(37,105,75,0.1); color: #0A5238; }
+        .sb-nego { background: rgba(217,119,6,0.1); color: #D97706; }
+        .sb-resv { background: #efe7fb; color: #6b46c1; }
+        .sb-done { background: rgba(10,82,56,0.05); color: #6A7178; }
+
+        .notice-box { display: flex; gap: 10px; align-items: flex-start; padding: 12px 0; margin: 12px 0; border-top: 1px solid #E5E7E9; }
+        .notice-box.warn { border-color: rgba(217,119,6,0.3); }
+        .notice-icon { color: #6A7178; flex: none; font-size: 18px; margin-top: 1px; }
+        .notice-box.warn .notice-icon { color: #D97706; }
+        .notice-content { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #3f4943; line-height: 1.5; }
+
+        /* Chat */
+        .chat-container { background: #f8faf6; border-radius: 16px; padding: 16px; max-height: 300px; overflow-y: auto; margin-bottom: 16px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #E5E7E9; }
+        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; position: relative; }
+        .chat-meta { font-size: 11px; color: #6A7178; margin-bottom: 4px; font-family: "Hanken Grotesk", sans-serif; }
+        .chat-bubble.me { align-self: flex-end; background: #0A5238; color: white; border-bottom-right-radius: 4px; }
+        .chat-bubble.me .chat-meta { color: rgba(255,255,255,0.8); }
+        .chat-bubble.you { align-self: flex-start; background: white; border: 1px solid #E5E7E9; color: #191c1a; border-bottom-left-radius: 4px; }
+
+        /* Toast */
+        .toast-msg { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #191c1a; color: white; padding: 14px 24px; border-radius: 99px; font-family: "Hanken Grotesk", sans-serif; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,0.15); text-align: center; width: max-content; max-width: 90vw; }
+        .toast-msg.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        @media(min-width:768px){ .toast-msg { bottom: 40px; } }
+
+        /* Details KV */
+        .kv-row { display: flex; padding: 12px 0; border-bottom: 1px dashed #E5E7E9; font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; align-items: baseline; gap: 16px; }
+        .kv-row:last-child { border-bottom: none; }
+        #home-goods-list > div:last-child, #home-find-list > div:last-child, #home-pets-list > div:last-child, #home-news-list > a:last-child { border-bottom: none; }
+        .kv-key { color: #6a635a; font-weight: 600; min-width: 80px; flex: none; font-family: "Hanken Grotesk", sans-serif; font-size: 13px; }
+        .kv-val { color: #191C1A; }
+
+        /* Step Progress */
+        .step-progress { display: flex; align-items: center; justify-content: space-between; margin: 24px 0; position: relative; }
+        .step-progress::before { content: ''; position: absolute; top: 12px; left: 20px; right: 20px; height: 2px; background: #e1e3df; z-index: 1; }
+        .step-item { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; z-index: 2; flex: 1; }
+        .step-dot { width: 24px; height: 24px; border-radius: 50%; background: #ffffff; border: 2px solid #bec9c0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; color: #bec9c0; background-clip: padding-box; }
+        .step-label { font-family: "Hanken Grotesk", sans-serif; font-size: 11px; font-weight: 700; color: #6a635a; text-align: center; }
+        .step-item.done .step-dot { background: #0A5238; border-color: #0A5238; color: white; }
+        .step-item.done .step-label { color: #0A5238; }
+        .step-item.active .step-dot { border-color: #D97706; border-width: 3px; }
+        .step-item.active .step-label { color: #D97706; font-weight: 800; }
+        
+        /* Review Stars */
+        .star-rating { display: flex; justify-content: center; gap: 8px; margin: 16px 0; font-size: 32px; color: #e1e3df; cursor: pointer; }
+        .star-rating .star { transition: color 0.2s; }
+        .star-rating .star.active { color: #D97706; }
+        
+        [v-cloak] { display: none; }
+    </style>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,700&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* ---- 人探し（find）画面用スタイル（Stitch _5） ---- */
+        /* フォントは全画面共通: 見出し/ラベル/ボタン=Hanken Grotesk、本文=Be Vietnam Pro */
+        .text-balance { text-wrap: balance; }
+        #root-find .close { position: absolute; right: 20px; top: 20px; width: 36px; height: 36px; border-radius: 50%; background: #F3F4F0; color: #6A7178; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+        .sheet-find h2 { font-family: "Hanken Grotesk", sans-serif; font-size: 22px; font-weight: 700; color: #191C1A; margin-bottom: 8px; }
+        .sheet-find .sub { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #6A7178; margin-bottom: 24px; line-height: 1.6; }
+        .sheet-find .close { position: absolute; right: 20px; top: 20px; width: 36px; height: 36px; border-radius: 50%; background: #F3F4F0; color: #6A7178; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
+        .sheet-find label { display: block; font-family: "Hanken Grotesk", sans-serif; font-size: 14px; font-weight: 700; color: #191C1A; margin: 20px 0 8px; }
+        .sheet-find label .opt { font-weight: 400; color: #6A7178; font-size: 12px; }
+        .sheet-find input, .sheet-find select, .sheet-find textarea { width: 100%; padding: 14px 16px; border: 1px solid #E5E7E9; border-radius: 12px; font-family: "Be Vietnam Pro", sans-serif; font-size: 16px; background: #fff; }
+        .sheet-find input:focus, .sheet-find select:focus, .sheet-find textarea:focus { outline: none; border-color: #0A5238; box-shadow: 0 0 0 4px rgba(10,82,56,0.1); }
+        .sheet-find textarea { min-height: 100px; resize: vertical; }
+        .sheet-find .two { display: flex; gap: 16px; } .sheet-find .two > div { flex: 1; }
+        .sheet-find .hint { font-family: "Be Vietnam Pro", sans-serif; font-size: 13px; color: #6A7178; margin-top: 8px; line-height: 1.5; }
+        .sheet-find .actions { display: flex; gap: 12px; margin-top: 24px; }
+        .sheet-find .actions button { flex: 1; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; text-align: center; }
+        .sheet-find .actions button.primary { background: #0A5238; color: #fff; border: none; box-shadow: 0 4px 12px rgba(10,82,56,0.2); }
+        .sheet-find .actions button.primary:hover { background: #002113; }
+        .sheet-find .actions button.ghost { background: #fff; color: #191C1A; border: 1.5px solid #E5E7E9; }
+        .sheet-find .actions button.ghost:hover { background: #f3f4f0; }
+        .sheet-find .notice { display: flex; gap: 10px; align-items: flex-start; padding: 12px 0; margin: 12px 0; border-top: 1px solid #E5E7E9; font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #3f4943; line-height: 1.5; }
+        .sheet-find .notice > .material-symbols-outlined { color: #6A7178; flex: none; font-size: 18px; margin-top: 1px; }
+        .sheet-find .notice.warn { border-color: rgba(217,119,6,0.3); color: #78350F; }
+        .sheet-find .notice.warn > .material-symbols-outlined { color: #D97706; }
+        .sheet-find .notice.success { border-color: rgba(10,82,56,0.3); color: #166534; }
+        .sheet-find .notice.success > .material-symbols-outlined { color: #0A5238; }
+        .sheet-find .kv { display: flex; border-bottom: 1px solid #E5E7E9; font-family: "Be Vietnam Pro", sans-serif; font-size: 15px; padding: 12px 0; }
+        .sheet-find .kv b { width: 100px; flex: none; color: #6A7178; font-weight: 600; }
+        .sheet-find .kv span { flex: 1; color: #191C1A; }
+        .sheet-find .msgbox { background: #F9F7F2; border: 1px solid #E5E7E9; border-radius: 16px; padding: 16px; font-family: "Be Vietnam Pro", sans-serif; font-size: 15px; margin-top: 12px; }
+        .sheet-find .msgbox .from { font-family: "Hanken Grotesk", sans-serif; font-size: 13px; color: #6A7178; margin-bottom: 4px; font-weight: 600; }
+        .toast-find { position: fixed; left: 50%; bottom: 100px; transform: translateX(-50%) translateY(20px); background: #191C1A; color: #fff; padding: 12px 24px; border-radius: 12px; font-size: 14px; opacity: 0; transition: 0.3s cubic-bezier(0.16,1,0.3,1); z-index: 210; pointer-events: none; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); white-space: nowrap; }
+        .toast-find.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .overlay-find { position: fixed; inset: 0; background: rgba(25,28,26,0.6); display: none; align-items: flex-end; justify-content: center; z-index: 200; backdrop-filter: blur(4px); }
+        .overlay-find.show { display: flex; }
+        .sheet-find { background: #fff; width: 100%; max-width: 640px; border-radius: 24px 24px 0 0; max-height: 92vh; overflow: auto; padding: 24px 24px calc(24px + env(safe-area-inset-bottom)); animation: slideUp 0.3s cubic-bezier(0.16,1,0.3,1); position: relative; }
+        .sheet-find::before { content: ''; width: 40px; height: 4px; background: #e1e3df; border-radius: 2px; margin: -12px auto 20px; display: block; }
+        @media(min-width: 640px){ .overlay-find { align-items: center; } .sheet-find { border-radius: 24px; max-height: 85vh; padding: 32px; } .sheet-find::before { display: none; } }
+</style>
+</head>
+<body class="text-on-background min-h-screen pb-[100px]">
+<!-- つながるくまもと ロゴマーク（全ヘッダー共通） -->
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;">
+<symbol id="kt-logo" viewBox="0 0 100 100">
+<circle cx="50" cy="50" fill="#0A5238" r="48"></circle>
+<!-- 頭（大きめ） -->
+<circle cx="50" cy="20" fill="#F9F7F2" r="9"></circle>
+<!-- くちばし -->
+<path d="M58 16.5 L71 12 L59.5 21.5 Z" fill="#F9F7F2"></path>
+<!-- 目（白抜き＝背景色でくり抜き） -->
+<circle cx="53.5" cy="17.5" fill="#0A5238" r="1.6"></circle>
+<!-- 首 -->
+<path d="M45.5 28 C46 33 46.6 37 47.3 40 L52.7 40 C53.4 37 54 33 54.5 28 C51.5 30.5 48.5 30.5 45.5 28 Z" fill="#F9F7F2"></path>
+<!-- 首の黒（白抜き＝背景色でくり抜き） -->
+<path d="M46.3 30.5 C48 32.5 52 32.5 53.7 30.5 L53.3 34.5 C51.4 36.2 48.6 36.2 46.7 34.5 Z" fill="#0A5238"></path>
+<!-- 胴 -->
+<path d="M47.3 40 C47.7 52 48.3 64 49 76 L51 76 C51.7 64 52.3 52 52.7 40 Z" fill="#F9F7F2"></path>
+<!-- 左脚 -->
+<path d="M48.5 74 C46 80 42 86 37 92 L41 92 C46 86 49 80 51 75 Z" fill="#F9F7F2"></path>
+<!-- 右脚 -->
+<path d="M51.5 74 C54 80 58 86 63 92 L59 92 C54 86 51 80 49 75 Z" fill="#F9F7F2"></path>
+<!-- 左翼（羽根） -->
+<path d="M45 36 C34 30 19 30 10 37 C4 42 2 49 6 54 C10 58 15 57 19 54 C16 59 15 64 18 68 C22 65 25 61 26 57 C26 62 28 66 32 68 C34 64 35 59 34 55 C37 57 40 57 43 55 C40 51 39 46 41 42 C43 44 44 44 45 36 Z" fill="#F9F7F2"></path>
+<!-- 右翼（羽根） -->
+<path d="M55 36 C66 30 81 30 90 37 C96 42 98 49 94 54 C90 58 85 57 81 54 C84 59 85 64 82 68 C78 65 75 61 74 57 C74 62 72 66 68 68 C66 64 65 59 66 55 C63 57 60 57 57 55 C60 51 61 46 59 42 C57 44 56 44 55 36 Z" fill="#F9F7F2"></path>
+</symbol>
+</svg>
+<!-- Vue App Mount Point -->
+<div id="app" v-cloak="">
+<div id="goods-screen-content" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg">
+<!-- TopAppBar (From JSON) -->
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="設定・アプリ情報" onclick="openSettings()" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<div class="flex flex-col leading-none">
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight">Tsunagaru Kumamoto</h1>
+<span class="text-forest-deep/70 tracking-[0.15em]" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながるくまもと</span>
+</div>
+</div>
+<div class="flex items-center">
+<div @click="openAccountSheet()" aria-label="アカウント" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img alt="User Avatar" class="w-full h-full object-cover" :src="myProfile.photoPath" v-if="myProfile &amp;&amp; myProfile.photoPath"/>
+<span class="font-label-lg text-forest-deep" v-else-if="me">{{ me.charAt(0) }}</span>
+<span class="material-symbols-outlined text-muted-gray" v-else="">person</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
+<div class="flex flex-col gap-2">
+<!-- Page Header -->
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">volunteer_activism</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">物資の支援</h2>
+<p class="font-label-sm text-label-sm text-muted-gray">ぜひ物資のご提供にご協力ください</p>
+</div>
+</div>
+<!-- Filter & Area Section -->
+<div class="space-y-2 sticky top-16 z-30 bg-cream-bg/90 backdrop-blur-md py-1 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0">
+<!-- Type Filters -->
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2">
+<div class="relative min-w-[min-content]">
+<button :class="goodsType === 'progress' ? 'bg-surface-container-high text-on-surface' : 'bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low'" @click="goodsType = 'progress'; markSeen()" class="px-4 py-1.5 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors">
+                            進行中
+                        </button>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-mustard-accent rounded-full border-2 border-cream-bg flex items-center justify-center text-[10px] text-white font-bold" v-if="newProgressCount &gt; 0">{{ newProgressCount }}</span>
+</div>
+<button :class="goodsType === 'all' ? 'bg-surface-container-high text-on-surface' : 'bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low'" @click="goodsType = 'all'" class="px-4 py-1.5 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content]">
+                        すべて
+                    </button>
+<button :class="goodsType === 'offer' ? 'bg-surface-container-high text-on-surface' : 'bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low'" @click="goodsType = 'offer'" class="px-4 py-1.5 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content]">
+                        ゆずります
+                    </button>
+<button :class="goodsType === 'request' ? 'bg-surface-container-high text-on-surface' : 'bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low'" @click="goodsType = 'request'" class="px-4 py-1.5 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content]">
+                        もとめています
+                    </button>
+</div>
+<!-- Area Filters -->
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar" v-show="goodsType !== 'progress'">
+<button :class="goodsArea === 'all' ? 'bg-forest-deep text-white' : 'bg-white border border-divider-line text-muted-gray hover:bg-surface-container-low'" @click="goodsArea = 'all'" class="font-label-sm text-label-sm px-3 py-1 rounded-md transition-colors whitespace-nowrap">
+                        全エリア
+                    </button>
+<button :class="goodsArea === area ? 'bg-forest-deep text-white' : 'bg-white border border-divider-line text-muted-gray hover:bg-surface-container-low'" :key="area" @click="goodsArea = area" class="font-label-sm text-label-sm px-3 py-1 rounded-md transition-colors whitespace-nowrap" v-for="area in goodsDistricts">
+                        {{ area }}
+                    </button>
+</div>
+</div>
+</div>
+<!-- List Section -->
+<div class="flex flex-col gap-3">
+<div class="py-12 text-center flex flex-col items-center justify-center opacity-70" v-if="filteredGoods.length === 0">
+<span class="material-symbols-outlined text-5xl text-muted-gray mb-3">inventory_2</span>
+<p class="font-headline-sm text-charcoal-text">該当する投稿がありません</p>
+<p class="font-body-sm text-muted-gray mt-2">条件を変えてお試しください</p>
+</div>
+<article :key="item.id" @click="openItem(item)" class="bg-surface-container-lowest rounded-xl p-3 premium-shadow border border-divider-line cursor-pointer hover:scale-[0.98] transition-transform duration-200" v-for="item in filteredGoods">
+<div class="flex flex-col gap-2">
+<div class="flex flex-wrap gap-2 items-center justify-between w-full">
+<div class="flex flex-wrap gap-2 items-center">
+<span class="bg-primary-container text-on-primary-container font-label-sm text-label-sm px-2.5 py-1 rounded" v-if="item.type === 'offer'">ゆずります</span>
+<span class="bg-mustard-accent/10 text-mustard-accent font-label-sm text-label-sm px-2.5 py-1 rounded border border-mustard-accent/20" v-else="">もとめています</span>
+<span class="bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded" v-if="item.type === 'offer' &amp;&amp; item.isFree">無料</span>
+<span class="bg-mustard-accent/10 text-mustard-accent font-label-sm text-label-sm px-2.5 py-1 rounded" v-if="item.type === 'offer' &amp;&amp; !item.isFree">{{ item.price }}円</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded">{{ item.cat }}</span>
+<span class="flex items-center gap-1 text-forest-deep font-label-sm text-label-sm px-2.5 py-1 rounded bg-primary-fixed-dim/20" v-if="item.status === 'open' &amp;&amp; countMatches(item) &gt; 0">
+<span class="material-symbols-outlined text-[14px]">link</span> 対の投稿 {{ countMatches(item) }}件
+                                </span>
+</div>
+<div>
+<span class="status-badge sb-open" v-if="item.status === 'open'">募集中</span>
+<span class="status-badge sb-nego" v-else-if="item.status === 'nego'">交渉中</span>
+<span class="status-badge sb-resv" v-else-if="item.status === 'reserved'">予約済み</span>
+<span class="status-badge sb-done" v-else-if="item.status === 'done'">受渡完了</span>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line" v-if="item.imagePath || getImageForCat(item.cat)">
+<img :src="item.imagePath || getImageForCat(item.cat)" alt="Item photo" class="w-full h-full object-cover" loading="lazy" decoding="async"/>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text line-clamp-2">
+                                    {{ item.title }}
+                                </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 font-body-sm text-body-sm text-muted-gray mt-2">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">location_on</span>
+<span>{{ item.district }} {{ item.place }}</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>{{ item.when }}</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-2 pt-2 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden flex items-center justify-center font-label-sm text-on-surface-variant">
+<img :src="profiles[item.nick].photoPath" alt="" class="w-full h-full object-cover" loading="lazy" decoding="async" v-if="profiles[item.nick] &amp;&amp; profiles[item.nick].photoPath"/>
+<span v-else="">{{ item.nick.charAt(0) }}</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-charcoal-text">
+                                        {{ item.nick }}
+</p>
+</div>
+</div>
+</div>
+<!-- Progress specific info snippet -->
+<div class="bg-surface-container-low rounded-lg p-3 mt-2 font-body-sm text-sm text-charcoal-text border border-surface-container-high" v-if="goodsType === 'progress' &amp;&amp; item.status !== 'open'">
+<div class="flex justify-between items-center mb-1">
+<span class="font-bold">相手: {{ getPartnerName(item) }}</span>
+<span class="text-xs text-muted-gray">{{ item.chat ? item.chat.length : 0 }}件のメッセージ</span>
+</div>
+<div class="text-xs text-muted-gray truncate">
+                                最終更新: {{ formatDate(item.updated || item.created) }}
+                            </div>
+</div>
+</div>
+</article>
+<!-- Decorative Empty State / End of list -->
+<div class="py-8 text-center flex flex-col items-center justify-center opacity-60" v-if="filteredGoods.length &gt; 0">
+<span class="material-symbols-outlined text-4xl text-muted-gray mb-2">volunteer_activism</span>
+<p class="font-body-sm text-body-sm text-muted-gray">すべての投稿を表示しました</p>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button @click="openCreate()" aria-label="物資を登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="font-label-lg text-label-lg">物資を登録</span>
+</button>
+<!-- BottomNavBar -->
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-current="page" aria-label="支援" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm text-label-sm mt-1">ペット</span>
+</button>
+<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+</nav>
+</div>
+<!-- Overlays / Bottom Sheets -->
+<!-- Registration Form -->
+<div :class="{show: showCreateForm}" @click.self="showCreateForm = false" class="overlay">
+<div class="sheet">
+<span class="sheet-handle"></span>
+<button @click="showCreateForm = false" class="sheet-close">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-charcoal-text mb-2">物資を登録</h2>
+<p class="font-body-sm text-muted-gray mb-6">「ゆずる」か「もとめる」を選んで投稿します。</p>
+<div class="seg-control">
+<button :class="{on: ng.type === 'offer'}" @click="ng.type = 'offer'">ゆずります</button>
+<button :class="{on: ng.type === 'request'}" @click="ng.type = 'request'">もとめています</button>
+</div>
+<div class="input-group" v-if="ng.type === 'offer'">
+<label class="chk-item" :class="{on: ng.isFree}">
+<input type="checkbox" v-model="ng.isFree"/>
+<div class="chk-content">
+<div class="chk-title">無料でゆずる</div>
+<div class="chk-desc">チェックを外すと1点あたりの価格を入力できます</div>
+</div>
+</label>
+</div>
+<div class="input-group" v-if="ng.type === 'offer' && !ng.isFree">
+<label class="input-label">1点あたりの価格（円）</label>
+<input class="form-input" inputmode="numeric" placeholder="例）500" type="number" min="0" step="1" v-model.number="ng.price"/>
+</div>
+<div class="input-group">
+<label class="input-label">カテゴリ</label>
+<select class="form-input" v-model="ng.cat">
+<option :key="c" v-for="c in cats">{{ c }}</option>
+</select>
+</div>
+<div class="input-group">
+<label class="input-label">タイトル</label>
+<input class="form-input" placeholder="例）飲料水を分けます／毛布を探しています" v-model="ng.title"/>
+</div>
+<div class="input-group">
+<label class="input-label">数量・内容</label>
+<input class="form-input" placeholder="例）2L×6本／毛布5枚" v-model="ng.qty"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="input-group">
+<label class="input-label">受け渡し場所</label>
+<input class="form-input" placeholder="例）美里町中央公民館前" v-model="ng.place"/>
+</div>
+<div class="input-group">
+<label class="input-label">希望日時</label>
+<input class="form-input" placeholder="例）今日中／平日夕方" v-model="ng.when"/>
+</div>
+</div>
+<div class="input-group">
+<label class="input-label">写真 <span class="opt">(任意)</span></label>
+<label class="form-input flex items-center gap-2 cursor-pointer text-muted-gray" style="display:flex;">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+<span>{{ ng.imageDataUrl ? '写真を変更' : '写真を選択' }}</span>
+<input accept="image/*" class="hidden" type="file" @change="onGoodsImageSelected"/>
+</label>
+<img :src="ng.imageDataUrl" alt="プレビュー" class="mt-2 w-full h-40 object-cover rounded-lg border border-divider-line" v-if="ng.imageDataUrl"/>
+</div>
+<div class="notice-box mt-4">
+<span class="material-symbols-outlined notice-icon">info</span>
+<div class="notice-content">連絡はアプリ内チャットで行います。受け渡し確定まで電話番号は公開されません。</div>
+</div>
+<div class="btn-row">
+<button @click="showCreateForm = false" class="btn-ghost">やめる</button>
+<button :disabled="!ng.title || !ng.qty || (ng.type === 'offer' && !ng.isFree && !(ng.price > 0))" @click="submitGoods" class="btn-primary">この内容で投稿</button>
+</div>
+</div>
+</div>
+<!-- Item Detail Sheet -->
+<div :class="{show: activeItem}" @click.self="closeItem" class="overlay">
+<div class="sheet" v-if="activeItem">
+<span class="sheet-handle"></span>
+<button @click="closeItem" class="sheet-close">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Header Info -->
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-primary-container text-on-primary-container font-label-sm px-2.5 py-1 rounded" v-if="activeItem.type === 'offer'">ゆずります</span>
+<span class="bg-mustard-accent/10 text-mustard-accent border border-mustard-accent/20 font-label-sm px-2.5 py-1 rounded" v-else="">もとめています</span>
+<span class="bg-surface-container-high text-on-surface-variant font-label-sm px-2.5 py-1 rounded">{{ activeItem.cat }}</span>
+<span class="bg-surface-container-highest text-on-surface-variant font-label-sm px-2.5 py-1 rounded" v-if="activeItem.type === 'offer' &amp;&amp; activeItem.isFree">無料</span>
+<span class="bg-mustard-accent/10 text-mustard-accent font-label-sm px-2.5 py-1 rounded" v-if="activeItem.type === 'offer' &amp;&amp; !activeItem.isFree">{{ activeItem.price }}円</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-charcoal-text mb-3 leading-tight">{{ activeItem.title }}</h2>
+<div class="flex items-center gap-3 mb-6">
+<div class="font-body-sm text-muted-gray">投稿者: <span class="font-bold text-charcoal-text">{{ activeItem.nick }}</span></div>
+<span class="bg-surface-variant text-on-surface-variant text-[10px] px-1.5 py-0.5 rounded font-bold" v-if="isOwner(activeItem)">あなたの投稿</span>
+</div>
+<!-- Progress Steps -->
+<div class="step-progress">
+<div :class="{done: stepIndex &gt;= 0, active: stepIndex === 0}" class="step-item">
+<div class="step-dot">1</div>
+<div class="step-label">募集中</div>
+</div>
+<div :class="{done: stepIndex &gt;= 1, active: stepIndex === 1}" class="step-item">
+<div class="step-dot">2</div>
+<div class="step-label">交渉中</div>
+</div>
+<div :class="{done: stepIndex &gt;= 2, active: stepIndex === 2}" class="step-item">
+<div class="step-dot">3</div>
+<div class="step-label">予約済み</div>
+</div>
+<div :class="{done: stepIndex &gt;= 3, active: stepIndex === 3}" class="step-item">
+<div class="step-dot">4</div>
+<div class="step-label">受渡完了</div>
+</div>
+</div>
+<!-- Photo -->
+<div class="w-full h-40 rounded-xl overflow-hidden border border-divider-line mb-4" v-if="activeItem.imagePath || getImageForCat(activeItem.cat)">
+<img :src="activeItem.imagePath || getImageForCat(activeItem.cat)" alt="Item photo" class="w-full h-full object-cover"/>
+</div>
+<!-- Basic Details -->
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-divider-line mb-6">
+<div class="kv-row">
+<div class="kv-key">数量</div>
+<div class="kv-val">{{ activeItem.qty }}</div>
+</div>
+<div class="kv-row">
+<div class="kv-key">受渡場所</div>
+<div class="kv-val">{{ activeItem.place }} ({{ activeItem.district }})</div>
+</div>
+<div class="kv-row">
+<div class="kv-key">希望日時</div>
+<div class="kv-val">{{ activeItem.when }}</div>
+</div>
+</div>
+<!-- Chat Interface (Visible if nego, reserved, or if I have applied) -->
+<div v-if="activeItem.status !== 'open' || hasApplied(activeItem)">
+<label class="input-label">💬 アプリ内チャット <span class="opt">(連絡先は非公開)</span></label>
+<div class="chat-container" ref="chatbox">
+<div class="text-center text-sm text-muted-gray py-4" v-if="!activeItem.chat || activeItem.chat.length === 0">
+                            まだメッセージはありません。
+                        </div>
+<div :class="c.from === me ? 'me' : 'you'" :key="idx" class="chat-bubble" v-for="(c, idx) in activeItem.chat">
+<div class="chat-meta">{{ c.from }} • {{ formatDate(c.at) }}</div>
+<div>{{ c.text }}</div>
+</div>
+</div>
+<div class="flex gap-2" v-if="activeItem.status !== 'done'">
+<input @keyup.enter="sendChat" class="form-input py-2" placeholder="メッセージを入力..." v-model="chatInput"/>
+<button @click="sendChat" class="bg-forest-deep text-white px-4 rounded-xl font-bold flex-shrink-0 hover:bg-opacity-90">送信</button>
+</div>
+</div>
+<!-- STATUS: OPEN -->
+<div v-if="activeItem.status === 'open' &amp;&amp; !hasApplied(activeItem)">
+<div class="notice-box warn" v-if="isOwner(activeItem)">
+<span class="material-symbols-outlined notice-icon">info</span>
+<div class="notice-content">これはあなたの投稿です。他の方から申し出があるとここに表示されます。<br/>※デモ用: 画面右上のアイコンから別ユーザーに切り替えると応募を試せます。</div>
+</div>
+<div v-else="">
+<label class="input-label mt-4">{{ activeItem.type === 'offer' ? 'この提供を受け取りたい' : 'この依頼に応える（提供する）' }}</label>
+<textarea class="form-input mb-4" placeholder="ひとこと（受け渡し可能な日時・数量など）" v-model="applyMsg"></textarea>
+<button @click="applyGoods" class="btn-primary">{{ activeItem.type === 'offer' ? '受け取りを希望する' : '提供を申し出る' }}</button>
+</div>
+</div>
+<!-- STATUS: NEGO -->
+<div v-if="activeItem.status === 'nego'">
+<div class="mt-6" v-if="isOwner(activeItem)">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-3">申し出 ({{ activeItem.applicants ? activeItem.applicants.length : 0 }}件)</h3>
+<div :key="app.nick" class="border border-divider-line rounded-xl p-4 mb-3 flex items-center justify-between" v-for="app in activeItem.applicants">
+<div>
+<div class="font-bold text-charcoal-text">{{ app.nick }}</div>
+<div class="text-sm text-muted-gray mt-1">{{ app.msg || 'よろしくお願いします' }}</div>
+</div>
+<button @click="openAppointment(app.nick)" class="bg-primary-container text-white px-4 py-2 rounded-lg font-bold text-sm flex-shrink-0">
+                                この方と約束
+                            </button>
+</div>
+</div>
+<div class="notice-box warn mt-4" v-else="">
+<span class="material-symbols-outlined notice-icon">hourglass_empty</span>
+<div class="notice-content">投稿者が受け渡し相手を選定中です。チャットで条件を伝えておきましょう。</div>
+</div>
+</div>
+<!-- STATUS: RESERVED -->
+<div v-if="activeItem.status === 'reserved' &amp;&amp; activeItem.deal">
+<div class="notice-box">
+<span class="material-symbols-outlined notice-icon">event_available</span>
+<div class="notice-content">
+<b>{{ getOtherParty(activeItem) }}</b> さんと予約成立しました。<br/>
+                            受渡予定: <b>{{ activeItem.deal.date }} {{ activeItem.deal.time }} @ {{ activeItem.deal.place }}</b>
+</div>
+</div>
+<div class="bg-surface-container-high rounded-xl p-4 mb-6">
+<h4 class="font-bold text-sm mb-2 text-forest-deep flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">verified</span> 事前すり合わせ確認済</h4>
+<div class="grid grid-cols-2 gap-2 text-sm text-charcoal-text">
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-green-700">check_circle</span> 数量: {{ activeItem.qty }}</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-green-700">check_circle</span> 状態の確認</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-green-700">check_circle</span> 場所の合意</div>
+<div class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-green-700">check_circle</span> 日時の合意</div>
+</div>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-charcoal-text mb-3 text-center">受け渡し完了の相互確認</h4>
+<p class="text-xs text-center text-muted-gray mb-4">トラブル防止のため、双方がボタンを押すと完了になります。</p>
+<div class="flex gap-4 mb-6">
+<div class="flex-1 flex flex-col items-center">
+<div class="text-xs font-bold text-muted-gray mb-2">渡す側 ({{ getGiver(activeItem) }})</div>
+<button :class="activeItem.deal.giverDone ? 'bg-surface-variant text-forest-deep cursor-default' : 'bg-forest-deep text-white hover:bg-primary'" :disabled="me !== getGiver(activeItem) &amp;&amp; !activeItem.deal.giverDone" @click="confirmDeal('giver')" class="w-full py-3 rounded-xl font-bold shadow-sm transition-colors relative">
+<span class="flex items-center justify-center gap-1" v-if="activeItem.deal.giverDone"><span class="material-symbols-outlined text-[18px]">check</span> 渡しました</span>
+<span v-else="">渡しました</span>
+<div class="absolute inset-0 bg-white/50 rounded-xl cursor-not-allowed" v-if="me !== getGiver(activeItem) &amp;&amp; !activeItem.deal.giverDone"></div>
+</button>
+</div>
+<div class="flex-1 flex flex-col items-center">
+<div class="text-xs font-bold text-muted-gray mb-2">受け取る側 ({{ getTaker(activeItem) }})</div>
+<button :class="activeItem.deal.takerDone ? 'bg-surface-variant text-forest-deep cursor-default' : 'bg-mustard-accent text-white hover:bg-opacity-90'" :disabled="me !== getTaker(activeItem) &amp;&amp; !activeItem.deal.takerDone" @click="confirmDeal('taker')" class="w-full py-3 rounded-xl font-bold shadow-sm transition-colors relative">
+<span class="flex items-center justify-center gap-1" v-if="activeItem.deal.takerDone"><span class="material-symbols-outlined text-[18px]">check</span> 受け取りました</span>
+<span v-else="">受け取りました</span>
+<div class="absolute inset-0 bg-white/50 rounded-xl cursor-not-allowed" v-if="me !== getTaker(activeItem) &amp;&amp; !activeItem.deal.takerDone"></div>
+</button>
+</div>
+</div>
+<div class="flex justify-between border-t border-divider-line pt-4 mt-2">
+<button @click="reportNoShow" class="text-sm font-bold text-error flex items-center gap-1 hover:bg-error-container px-3 py-1.5 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[18px]">warning</span> 相手が来なかった
+                        </button>
+<button @click="cancelDeal" class="text-sm font-bold text-muted-gray hover:bg-surface-variant px-3 py-1.5 rounded-lg transition-colors">
+                            予約をキャンセル
+                        </button>
+</div>
+</div>
+<!-- STATUS: DONE -->
+<div v-if="activeItem.status === 'done' &amp;&amp; activeItem.deal">
+<div class="notice-box">
+<span class="material-symbols-outlined notice-icon text-green-700">check_circle</span>
+<div class="notice-content text-forest-deep font-bold">
+                            受け渡しが完了しました。ご協力ありがとうございました！
+                        </div>
+</div>
+<div class="mt-6 border border-divider-line rounded-xl p-5 bg-surface" v-if="!hasReviewed(activeItem) &amp;&amp; isParticipant(activeItem)">
+<h4 class="font-headline-sm text-headline-sm text-charcoal-text text-center mb-1">お相手の評価</h4>
+<p class="text-xs text-center text-muted-gray mb-4">この評価は相手の「信頼温度」に影響します</p>
+<div class="star-rating">
+<span :class="{active: reviewStar &gt;= n}" :key="n" @click="reviewStar = n" class="star" v-for="n in 5">★</span>
+</div>
+<textarea class="form-input mt-4 mb-4 h-20" placeholder="ひとこと（任意）例：時間通りに来てくださり助かりました" v-model="reviewMsg"></textarea>
+<button :disabled="reviewStar === 0" @click="submitReview" class="btn-primary">評価を送信する</button>
+</div>
+<div class="text-center py-6 text-muted-gray font-bold" v-else-if="hasReviewed(activeItem)">
+                        評価送信済みです。
+                    </div>
+</div>
+</div>
+</div>
+<!-- Appointment Setup Sheet -->
+<div :class="{show: showAppointmentForm}" @click.self="showAppointmentForm = false" class="overlay">
+<div class="sheet" v-if="showAppointmentForm &amp;&amp; activeItem">
+<span class="sheet-handle"></span>
+<button @click="showAppointmentForm = false" class="sheet-close">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h2 class="font-headline-md text-headline-md text-charcoal-text mb-2">受け渡しの約束</h2>
+<p class="font-body-sm text-muted-gray mb-6"><b>{{ apptForm.partner }}</b> さんと予約します。当日の認識違いを防ぐため、条件を確認してください。</p>
+<div class="input-group">
+<label class="input-label">待ち合わせ場所 <span class="opt">(安全な公共の場所を推奨)</span></label>
+<input class="form-input" list="safe-places" v-model="apptForm.place"/>
+<datalist id="safe-places">
+<option value="美里町中央公民館前"></option>
+<option value="砥用支所前"></option>
+<option value="各地区避難所"></option>
+<option value="コンビニ駐車場（明るい場所）"></option>
+</datalist>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="input-group">
+<label class="input-label">受け渡し日</label>
+<input class="form-input" type="date" v-model="apptForm.date"/>
+</div>
+<div class="input-group">
+<label class="input-label">時間</label>
+<input class="form-input" type="time" v-model="apptForm.time"/>
+</div>
+</div>
+<label class="input-label mt-4 mb-3">✅ 事前すり合わせ確認 <span class="opt">(すべてチェック)</span></label>
+<div :class="{on: apptForm.chkQty}" @click="apptForm.chkQty = !apptForm.chkQty" class="chk-item">
+<input @click.stop="" type="checkbox" v-model="apptForm.chkQty"/>
+<div class="chk-content">
+<div class="chk-title">数量の合意</div>
+<div class="chk-desc">「{{ activeItem.qty }}」で合意した</div>
+</div>
+</div>
+<div :class="{on: apptForm.chkCond}" @click="apptForm.chkCond = !apptForm.chkCond" class="chk-item">
+<input @click.stop="" type="checkbox" v-model="apptForm.chkCond"/>
+<div class="chk-content">
+<div class="chk-title">状態の確認</div>
+<div class="chk-desc">写真や説明で状態を確認し合った</div>
+</div>
+</div>
+<div :class="{on: apptForm.chkPlace}" @click="apptForm.chkPlace = !apptForm.chkPlace" class="chk-item">
+<input @click.stop="" type="checkbox" v-model="apptForm.chkPlace"/>
+<div class="chk-content">
+<div class="chk-title">場所の把握</div>
+<div class="chk-desc">指定場所を双方が把握している</div>
+</div>
+</div>
+<div :class="{on: apptForm.chkTime}" @click="apptForm.chkTime = !apptForm.chkTime" class="chk-item">
+<input @click.stop="" type="checkbox" v-model="apptForm.chkTime"/>
+<div class="chk-content">
+<div class="chk-title">日時の把握</div>
+<div class="chk-desc">指定日時を双方が把握している</div>
+</div>
+</div>
+<div class="btn-row mt-6">
+<button @click="showAppointmentForm = false" class="btn-ghost">戻る</button>
+<button :disabled="!isApptFormValid" @click="finalizeAppointment" class="btn-primary">この内容で予約</button>
+</div>
+</div>
+</div>
+<!-- ログイン・新規登録 -->
+<div :class="{show: showAuthSheet}" @click.self="showAuthSheet = false" class="overlay">
+<div class="sheet">
+<button @click="showAuthSheet = false" class="sheet-close"><span class="material-symbols-outlined">close</span></button>
+<span class="sheet-handle"></span>
+<h2 class="font-headline-md text-headline-md text-charcoal-text mb-2">{{ authMode === 'login' ? 'ログイン' : '新規登録' }}</h2>
+<p class="font-body-sm text-body-sm text-muted-gray mb-4">{{ authMode === 'login' ? '電話番号とパスワードでログインします。' : 'SMS認証・パスワード設定・お名前・市区町村のみで登録できます。' }}</p>
+<div class="seg-control">
+<button :class="{on: authMode === 'login'}" @click="setAuthMode('login')" type="button">ログイン</button>
+<button :class="{on: authMode === 'register'}" @click="setAuthMode('register')" type="button">新規登録</button>
+</div>
+
+<div class="input-group">
+<label class="input-label">電話番号</label>
+<input class="form-input" inputmode="tel" placeholder="例）09012345678" v-model="authForm.phone"/>
+</div>
+
+<template v-if="authMode === 'register'">
+<div class="input-group" v-if="!otpSent">
+<button class="btn-ghost" @click="requestOtp" type="button">認証コードを送信</button>
+</div>
+<div class="input-group" v-if="otpSent">
+<label class="input-label">認証コード <span class="opt">（SMSで届いた6桁）</span></label>
+<input class="form-input" inputmode="numeric" placeholder="例）123456" v-model="authForm.code"/>
+<div class="notice-box"><span class="material-symbols-outlined notice-icon">info</span><div class="notice-content">デモ環境のため実際のSMSは送信されません。コード「{{ otpDevCode }}」を入力してください。</div></div>
+</div>
+</template>
+
+<div class="input-group">
+<label class="input-label">パスワード</label>
+<input class="form-input" type="password" placeholder="8文字以上" v-model="authForm.password"/>
+</div>
+<div class="input-group" v-if="authMode === 'register'">
+<label class="input-label">パスワード（確認）</label>
+<input class="form-input" type="password" placeholder="もう一度入力" v-model="authForm.password2"/>
+</div>
+
+<template v-if="authMode === 'register'">
+<div class="input-group">
+<label class="input-label">氏名 <span class="opt">（ニックネーム可）</span></label>
+<input class="form-input" placeholder="例）田中はな／はなちゃん" v-model="authForm.nickname"/>
+</div>
+<div class="input-group">
+<label class="input-label">市区町村 <span class="opt">（任意）</span></label>
+<select class="form-input" v-model="authForm.city">
+<option value="">選択なし</option>
+<optgroup :label="a + 'エリア'" :key="a" v-for="a in AREAS">
+<option :key="d.name" :value="d.name" v-for="d in DISTRICTS.filter(x => x.area === a)">{{ d.name }}</option>
+</optgroup>
+</select>
+</div>
+<div class="input-group">
+<label class="input-label">写真 <span class="opt">（任意）</span></label>
+<label class="form-input flex items-center gap-2 cursor-pointer text-muted-gray" style="display:flex;">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+<span>{{ authForm.photoDataUrl ? '写真を変更' : '写真を選択' }}</span>
+<input accept="image/*" class="hidden" type="file" @change="onAuthPhotoSelected"/>
+</label>
+<img :src="authForm.photoDataUrl" alt="プレビュー" class="mt-2 w-full h-40 object-cover rounded-lg border border-divider-line" v-if="authForm.photoDataUrl"/>
+</div>
+</template>
+
+<div class="btn-row">
+<button @click="showAuthSheet = false" class="btn-ghost">やめる</button>
+<button v-if="authMode === 'login'" @click="submitLogin" class="btn-primary">ログイン</button>
+<button v-else :disabled="!otpSent" @click="submitRegister" class="btn-primary">この内容で登録</button>
+</div>
+</div>
+</div>
+
+<!-- プロフィール編集 -->
+<div :class="{show: showProfileSheet}" @click.self="showProfileSheet = false" class="overlay">
+<div class="sheet">
+<button @click="showProfileSheet = false" class="sheet-close"><span class="material-symbols-outlined">close</span></button>
+<span class="sheet-handle"></span>
+<h2 class="font-headline-md text-headline-md text-charcoal-text mb-2">プロフィール編集</h2>
+<p class="font-body-sm text-body-sm text-muted-gray mb-4">電話番号以外の情報を変更できます。</p>
+
+<div class="input-group">
+<label class="input-label">電話番号</label>
+<input class="form-input" :value="myProfile && myProfile.phone" disabled style="background:#F3F4F0;color:#6A7178;"/>
+</div>
+<div class="input-group">
+<label class="input-label">氏名 <span class="opt">（ニックネーム可）</span></label>
+<input class="form-input" v-model="profileForm.nickname"/>
+</div>
+<div class="input-group">
+<label class="input-label">市区町村 <span class="opt">（任意）</span></label>
+<select class="form-input" v-model="profileForm.city">
+<option value="">選択なし</option>
+<optgroup :label="a + 'エリア'" :key="a" v-for="a in AREAS">
+<option :key="d.name" :value="d.name" v-for="d in DISTRICTS.filter(x => x.area === a)">{{ d.name }}</option>
+</optgroup>
+</select>
+</div>
+<div class="input-group">
+<label class="input-label">写真 <span class="opt">（任意）</span></label>
+<label class="form-input flex items-center gap-2 cursor-pointer text-muted-gray" style="display:flex;">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+<span>{{ profileForm.photoDataUrl || (myProfile && myProfile.photoPath) ? '写真を変更' : '写真を選択' }}</span>
+<input accept="image/*" class="hidden" type="file" @change="onProfilePhotoSelected"/>
+</label>
+<img :src="profileForm.photoDataUrl || (myProfile && myProfile.photoPath)" alt="プレビュー" class="mt-2 w-full h-40 object-cover rounded-lg border border-divider-line" v-if="profileForm.photoDataUrl || (myProfile && myProfile.photoPath)"/>
+</div>
+
+<div class="btn-row">
+<button @click="logout" class="btn-danger">ログアウト</button>
+<button @click="saveProfile" class="btn-primary">保存する</button>
+</div>
+</div>
+</div>
+<!-- Toast Notification -->
+<div :class="{show: toast.visible}" class="toast-msg">
+            {{ toast.msg }}
+        </div>
+</div>
+<!-- ===================== ホーム画面 ===================== -->
+<div id="root-home" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="設定・アプリ情報" onclick="openSettings()" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<div class="flex flex-col leading-none">
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight">Tsunagaru Kumamoto</h1>
+<span class="text-forest-deep/70 tracking-[0.15em]" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながるくまもと</span>
+</div>
+</div>
+<div class="flex items-center">
+<div id="home-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="home-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="home-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">home</span>
+</div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">ホーム</h2>
+</div>
+</div>
+<!-- セクションタブ -->
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-1" id="home-tabs">
+<button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-surface-container-high text-on-surface" data-tab="news" type="button"><span class="material-symbols-outlined text-[16px]">newspaper</span>ニュース</button>
+<button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="goods" type="button"><span class="material-symbols-outlined text-[16px]">volunteer_activism</span>支援</button>
+<button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="find" type="button"><span class="material-symbols-outlined text-[16px]">diversity_1</span>さがす</button>
+<button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="pets" type="button"><span class="material-symbols-outlined text-[16px]">pets</span>ペット</button>
+<button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="board" type="button"><span class="material-symbols-outlined text-[16px]">forum</span>掲示板</button>
+</div>
+<!-- タブ内容 -->
+<div class="flex flex-col" id="home-tab-panel-news">
+<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-news-list"></div>
+<button onclick="switchScreen('news')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+<div class="flex flex-col" id="home-tab-panel-goods" style="display:none">
+<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-goods-list"></div>
+<button onclick="switchScreen('goods')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+<div class="flex flex-col" id="home-tab-panel-find" style="display:none">
+<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-find-list"></div>
+<button onclick="switchScreen('find')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+<div class="flex flex-col" id="home-tab-panel-pets" style="display:none">
+<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-pets-list"></div>
+<button onclick="switchScreen('pets')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+<div class="flex flex-col" id="home-tab-panel-board" style="display:none">
+<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-board-list"></div>
+<button onclick="switchScreen('board')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+<!-- 1週間の天気予報 -->
+<section class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[18px]">partly_cloudy_day</span>1週間の天気予報（熊本）</h3>
+<div class="flex gap-2 overflow-x-auto hide-scrollbar bg-surface-container-lowest rounded-xl border border-divider-line p-3 premium-shadow" id="home-weather-list"></div>
+</section>
+</main>
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-current="page" aria-label="ホーム" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm text-label-sm mt-1">ペット</span>
+</button>
+<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+</nav>
+</div>
+<!-- ===================== 人探し（つながり）画面 ＝ Stitch _5 ===================== -->
+<div id="root-find" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="設定・アプリ情報" onclick="openSettings()" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<div class="flex flex-col leading-none">
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight">Tsunagaru Kumamoto</h1>
+<span class="text-forest-deep/70 tracking-[0.15em]" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながるくまもと</span>
+</div>
+</div>
+<div class="flex items-center">
+<div id="find-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="find-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="find-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
+<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">diversity_1</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-forest-deep tracking-tight">さがす</h2>
+<p class="font-label-sm text-label-sm text-muted-gray">安否確認・情報共有掲示板</p>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-muted-gray flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">privacy_tip</span>
+氏名は一部伏せ字（例：田◯な）で表示され、照合は電話番号でのみ行われます。
+</p>
+</div>
+<div class="space-y-2 sticky top-16 z-30 bg-cream-bg/90 backdrop-blur-md py-1 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0">
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar" id="filter-area"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2" id="find-list"></div>
+</main>
+<button onclick="openFindForm()" aria-label="さがすを登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="font-label-lg text-label-lg">さがすを登録</span>
+</button>
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-current="page" aria-label="さがす" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm text-label-sm mt-1">ペット</span>
+</button>
+<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+</nav>
+</div>
+<!-- ===================== ペットを探す画面 ===================== -->
+<div id="root-pets" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="設定・アプリ情報" onclick="openSettings()" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<div class="flex flex-col leading-none">
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight">Tsunagaru Kumamoto</h1>
+<span class="text-forest-deep/70 tracking-[0.15em]" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながるくまもと</span>
+</div>
+</div>
+<div class="flex items-center">
+<div id="pets-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="pets-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="pets-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">pets</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">ペットを探す</h2>
+<p class="font-label-sm text-label-sm text-muted-gray">はぐれてしまったペットの情報共有掲示板</p>
+</div>
+</div>
+</div>
+<div class="space-y-2 sticky top-16 z-30 bg-cream-bg/90 backdrop-blur-md py-1 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0">
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-2" id="pets-filter-species">
+<button class="px-4 py-1.5 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content] bg-surface-container-high text-on-surface pet-filter-btn" data-val="all">すべて</button>
+<button class="px-4 py-1.5 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content] bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low pet-filter-btn" data-val="dog">犬</button>
+<button class="px-4 py-1.5 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content] bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low pet-filter-btn" data-val="cat">猫</button>
+<button class="px-4 py-1.5 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors min-w-[min-content] bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low pet-filter-btn" data-val="other">その他</button>
+</div>
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar" id="pets-filter-city"></div>
+</div>
+<div class="flex flex-col gap-2" id="pets-list"></div>
+</main>
+<button onclick="openPetForm()" aria-label="ペットを登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+<span class="font-label-lg text-label-lg">ペットを登録</span>
+</button>
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-current="page" aria-label="ペット" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pets</span>
+<span class="font-label-sm text-label-sm mt-1">ペット</span>
+</button>
+<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+</nav>
+</div>
+<!-- ===================== ニュース画面 ===================== -->
+<div id="root-news" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="設定・アプリ情報" onclick="openSettings()" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<div class="flex flex-col leading-none">
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight">Tsunagaru Kumamoto</h1>
+<span class="text-forest-deep/70 tracking-[0.15em]" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながるくまもと</span>
+</div>
+</div>
+<div class="flex items-center">
+<div id="news-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="news-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="news-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
+<div class="flex flex-col gap-3">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">newspaper</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-forest-deep tracking-tight">ニュース</h2>
+<p class="font-label-sm text-label-sm text-muted-gray">熊本地震に関する最新情報</p>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2" id="news-list"></div>
+</main>
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm text-label-sm mt-1">ペット</span>
+</button>
+<button onclick="switchScreen('news')" aria-current="page" aria-label="ニュース" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+</nav>
+</div>
+<!-- ===================== 掲示板（非ログイン利用） ===================== -->
+<div id="root-board" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="設定・アプリ情報" onclick="openSettings()" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<div class="flex flex-col leading-none">
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight">Tsunagaru Kumamoto</h1>
+<span class="text-forest-deep/70 tracking-[0.15em]" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながるくまもと</span>
+</div>
+</div>
+<div class="flex items-center">
+<div id="board-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="board-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="board-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">forum</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">掲示板</h2>
+<p class="font-label-sm text-label-sm text-muted-gray">みんなの声・情報交換掲示板</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2" id="board-list"></div>
+</main>
+<button onclick="openThreadForm()" aria-label="スレッドを立てる" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-lg text-label-lg">スレッドを立てる</span>
+</button>
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-current="page" aria-label="掲示板" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm text-label-sm mt-1">ペット</span>
+</button>
+<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+</nav>
+</div>
+<!-- ===================== 行政からのお知らせ（非ログイン投稿・承認制） ===================== -->
+<div id="root-gov" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="設定・アプリ情報" onclick="openSettings()" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<div class="flex flex-col leading-none">
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight">Tsunagaru Kumamoto</h1>
+<span class="text-forest-deep/70 tracking-[0.15em]" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながるくまもと</span>
+</div>
+</div>
+<div class="flex items-center">
+<div id="gov-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="gov-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="gov-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">campaign</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">行政からのお知らせ</h2>
+<p class="font-label-sm text-label-sm text-muted-gray">自治体からの公式情報（承認済みのみ表示）</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2" id="gov-list"></div>
+</main>
+<button onclick="openGovForm()" aria-label="行政の方はこちら" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-lg text-label-lg">行政の方はこちら</span>
+</button>
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-current="page" aria-label="行政" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm text-label-sm mt-1">ペット</span>
+</button>
+<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+</nav>
+</div>
+<!-- ===================== 管理者ページ（行政お知らせの承認・非公開導線） ===================== -->
+<div id="root-admin" style="display:none" class="min-h-screen bg-cream-bg">
+<div class="max-w-[640px] mx-auto px-margin-mobile py-8">
+<h1 class="font-headline-lg text-headline-lg text-forest-deep mb-1">管理者ページ</h1>
+<p class="font-body-sm text-body-sm text-muted-gray mb-6">行政からのお知らせの承認・却下を行います。</p>
+<div id="admin-login-box">
+<label class="input-label">管理者パスワード</label>
+<input class="form-input" id="admin-password" placeholder="パスワードを入力" type="password">
+<button class="btn-primary mt-3" onclick="adminLogin()">ログイン</button>
+</div>
+<div id="admin-review-box" style="display:none"></div>
+</div>
+</div>
+<!-- 人探し用オーバーレイ・トースト（グローバル） -->
+<div class="overlay-find" id="overlay-find"><div class="sheet-find" id="sheet-find"></div></div>
+<div class="toast-find" id="toast-find"></div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
+<script>
+        const { createApp } = Vue;
+const API = '/api';
+
+/* 熊本県内45市町村を網羅する市区町村マスタ（会員登録・掲示板・行政お知らせ・さがす等で共通利用） */
+const DISTRICTS = [
+  // 県央（熊本市5区＋近隣）
+  {name:'熊本市中央区', area:'県央'}, {name:'熊本市東区', area:'県央'}, {name:'熊本市西区', area:'県央'},
+  {name:'熊本市南区', area:'県央'}, {name:'熊本市北区', area:'県央'},
+  {name:'宇土市', area:'県央'}, {name:'宇城市', area:'県央'}, {name:'合志市', area:'県央'},
+  {name:'美里町', area:'県央'}, {name:'大津町', area:'県央'}, {name:'菊陽町', area:'県央'},
+  {name:'益城町', area:'県央'}, {name:'御船町', area:'県央'}, {name:'嘉島町', area:'県央'},
+  {name:'甲佐町', area:'県央'}, {name:'山都町', area:'県央'},
+  // 県北
+  {name:'荒尾市', area:'県北'}, {name:'玉名市', area:'県北'}, {name:'山鹿市', area:'県北'}, {name:'菊池市', area:'県北'},
+  {name:'玉東町', area:'県北'}, {name:'南関町', area:'県北'}, {name:'長洲町', area:'県北'}, {name:'和水町', area:'県北'},
+  // 県南
+  {name:'八代市', area:'県南'}, {name:'人吉市', area:'県南'}, {name:'水俣市', area:'県南'},
+  {name:'氷川町', area:'県南'}, {name:'芦北町', area:'県南'}, {name:'津奈木町', area:'県南'},
+  {name:'錦町', area:'県南'}, {name:'多良木町', area:'県南'}, {name:'湯前町', area:'県南'}, {name:'あさぎり町', area:'県南'},
+  {name:'水上村', area:'県南'}, {name:'相良村', area:'県南'}, {name:'五木村', area:'県南'}, {name:'山江村', area:'県南'}, {name:'球磨村', area:'県南'},
+  // 阿蘇
+  {name:'阿蘇市', area:'阿蘇'}, {name:'南阿蘇村', area:'阿蘇'}, {name:'南小国町', area:'阿蘇'},
+  {name:'小国町', area:'阿蘇'}, {name:'産山村', area:'阿蘇'}, {name:'高森町', area:'阿蘇'}, {name:'西原村', area:'阿蘇'},
+  // 天草
+  {name:'天草市', area:'天草'}, {name:'上天草市', area:'天草'}, {name:'苓北町', area:'天草'},
+];
+const AREAS = ['県央', '県北', '県南', '阿蘇', '天草'];
+
+let currentToken = null;
+function authHeaders() {
+    const h = { 'Content-Type': 'application/json' };
+    if (currentToken) h['Authorization'] = 'Bearer ' + currentToken;
+    return h;
+}
+async function apiFetch(path, opts) {
+    const res = await fetch(API + path, opts);
+    let body = null;
+    try { body = await res.json(); } catch (e) { /* no body */ }
+    if (!res.ok) throw new Error((body && body.error) || `リクエストに失敗しました (${res.status})`);
+    return body;
+}
+
+const goodsApp = createApp({
+    data() {
+        return {
+            me: null,
+            myProfile: null,
+            profiles: {},
+            cats: ['水', '食料', '衛生用品', '毛布・衣類', '日用品', 'その他'],
+            goodsType: 'all',
+            goodsArea: 'all',
+            goodsList: [],
+
+            activeItem: null,
+            chatInput: '',
+            applyMsg: '',
+
+            showCreateForm: false,
+            ng: { type: 'offer', cat: '水', title: '', qty: '', place: '', when: '', isFree: true, price: null, imageDataUrl: null },
+
+            showAppointmentForm: false,
+            apptForm: { partner: '', place: '', date: '', time: '', chkQty: false, chkCond: false, chkPlace: false, chkTime: false },
+
+            reviewStar: 0,
+            reviewMsg: '',
+
+            toast: { msg: '', visible: false, timeout: null },
+
+            showAuthSheet: false,
+            authMode: 'login',
+            authForm: { phone: '', code: '', password: '', password2: '', nickname: '', city: '', photoDataUrl: null },
+            otpSent: false,
+            otpDevCode: '',
+
+            showProfileSheet: false,
+            profileForm: { nickname: '', city: '', photoDataUrl: null },
+
+            lastSeenTime: Date.now() - 100000
+        }
+    },
+    computed: {
+        filteredGoods() {
+            let list = [...this.goodsList];
+
+            if (this.goodsType === 'progress') {
+                return list.filter(g =>
+                    (g.status === 'nego' || g.status === 'reserved') &&
+                    this.isParticipant(g)
+                ).sort((a, b) => (b.updated || b.created) - (a.updated || a.created));
+            }
+
+            if (this.goodsType !== 'all') {
+                list = list.filter(g => g.type === this.goodsType);
+            }
+            if (this.goodsArea !== 'all') {
+                list = list.filter(g => g.district === this.goodsArea);
+            }
+
+            list = list.filter(g => g.status === 'open' || g.status === 'nego');
+
+            return list.sort((a, b) => b.created - a.created);
+        },
+        goodsDistricts() {
+            const counts = {};
+            this.goodsList.forEach(g => { counts[g.district] = (counts[g.district] || 0) + 1; });
+            return Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+        },
+        stepIndex() {
+            if (!this.activeItem) return -1;
+            const map = { 'open': 0, 'nego': 1, 'reserved': 2, 'done': 3 };
+            return map[this.activeItem.status] || 0;
+        },
+        isApptFormValid() {
+            return this.apptForm.place && this.apptForm.date && this.apptForm.time &&
+                   this.apptForm.chkQty && this.apptForm.chkCond &&
+                   this.apptForm.chkPlace && this.apptForm.chkTime;
+        },
+        newProgressCount() {
+            return this.goodsList.filter(g =>
+                (g.status === 'nego' || g.status === 'reserved') &&
+                this.isParticipant(g) &&
+                (g.updated || g.created) > this.lastSeenTime &&
+                g.nick !== this.me
+            ).length;
+        }
+    },
+    methods: {
+        showToast(msg) {
+            this.toast.msg = msg;
+            this.toast.visible = true;
+            if (this.toast.timeout) clearTimeout(this.toast.timeout);
+            this.toast.timeout = setTimeout(() => { this.toast.visible = false; }, 3000);
+        },
+        getImageForCat(cat) {
+            const imgMap = {
+                '水': 'https://storage.googleapis.com/aida-studio-stage-bucket/AB6AXuAMsZ4g8n0v7F5Xw9XGg_c45w-C6pL_e4rA4sA7tT0gBfL2c4x609y2d02c89285098e9b8979c4501a343b4_d24666cf-448a-4db3-9827-c10444dd115f.jpeg',
+                '毛布・衣類': 'https://storage.googleapis.com/aida-studio-stage-bucket/AB6AXuAh7tS4B07yq3zGk9G9Tf7m0B3wR8z1c8yL9H4lQ6bN1eX8e9g8e3a89e9f60f4e1f74811a4cf1356fcf7c4_fcd4843b-be49-41b4-82a9-c0bb6fdbd42b.jpeg',
+                '食料': 'https://storage.googleapis.com/aida-studio-stage-bucket/AB6AXuAQ6m0G4s1D0c6b1Q8V0D3R6v5M8W5N3Z2B3x1X3b8w5y5E0p7Q2Y4X3p9q4V9b3u1D3M2X3B9L8v9A0_5e9f8485-6126-4076-afde-86efba5e6d6d.jpeg'
+            };
+            return imgMap[cat] || null;
+        },
+        formatDate(ts) {
+            if (!ts) return '';
+            const d = new Date(ts);
+            return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+        },
+        countMatches(item) {
+            const opp = item.type === 'request' ? 'offer' : 'request';
+            return this.goodsList.filter(g => g.type === opp && g.cat === item.cat && g.status === 'open').length;
+        },
+        isOwner(item) {
+            return item.nick === this.me;
+        },
+        isParticipant(item) {
+            if (this.isOwner(item)) return true;
+            if (item.deal && (item.deal.partner === this.me || item.deal.owner === this.me)) return true;
+            if (item.applicants && item.applicants.some(a => a.nick === this.me)) return true;
+            return false;
+        },
+        hasApplied(item) {
+            return item.applicants && item.applicants.some(a => a.nick === this.me);
+        },
+        getPartnerName(item) {
+            if (item.deal) {
+                return item.deal.partner === this.me ? item.deal.owner : item.deal.partner;
+            }
+            return this.isOwner(item) ? `応募 ${item.applicants.length}件` : item.nick;
+        },
+        getOtherParty(item) {
+            return item.nick === this.me ? item.deal.partner : item.nick;
+        },
+        getGiver(item) {
+            return item.type === 'offer' ? item.nick : item.deal.partner;
+        },
+        getTaker(item) {
+            return item.type === 'offer' ? item.deal.partner : item.nick;
+        },
+
+        // ---- サーバー同期 ----
+        async loadProfiles() {
+            this.profiles = await apiFetch('/profiles');
+        },
+        async loadGoods() {
+            this.goodsList = await apiFetch('/goods');
+        },
+        applyUpdatedGoods(updated) {
+            const idx = this.goodsList.findIndex(g => g.id === updated.id);
+            if (idx >= 0) this.goodsList.splice(idx, 1, updated);
+            else this.goodsList.unshift(updated);
+            if (this.activeItem && this.activeItem.id === updated.id) this.activeItem = updated;
+        },
+
+        openItem(item) {
+            this.activeItem = item;
+            this.applyMsg = '';
+            setTimeout(() => {
+                if (this.$refs.chatbox) {
+                    this.$refs.chatbox.scrollTop = this.$refs.chatbox.scrollHeight;
+                }
+            }, 50);
+        },
+        closeItem() {
+            this.activeItem = null;
+        },
+
+        openCreate() {
+            if (!this.me) { this.openAccountSheet(); return; }
+            this.ng = { type: 'offer', cat: '水', title: '', qty: '', place: '', when: '', isFree: true, price: null, imageDataUrl: null };
+            this.showCreateForm = true;
+        },
+        onGoodsImageSelected(e) {
+            const file = e.target.files && e.target.files[0];
+            if (!file) { this.ng.imageDataUrl = null; return; }
+            if (file.size > 3 * 1024 * 1024) { this.showToast('⚠️ 画像サイズは3MB以内にしてください'); e.target.value = ''; return; }
+            const reader = new FileReader();
+            reader.onload = () => { this.ng.imageDataUrl = reader.result; };
+            reader.readAsDataURL(file);
+        },
+        async submitGoods() {
+            try {
+                const created = await apiFetch('/goods', {
+                    method: 'POST',
+                    headers: authHeaders(),
+                    body: JSON.stringify(this.ng)
+                });
+                this.goodsList.unshift(created);
+                this.showCreateForm = false;
+                this.showToast('✅ 投稿しました');
+                if (this.goodsType !== 'all' && this.goodsType !== created.type) this.goodsType = 'all';
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+
+        async applyGoods() {
+            if (!this.activeItem) return;
+            if (!this.me) { this.closeItem(); this.openAccountSheet(); return; }
+            try {
+                const updated = await apiFetch(`/goods/${this.activeItem.id}/apply`, {
+                    method: 'POST',
+                    headers: authHeaders(),
+                    body: JSON.stringify({ msg: this.applyMsg })
+                });
+                this.applyUpdatedGoods(updated);
+                this.showToast('✅ 申し出ました。チャットで調整しましょう');
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+
+        async sendChat() {
+            if (!this.activeItem || !this.chatInput.trim()) return;
+            if (!this.me) { this.closeItem(); this.openAccountSheet(); return; }
+            const text = this.chatInput.trim();
+            try {
+                const updated = await apiFetch(`/goods/${this.activeItem.id}/chat`, {
+                    method: 'POST',
+                    headers: authHeaders(),
+                    body: JSON.stringify({ text })
+                });
+                this.applyUpdatedGoods(updated);
+                this.chatInput = '';
+                setTimeout(() => {
+                    if (this.$refs.chatbox) {
+                        this.$refs.chatbox.scrollTop = this.$refs.chatbox.scrollHeight;
+                    }
+                }, 50);
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+
+        openAppointment(partnerNick) {
+            const today = new Date();
+            const tomorrow = new Date(today.getTime() + 864e5).toISOString().slice(0, 10);
+
+            this.apptForm = {
+                partner: partnerNick,
+                place: this.activeItem.place === '応相談' ? '' : this.activeItem.place,
+                date: tomorrow,
+                time: '12:00',
+                chkQty: false, chkCond: false, chkPlace: false, chkTime: false
+            };
+            this.showAppointmentForm = true;
+        },
+
+        async finalizeAppointment() {
+            if (!this.activeItem) return;
+            try {
+                const updated = await apiFetch(`/goods/${this.activeItem.id}/appointment`, {
+                    method: 'POST',
+                    headers: authHeaders(),
+                    body: JSON.stringify({
+                        partner: this.apptForm.partner,
+                        place: this.apptForm.place,
+                        date: this.apptForm.date,
+                        time: this.apptForm.time
+                    })
+                });
+                this.applyUpdatedGoods(updated);
+                this.showAppointmentForm = false;
+                this.showToast('📅 予約成立。当日は双方で受け渡し確認を');
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+
+        async confirmDeal(role) {
+            if (!this.activeItem || !this.activeItem.deal) return;
+            try {
+                const { goods, bothDone } = await apiFetch(`/goods/${this.activeItem.id}/confirm`, {
+                    method: 'POST',
+                    headers: authHeaders(),
+                    body: JSON.stringify({ role })
+                });
+                this.applyUpdatedGoods(goods);
+                if (bothDone) {
+                    await this.loadProfiles();
+                    this.showToast('🎉 受け渡し完了！相互評価をお願いします');
+                } else {
+                    this.showToast('確認しました。相手の確認をお待ちください');
+                }
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+
+        hasReviewed(item) {
+            return item.deal && item.deal.reviewed && item.deal.reviewed[this.me];
+        },
+
+        async submitReview() {
+            if (!this.activeItem || this.reviewStar === 0) return;
+            try {
+                const updated = await apiFetch(`/goods/${this.activeItem.id}/review`, {
+                    method: 'POST',
+                    headers: authHeaders(),
+                    body: JSON.stringify({ star: this.reviewStar, msg: this.reviewMsg })
+                });
+                this.applyUpdatedGoods(updated);
+                await this.loadProfiles();
+                this.showToast('⭐ 評価を送信しました。ありがとうございました');
+                setTimeout(() => { this.closeItem(); }, 1500);
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+
+        async reportNoShow() {
+            if (!confirm(`お相手をノーショー（無断キャンセル）として報告しますか？\n募集中に戻ります。`)) return;
+            try {
+                const updated = await apiFetch(`/goods/${this.activeItem.id}/no-show`, {
+                    method: 'POST',
+                    headers: authHeaders()
+                });
+                this.applyUpdatedGoods(updated);
+                await this.loadProfiles();
+                this.showToast('ノーショーを報告しました。募集中に戻りました');
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+
+        async cancelDeal() {
+            if (!confirm('予約を取り消して募集中に戻しますか？')) return;
+            try {
+                const updated = await apiFetch(`/goods/${this.activeItem.id}/cancel`, {
+                    method: 'POST',
+                    headers: authHeaders()
+                });
+                this.applyUpdatedGoods(updated);
+                this.showToast('予約をキャンセルしました');
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+
+        markSeen() {
+            this.lastSeenTime = Date.now();
+        },
+
+        openAccountSheet() {
+            if (this.me) {
+                this.profileForm = { nickname: this.me, city: (this.myProfile && this.myProfile.city) || '', photoDataUrl: null };
+                this.showProfileSheet = true;
+            } else {
+                this.authMode = 'login';
+                this.authForm = { phone: '', code: '', password: '', password2: '', nickname: '', city: '', photoDataUrl: null };
+                this.otpSent = false;
+                this.otpDevCode = '';
+                this.showAuthSheet = true;
+            }
+        },
+        setAuthMode(mode) {
+            this.authMode = mode;
+            this.otpSent = false;
+            this.otpDevCode = '';
+        },
+        onAuthPhotoSelected(e) {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            if (file.size > 3 * 1024 * 1024) { this.showToast('⚠️ 画像サイズは3MB以内にしてください'); e.target.value = ''; return; }
+            const reader = new FileReader();
+            reader.onload = () => { this.authForm.photoDataUrl = reader.result; };
+            reader.readAsDataURL(file);
+        },
+        onProfilePhotoSelected(e) {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            if (file.size > 3 * 1024 * 1024) { this.showToast('⚠️ 画像サイズは3MB以内にしてください'); e.target.value = ''; return; }
+            const reader = new FileReader();
+            reader.onload = () => { this.profileForm.photoDataUrl = reader.result; };
+            reader.readAsDataURL(file);
+        },
+        async requestOtp() {
+            if (!this.authForm.phone) { this.showToast('⚠️ 電話番号を入力してください'); return; }
+            try {
+                const data = await apiFetch('/auth/request-otp', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone: this.authForm.phone })
+                });
+                this.otpSent = true;
+                this.otpDevCode = data.devCode;
+                this.showToast(`📩 デモ環境のため認証コードを表示します：${data.devCode}`);
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+        applyAuthResult(data) {
+            currentToken = data.token;
+            localStorage.setItem('kt_token', data.token);
+            this.me = data.profile.name;
+            this.myProfile = data.profile;
+        },
+        async submitRegister() {
+            if (this.authForm.password !== this.authForm.password2) { this.showToast('⚠️ パスワードが一致しません'); return; }
+            try {
+                const data = await apiFetch('/auth/register', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(this.authForm)
+                });
+                this.applyAuthResult(data);
+                this.showAuthSheet = false;
+                await this.loadGoods();
+                this.showToast('✅ 登録しました');
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+        async submitLogin() {
+            try {
+                const data = await apiFetch('/auth/login', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone: this.authForm.phone, password: this.authForm.password })
+                });
+                this.applyAuthResult(data);
+                this.showAuthSheet = false;
+                await this.loadGoods();
+                this.showToast(`👋 ${data.profile.name} としてログインしました`);
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+        async saveProfile() {
+            try {
+                const payload = { nickname: this.profileForm.nickname, city: this.profileForm.city };
+                if (this.profileForm.photoDataUrl) payload.photoDataUrl = this.profileForm.photoDataUrl;
+                const profile = await apiFetch('/me', {
+                    method: 'POST', headers: authHeaders(), body: JSON.stringify(payload)
+                });
+                this.me = profile.name;
+                this.myProfile = profile;
+                this.showProfileSheet = false;
+                await this.loadGoods();
+                this.showToast('✅ 更新しました');
+            } catch (e) {
+                this.showToast(`⚠️ ${e.message}`);
+            }
+        },
+        async logout() {
+            try { await apiFetch('/auth/logout', { method: 'POST', headers: authHeaders() }); } catch (e) { /* best-effort */ }
+            currentToken = null;
+            localStorage.removeItem('kt_token');
+            this.me = null;
+            this.myProfile = null;
+            this.showProfileSheet = false;
+            this.closeItem();
+            await this.loadGoods();
+            this.showToast('ログアウトしました');
+        }
+    },
+    async mounted() {
+        const saved = localStorage.getItem('kt_token');
+        if (saved) currentToken = saved;
+        const tasks = [this.loadProfiles(), this.loadGoods()];
+        if (saved) {
+            tasks.push(apiFetch('/me', { headers: authHeaders() })
+                .then(profile => { this.myProfile = profile; this.me = profile.name; })
+                .catch(() => { currentToken = null; localStorage.removeItem('kt_token'); }));
+        }
+        await Promise.all(tasks);
+    }
+});
+const vm = goodsApp.mount('#app');
+window.vm = vm;
+    </script>
+<script>
+/* ===================== 人探し（find）ロジック ＝ Stitch _5 ===================== */
+const FIND_API = '/api';
+let persons = [];
+const verifiedPhones = {}; // { personId: '照合に使った電話番号' } 送信時の再照合に使う（サーバー再送信）
+// DISTRICTS / AREAS（市区町村マスタ）は最初の <script> ブロック（Vueアプリより前）で定義済み
+let findArea = 'all';
+function esc(s) { return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) }
+function fmtRelTime(ts) { const ms = Date.now() - ts; const h = Math.floor(ms / 3600000); if (h < 1) return 'たった今'; if (h < 24) return `${h}時間前`; const d = Math.floor(h / 24); if (d === 1) return '昨日'; return `${d}日前`; }
+function fmtDate(ts) { const d = new Date(ts); return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
+async function findApiFetch(path, opts) {
+    const res = await fetch(FIND_API + path, opts);
+    let body = null;
+    try { body = await res.json(); } catch (e) { /* no body */ }
+    if (!res.ok) throw new Error((body && body.error) || `リクエストに失敗しました (${res.status})`);
+    return body;
+}
+function overlay(h) { document.getElementById('sheet-find').innerHTML = h; document.getElementById('overlay-find').classList.add('show'); }
+function closeOverlay() { document.getElementById('overlay-find').classList.remove('show'); }
+document.getElementById('overlay-find').addEventListener('click', e => { if(e.target.id === 'overlay-find') closeOverlay(); });
+function toast(m) { const t = document.getElementById('toast-find'); t.textContent = m; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
+function initFilters() {
+    renderAreaChips();
+}
+function personCityCounts() {
+    const counts = {};
+    persons.forEach(p => { counts[p.city] = (counts[p.city] || 0) + 1; });
+    return Object.keys(counts).filter(Boolean).sort((a, b) => counts[b] - counts[a]);
+}
+function renderAreaChips() {
+    const c = document.getElementById('filter-area');
+    const cities = personCityCounts();
+    let h = `<button class="font-label-sm text-label-sm px-3 py-1 rounded-md transition-colors whitespace-nowrap ${findArea === 'all' ? 'bg-forest-deep text-white' : 'bg-white border border-divider-line text-muted-gray hover:bg-surface-container-low'}" onclick="setFindArea('all')">すべて</button>`;
+    cities.forEach(city => { h += `<button class="font-label-sm text-label-sm px-3 py-1 rounded-md transition-colors whitespace-nowrap ${findArea === city ? 'bg-forest-deep text-white' : 'bg-white border border-divider-line text-muted-gray hover:bg-surface-container-low'}" onclick="setFindArea('${esc(city)}')">${esc(city)}</button>`; });
+    c.innerHTML = h;
+}
+function setFindArea(a) { findArea = a; renderAreaChips(); renderFind(); }
+async function refreshPersons() {
+    persons = await findApiFetch('/persons');
+    renderAreaChips();
+    renderFind();
+    renderHomeFind();
+}
+function homePersonRowHtml(p) {
+    const isOk = p.status === 'ok';
+    const statusLabel = isOk ? '確認済み' : '確認中';
+    const statusColor = isOk ? 'text-[#137333]' : 'text-muted-gray';
+    return `<div onclick="openVerify('${p.id}')" class="flex items-center gap-3 py-3 border-b border-divider-line cursor-pointer active:opacity-70">
+        <div class="flex-1 min-w-0">
+            <span class="font-label-sm text-label-sm ${statusColor} font-bold">${statusLabel}</span>
+            <p class="font-label-lg text-label-lg text-charcoal-text truncate">${esc(p.maskedName)}　${esc(p.pref)} ${esc(p.city)}</p>
+        </div>
+        <span class="material-symbols-outlined text-muted-gray text-[20px] flex-none">chevron_right</span>
+    </div>`;
+}
+function renderHomeFind() {
+    const el = document.getElementById('home-find-list');
+    if (!el) return;
+    const list = [...persons].sort((a,b) => b.created - a.created).slice(0, 5);
+    el.innerHTML = list.length ? list.map(homePersonRowHtml).join('') : `<p class="font-body-sm text-body-sm text-muted-gray py-3">該当する登録はありません</p>`;
+}
+function personCardHtml(p) {
+    const isOk = p.status === 'ok';
+    const statusTag = isOk ? `<span class="inline-flex items-center px-2 py-1 bg-[#E6F4EA] text-[#137333] font-label-sm text-label-sm rounded-md tracking-wider gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span>確認済み</span>` : `<span class="inline-flex items-center px-2 py-1 bg-surface-container text-on-surface-variant font-label-sm text-label-sm rounded-md tracking-wider">確認中</span>`;
+    // 一覧では件数のみ表示し、メッセージ本文（個人情報になりうる）は照合後にしか出さない
+    const msgs = p.messageCount ? `<span class="text-primary font-label-sm text-label-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">chat</span>${p.messageCount}件の情報</span>` : '<span></span>';
+    return `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 shadow-[0_4px_12px_rgba(100,93,84,0.05)] cursor-pointer hover:scale-[0.98] transition-transform duration-200 ${isOk ? 'opacity-85' : ''}" onclick="openVerify('${p.id}')">
+            <div class="flex items-center gap-2 mb-2">${statusTag}<span class="font-body-sm text-body-sm text-muted-gray flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span>${fmtRelTime(p.created)}</span></div>
+            <h4 class="font-headline-sm text-headline-sm ${isOk ? 'text-muted-gray' : 'text-charcoal-text'} text-balance">${esc(p.maskedName)}</h4>
+            <p class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-[18px]">location_on</span>${esc(p.pref)} ${esc(p.city)}</p>
+            <div class="flex items-center justify-between mt-2 pt-2 border-t border-divider-line">
+                ${msgs}
+                <span class="text-primary font-label-sm text-label-sm flex items-center gap-1">詳細・照合する <span class="material-symbols-outlined text-[16px]">chevron_right</span></span>
+            </div>
+        </div>`;
+}
+function renderFind() {
+    const list = persons.filter(p => findArea === 'all' || p.city === findArea).sort((a,b) => b.created - a.created);
+    const el = document.getElementById('find-list');
+    if(!list.length) { el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50">search_off</span><p>該当する登録はありません</p></div>`; return; }
+    el.innerHTML = list.map(personCardHtml).join('');
+}
+function openVerify(pid) {
+    const p = persons.find(x => x.id === pid);
+    overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <h2>${esc(p.maskedName)} さんの情報を確認</h2>
+        <p class="sub">この方の<b>電話番号（携帯 または 自宅）</b>をご存じの場合のみ、詳細を確認・連絡できます。</p>
+        <label>電話番号を入力して照合</label>
+        <input id="v-phone" inputmode="tel" placeholder="例）090-1234-5678 または 0964-99-0000">
+        <div class="hint">ハイフンは有無どちらでも構いません。</div>
+        <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button><button class="primary" onclick="doVerify('${p.id}')">照合する</button></div>`);
+    setTimeout(() => { const el=document.getElementById('v-phone'); if(el) el.focus(); }, 150);
+}
+async function doVerify(pid) {
+    const phone = document.getElementById('v-phone').value.trim();
+    if(!phone) { toast('電話番号を入力してください'); return; }
+    try {
+        const detail = await findApiFetch(`/persons/${pid}/verify`, {
+            method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ phone })
+        });
+        verifiedPhones[pid] = phone;
+        showPersonDetail(detail);
+    } catch (e) {
+        toast(e.message);
+    }
+}
+function showPersonDetail(p) {
+    const msgs = p.messages.map(m => `<div class="msgbox"><div class="from">${esc(m.from)}・${fmtDate(m.at)}</div>${esc(m.text)}</div>`).join('') || '<div class="hint" style="margin-top:16px">まだメッセージはありません。</div>';
+    overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <div class="notice success"><span class="material-symbols-outlined">check_circle</span><div>照合成功。詳細を表示しています。</div></div>
+        <h2>${esc(p.name)} さん</h2>
+        <p class="sub">捜索を登録した方へ連絡できます。</p>
+        ${p.photoPath ? `<img src="${esc(p.photoPath)}" alt="写真" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;">` : ''}
+        <div class="kv"><b>お名前</b><span>${esc(p.name)}</span></div>
+        <div class="kv"><b>在住</b><span>${esc(p.pref)} ${esc(p.city)}</span></div>
+        <div class="kv"><b>携帯</b><span>${esc(p.mobile) || '—'}</span></div>
+        <div class="kv"><b>自宅</b><span>${esc(p.home) || '—'}</span></div>
+        <div class="kv"><b>登録者</b><span>${esc(p.requester) || '—'}</span></div>
+        <div class="kv" style="border-bottom:0"><b>状態</b><span>${p.status === 'ok' ? '確認済み' : '確認中'}</span></div>
+        ${p.status !== 'ok' ? `<div style="margin-top:24px;border-top:1px solid #E5E7E9;padding-top:24px">
+            <label>捜索を登録した方へメッセージ<span class="opt">（安否や居場所など）</span></label>
+            <textarea id="m-text" placeholder="例）本人は◯◯避難所で無事です。落ち着いたらご連絡します。"></textarea>
+            <label>あなたのお名前・関係 <span class="opt">（任意）</span></label>
+            <input id="m-from" placeholder="例）近所の△△／親戚">
+            <div class="notice warn"><span class="material-symbols-outlined">warning</span><div>送信すると状態が<b>「確認済み」</b>に更新され、登録者メール（${esc(p.email)}）へ<b>通知</b>されます。</div></div>
+            <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button><button class="primary" onclick="sendPersonMsg('${p.id}')">確認済みにして通知</button></div>
+        </div>` : `<div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button></div>`}
+        <div style="margin-top:32px"><h3 class="font-label-lg text-label-lg" style="border-bottom:1px solid #E5E7E9;padding-bottom:8px">これまでの情報</h3>${msgs}</div>`);
+}
+async function sendPersonMsg(pid) {
+    const text = document.getElementById('m-text').value.trim();
+    if(!text) { toast('メッセージを入力してください'); return; }
+    const from = document.getElementById('m-from').value.trim() || '情報提供者';
+    const phone = verifiedPhones[pid];
+    try {
+        await findApiFetch(`/persons/${pid}/message`, {
+            method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ phone, text, from })
+        });
+        await refreshPersons();
+        closeOverlay();
+        toast('確認済みとして通知を送信しました');
+    } catch (e) {
+        toast(e.message);
+    }
+}
+let findPhotoDataUrl = null;
+function onFindPhotoChange(input) {
+    const file = input.files && input.files[0];
+    if (!file) { findPhotoDataUrl = null; return; }
+    if (file.size > 3 * 1024 * 1024) { toast('画像サイズは3MB以内にしてください'); input.value = ''; return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+        findPhotoDataUrl = reader.result;
+        const preview = document.getElementById('f-photo-preview');
+        if (preview) { preview.src = findPhotoDataUrl; preview.style.display = ''; }
+        const label = document.getElementById('f-photo-label');
+        if (label) label.textContent = '写真を変更';
+    };
+    reader.readAsDataURL(file);
+}
+function openFindForm() {
+    findPhotoDataUrl = null;
+    const cityOpts = AREAS.map(a => `<optgroup label="${a}エリア">${DISTRICTS.filter(d => d.area === a).map(d => `<option>${d.name}</option>`).join('')}</optgroup>`).join('');
+    overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <h2>さがすを登録</h2>
+        <p class="sub">探している方の情報を登録します。氏名は一覧では頭1文字と末尾1文字のみ表示されます。</p>
+        <label>探している方のお名前 <span class="opt">（必須・ニックネームも可）</span></label>
+        <input id="f-name" placeholder="例）田中はな／はなちゃん">
+        <div class="two"><div><label>電話番号（携帯）</label><input id="f-mobile" inputmode="tel" placeholder="090-…"></div><div><label>電話番号（自宅）</label><input id="f-home" inputmode="tel" placeholder="0964-…"></div></div>
+        <div class="hint">携帯・自宅のどちらか一方、または両方をご入力ください（照合の鍵になります）。</div>
+        <label>在住の都道府県</label>
+        <select id="f-pref"><option>熊本県</option><option>福岡県</option><option>大分県</option><option>宮崎県</option><option>鹿児島県</option><option>長崎県</option><option>佐賀県</option><option>その他</option></select>
+        <label>市区町村（エリアで探せます）</label>
+        <select id="f-city">${cityOpts}<optgroup label="その他"><option>県外・その他</option></optgroup></select>
+        <label>写真 <span class="opt">（任意・照合成立後に表示されます）</span></label>
+        <label for="f-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:16px;">
+            <span class="material-symbols-outlined" style="font-size:20px;">photo_camera</span>
+            <span id="f-photo-label">写真を選択</span>
+        </label>
+        <input accept="image/*" id="f-photo" onchange="onFindPhotoChange(this)" type="file" style="display:none;">
+        <img alt="プレビュー" id="f-photo-preview" style="display:none;margin-top:8px;width:100%;height:160px;object-fit:cover;border-radius:12px;border:1px solid #E5E7E9;"/>
+        <label>あなた（登録者）のメールアドレス <span class="opt">（必須・通知用）</span></label>
+        <input id="f-email" inputmode="email" placeholder="例）you@example.com">
+        <div class="hint">情報が寄せられると、このアドレスへ通知が届きます。</div>
+        <label>あなたのお名前・関係 <span class="opt">（任意）</span></label>
+        <input id="f-req" placeholder="例）田中一郎（長男）">
+        <div class="actions"><button class="ghost" onclick="closeOverlay()">やめる</button><button class="primary" onclick="submitFind()">この内容で登録</button></div>`);
+}
+async function submitFind() {
+    const g = i => document.getElementById(i).value.trim();
+    const payload = { name: g('f-name'), mobile: g('f-mobile'), home: g('f-home'), pref: g('f-pref'), city: g('f-city'), email: g('f-email'), requester: g('f-req'), photoDataUrl: findPhotoDataUrl };
+    try {
+        await findApiFetch('/persons', {
+            method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload)
+        });
+        await refreshPersons();
+        closeOverlay();
+        toast('登録しました。情報をお待ちください');
+    } catch (e) {
+        toast(e.message);
+    }
+}
+initFilters();
+refreshPersons();
+
+/* ===================== 画面切替・設定 ===================== */
+let newsLoaded = false;
+const SCREEN_META = {
+    home: { path: '/', title: 'つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ', description: '熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認、迷子ペットの捜索、熊本地震関連の最新ニュースを一つのアプリで。' },
+    goods: { path: '/support', title: '物資の支援｜つながるくまもと', description: '水・食料・毛布などの物資を無料または有料でゆずる・もとめる掲示板。' },
+    find: { path: '/find', title: 'さがす（安否確認）｜つながるくまもと', description: '熊本地震の被災者の安否確認・情報共有掲示板。氏名は一部伏せ字表示、電話番号照合で本人確認します。' },
+    pets: { path: '/pets', title: 'ペットを探す｜つながるくまもと', description: 'はぐれてしまったペットの捜索・目撃情報共有掲示板。' },
+    news: { path: '/news', title: 'ニュース｜つながるくまもと', description: '熊本地震に関する最新ニュースをまとめて表示します。' },
+    board: { path: '/board', title: '掲示板｜つながるくまもと', description: 'みんなの声・情報交換掲示板。ログイン不要でスレッドを立て、匿名でコメントできます。' },
+    gov: { path: '/gov', title: '行政からのお知らせ｜つながるくまもと', description: '自治体・行政からのお知らせを掲載。給水・避難所・罹災証明など最新情報をお届けします。' },
+};
+function screenForPath(pathname) {
+    const found = Object.entries(SCREEN_META).find(([, m]) => m.path === pathname);
+    return found ? found[0] : 'home';
+}
+function applyScreenMeta(s) {
+    const meta = SCREEN_META[s] || SCREEN_META.home;
+    document.title = meta.title;
+    const descEl = document.querySelector('meta[name="description"]');
+    if (descEl) descEl.setAttribute('content', meta.description);
+}
+function switchScreen(s, opts){
+    const pushHistory = !opts || opts.push !== false;
+    document.getElementById('root-home').style.display = s === 'home' ? '' : 'none';
+    document.getElementById('goods-screen-content').style.display = s === 'goods' ? '' : 'none';
+    document.getElementById('root-find').style.display = s === 'find' ? '' : 'none';
+    document.getElementById('root-pets').style.display = s === 'pets' ? '' : 'none';
+    document.getElementById('root-news').style.display = s === 'news' ? '' : 'none';
+    document.getElementById('root-board').style.display = s === 'board' ? '' : 'none';
+    document.getElementById('root-gov').style.display = s === 'gov' ? '' : 'none';
+    if (s === 'news' && !newsLoaded) { newsLoaded = true; loadNews(); }
+    if (s === 'pets') { refreshPets(); }
+    if (s === 'board') { refreshThreads(); }
+    if (s === 'gov') { refreshGovNotices(); }
+    if (s === 'home') { loadHomePreviews(); }
+    applyScreenMeta(s);
+    if (pushHistory) {
+        const meta = SCREEN_META[s] || SCREEN_META.home;
+        if (location.pathname !== meta.path) history.pushState({ screen: s }, '', meta.path);
+    }
+    window.scrollTo(0,0);
+}
+window.addEventListener('popstate', () => {
+    switchScreen(screenForPath(location.pathname), { push: false });
+});
+function openSettings(){
+    overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <h2>設定・情報</h2>
+        <p class="sub">つながるくまもと（美里町発）｜ 熊本県の災害時 助け合いプラットフォーム。</p>
+        <div class="kv"><b>操作切替</b><span>画面上部のアイコンから相手役に切替えて双方フローを体験できます。</span></div>
+        <div class="kv" style="border-bottom:0"><b>データ</b><span>サーバー（SQLite）に保存されます。</span></div>
+        <div class="notice"><span class="material-symbols-outlined">info</span><div>これはプロトタイプです。メール送信は画面上のシミュレーション表示です。</div></div>
+        <div class="notice warn"><span class="material-symbols-outlined">emergency</span><div>緊急時は 消防・救急 119／警察 110／各市町村役場・熊本県災害用ダイヤルへ。</div></div>
+        <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button></div>`);
+}
+function openUserSwitcher(){
+    if (window.vm) window.vm.openAccountSheet();
+}
+function syncHeaderAvatars(){
+    if (!window.vm) return;
+    const me = window.vm.me;
+    const photo = window.vm.myProfile && window.vm.myProfile.photoPath;
+    ['home', 'find', 'pets', 'news', 'board', 'gov'].forEach(prefix => {
+        const label = document.getElementById(prefix + '-header-avatar-label');
+        const img = document.getElementById(prefix + '-header-avatar-img');
+        if (!label) return;
+        if (photo) {
+            if (img) { img.src = photo; img.style.display = ''; }
+            label.style.display = 'none';
+            label.textContent = '';
+        } else {
+            if (img) { img.style.display = 'none'; img.src = ''; }
+            label.style.display = '';
+            if (me) {
+                label.textContent = me.charAt(0);
+                label.classList.remove('material-symbols-outlined');
+                label.style.fontFamily = '';
+            } else {
+                label.textContent = 'person';
+                label.style.fontFamily = "'Material Symbols Outlined'";
+                label.classList.add('material-symbols-outlined');
+            }
+        }
+    });
+}
+if (window.vm) {
+    syncHeaderAvatars();
+    window.vm.$watch('me', syncHeaderAvatars);
+    window.vm.$watch('myProfile', syncHeaderAvatars, { deep: true });
+    window.vm.$watch('goodsList', renderHomeGoodsIfVisible, { deep: true });
+}
+
+/* ---- ペットを探す（非ログイン利用） ---- */
+let pets = [];
+let petFilterSpecies = 'all';
+let petFilterCity = 'all';
+let petPhotoDataUrl = null;
+let petFormType = 'lost';
+let petFormSpecies = 'dog';
+
+function speciesLabel(s) { return s === 'dog' ? '犬' : s === 'cat' ? '猫' : s === 'other' ? 'その他' : s; }
+function genderLabel(g) { return g === 'male' ? 'オス' : g === 'female' ? 'メス' : '不明'; }
+function petTypeLabel(t) { return t === 'sighting' ? '見かけました' : 'さがしています'; }
+function petStatusLabel(p) {
+    if (p.type === 'sighting') return p.status === 'ok' ? '飼い主に連絡済み' : '飼い主募集中';
+    return p.status === 'ok' ? '見つかった' : '探し中';
+}
+
+function petCardHtml(p) {
+    const isOk = p.status === 'ok';
+    const typeTag = p.type === 'sighting'
+        ? `<span class="bg-mustard-accent/10 text-mustard-accent font-label-sm text-label-sm px-2.5 py-1 rounded border border-mustard-accent/20">見かけました</span>`
+        : `<span class="bg-primary-container text-on-primary-container font-label-sm text-label-sm px-2.5 py-1 rounded">さがしています</span>`;
+    const statusTag = isOk
+        ? `<span class="inline-flex items-center px-2 py-1 bg-[#E6F4EA] text-[#137333] font-label-sm text-label-sm rounded-md tracking-wider gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span>${petStatusLabel(p)}</span>`
+        : `<span class="inline-flex items-center px-2 py-1 bg-surface-container text-on-surface-variant font-label-sm text-label-sm rounded-md tracking-wider">${petStatusLabel(p)}</span>`;
+    const msgs = p.messages.length ? `<span class="text-primary font-label-sm text-label-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">chat</span>${p.messages.length}件の情報</span>` : '<span></span>';
+    return `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 shadow-[0_4px_12px_rgba(100,93,84,0.05)] cursor-pointer hover:scale-[0.98] transition-transform duration-200 ${isOk ? 'opacity-85' : ''}" onclick="openPetDetail('${p.id}')">
+        <div class="flex items-center gap-2 mb-2">${typeTag}${statusTag}</div>
+        <div class="flex gap-3">
+            <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line"><img src="${esc(p.photoPath)}" alt="${speciesLabel(p.species)}の写真" class="w-full h-full object-cover" loading="lazy" decoding="async"/></div>
+            <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1"><span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded">${speciesLabel(p.species)}・${genderLabel(p.gender)}</span></div>
+                <h4 class="font-headline-sm text-headline-sm text-charcoal-text line-clamp-1">${esc(p.breed)}</h4>
+                <p class="font-body-sm text-body-sm text-secondary flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-[16px]">location_on</span>${esc(p.location)}</p>
+            </div>
+        </div>
+        <div class="flex items-center justify-between mt-2 pt-2 border-t border-divider-line">
+            ${msgs}
+            <span class="text-primary font-label-sm text-label-sm flex items-center gap-1">詳細を見る <span class="material-symbols-outlined text-[16px]">chevron_right</span></span>
+        </div>
+    </div>`;
+}
+async function refreshPets() {
+    pets = await findApiFetch('/pets');
+    renderPetCityChips();
+    renderPets();
+    renderHomePets();
+}
+function renderPets() {
+    const el = document.getElementById('pets-list');
+    if (!el) return;
+    const list = pets.filter(p => (petFilterSpecies === 'all' || p.species === petFilterSpecies) && (petFilterCity === 'all' || p.city === petFilterCity)).sort((a, b) => b.created - a.created);
+    if (!list.length) { el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50">pets</span><p>該当する登録はありません</p></div>`; return; }
+    el.innerHTML = list.map(petCardHtml).join('');
+}
+function petCityCounts() {
+    const counts = {};
+    pets.forEach(p => { counts[p.city] = (counts[p.city] || 0) + 1; });
+    return Object.keys(counts).filter(Boolean).sort((a, b) => counts[b] - counts[a]);
+}
+function renderPetCityChips() {
+    const c = document.getElementById('pets-filter-city');
+    if (!c) return;
+    const cities = petCityCounts();
+    let h = `<button class="font-label-sm text-label-sm px-3 py-1 rounded-md transition-colors whitespace-nowrap ${petFilterCity === 'all' ? 'bg-forest-deep text-white' : 'bg-white border border-divider-line text-muted-gray hover:bg-surface-container-low'}" onclick="setPetsCity('all')">すべて</button>`;
+    cities.forEach(city => { h += `<button class="font-label-sm text-label-sm px-3 py-1 rounded-md transition-colors whitespace-nowrap ${petFilterCity === city ? 'bg-forest-deep text-white' : 'bg-white border border-divider-line text-muted-gray hover:bg-surface-container-low'}" onclick="setPetsCity('${esc(city)}')">${esc(city)}</button>`; });
+    c.innerHTML = h;
+}
+function setPetsCity(city) { petFilterCity = city; renderPetCityChips(); renderPets(); }
+function initPetFilters() {
+    const ACTIVE_PILL = ['bg-surface-container-high', 'text-on-surface'];
+    const INACTIVE_PILL = ['bg-white', 'text-muted-gray', 'border', 'border-divider-line', 'hover:bg-surface-container-low'];
+    document.querySelectorAll('#pets-filter-species .pet-filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('#pets-filter-species .pet-filter-btn').forEach(b => { b.classList.remove(...ACTIVE_PILL); b.classList.add(...INACTIVE_PILL); });
+            const target = e.currentTarget;
+            target.classList.remove(...INACTIVE_PILL);
+            target.classList.add(...ACTIVE_PILL);
+            petFilterSpecies = target.dataset.val;
+            renderPets();
+        });
+    });
+    renderPetCityChips();
+}
+function onPetPhotoChange(input) {
+    const file = input.files && input.files[0];
+    if (!file) { petPhotoDataUrl = null; return; }
+    if (file.size > 3 * 1024 * 1024) { toast('画像サイズは3MB以内にしてください'); input.value = ''; return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+        petPhotoDataUrl = reader.result;
+        const preview = document.getElementById('pet-photo-preview');
+        if (preview) { preview.src = petPhotoDataUrl; preview.style.display = ''; }
+        const label = document.getElementById('pet-photo-label');
+        if (label) label.textContent = '写真を変更';
+    };
+    reader.readAsDataURL(file);
+}
+function setPetFormSpecies(s) {
+    petFormSpecies = s;
+    const dogBtn = document.getElementById('pet-species-dog');
+    const catBtn = document.getElementById('pet-species-cat');
+    const otherBtn = document.getElementById('pet-species-other');
+    if (dogBtn) dogBtn.classList.toggle('on', s === 'dog');
+    if (catBtn) catBtn.classList.toggle('on', s === 'cat');
+    if (otherBtn) otherBtn.classList.toggle('on', s === 'other');
+    const label = document.getElementById('pet-breed-label');
+    const input = document.getElementById('pet-breed');
+    const breedLabel = s === 'dog' ? '犬種' : s === 'cat' ? '猫種' : '種類の詳細';
+    if (label) label.innerHTML = breedLabel + ' <span class="opt">（必須）</span>';
+    if (input) input.placeholder = (s === 'dog' ? '例）柴犬／MIX' : s === 'cat' ? '例）キジトラ／MIX' : '例）ウサギ／インコ');
+}
+function renderPetCityField() {
+    const el = document.getElementById('pet-city-field');
+    if (!el) return;
+    const loggedIn = !!(window.vm && window.vm.me);
+    if (petFormType === 'lost' && loggedIn) {
+        const city = (window.vm.myProfile && window.vm.myProfile.city) || '';
+        el.innerHTML = `<label>市区町村</label>
+            <div class="form-input" style="background:#F3F4F0;color:#191C1A;">${city ? esc(city) : '（プロフィールに市区町村が未設定です）'}</div>
+            <div class="hint">アカウントに登録済みの市区町村を利用します。変更はプロフィール編集から行えます。</div>`;
+    } else {
+        const cityOpts = AREAS.map(a => `<optgroup label="${a}エリア">${DISTRICTS.filter(d => d.area === a).map(d => `<option>${d.name}</option>`).join('')}</optgroup>`).join('');
+        el.innerHTML = `<label>市区町村 <span class="opt">（必須）</span></label>
+            <select id="pet-city"><option value="">選択してください</option>${cityOpts}<optgroup label="その他"><option>県外・その他</option></optgroup></select>`;
+    }
+}
+function getPetCityValue() {
+    const loggedIn = !!(window.vm && window.vm.me);
+    if (petFormType === 'lost' && loggedIn) return (window.vm.myProfile && window.vm.myProfile.city) || '';
+    const sel = document.getElementById('pet-city');
+    return sel ? sel.value : '';
+}
+function setPetFormType(t) {
+    petFormType = t;
+    const lostBtn = document.getElementById('pet-type-lost');
+    const sightingBtn = document.getElementById('pet-type-sighting');
+    if (lostBtn) lostBtn.classList.toggle('on', t === 'lost');
+    if (sightingBtn) sightingBtn.classList.toggle('on', t === 'sighting');
+    const sub = document.getElementById('pet-form-sub');
+    if (sub) sub.textContent = t === 'sighting' ? '保護した・見かけたペットの情報を登録します。' : 'はぐれてしまったペットの情報を登録します。';
+    const emailLabel = document.getElementById('pet-email-label');
+    if (emailLabel) emailLabel.innerHTML = (t === 'sighting' ? 'あなたの連絡先メールアドレス' : '飼い主のメールアドレス') + ' <span class="opt">（必須・通知用）</span>';
+    renderPetCityField();
+}
+function openPetForm() {
+    petPhotoDataUrl = null;
+    petFormType = 'lost';
+    petFormSpecies = 'dog';
+    overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <h2>ペットを登録</h2>
+        <p class="sub" id="pet-form-sub">はぐれてしまったペットの情報を登録します。</p>
+        <label>登録内容 <span class="opt">（必須）</span></label>
+        <div class="seg-control">
+            <button class="on" id="pet-type-lost" onclick="setPetFormType('lost')" type="button">さがしています</button>
+            <button id="pet-type-sighting" onclick="setPetFormType('sighting')" type="button">見かけました</button>
+        </div>
+        <label>動物の種類 <span class="opt">（必須）</span></label>
+        <div class="seg-control">
+            <button class="on" id="pet-species-dog" onclick="setPetFormSpecies('dog')" type="button">犬</button>
+            <button id="pet-species-cat" onclick="setPetFormSpecies('cat')" type="button">猫</button>
+            <button id="pet-species-other" onclick="setPetFormSpecies('other')" type="button">その他</button>
+        </div>
+        <label id="pet-breed-label">犬種 <span class="opt">（必須）</span></label>
+        <input id="pet-breed" placeholder="例）柴犬／MIX">
+        <label>性別 <span class="opt">（必須）</span></label>
+        <select id="pet-gender">
+            <option value="male">オス</option>
+            <option value="female">メス</option>
+            <option value="unknown">不明</option>
+        </select>
+        <div id="pet-city-field"></div>
+        <label>詳細な場所 <span class="opt">（必須）</span></label>
+        <input id="pet-location" placeholder="例）美里町中央公民館付近">
+        <label>写真 <span class="opt">（必須）</span></label>
+        <label for="pet-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:16px;">
+            <span class="material-symbols-outlined" style="font-size:20px;">photo_camera</span>
+            <span id="pet-photo-label">写真を選択</span>
+        </label>
+        <input accept="image/*" id="pet-photo" onchange="onPetPhotoChange(this)" type="file" style="display:none;">
+        <img alt="プレビュー" id="pet-photo-preview" style="display:none;margin-top:8px;width:100%;height:160px;object-fit:cover;border-radius:12px;border:1px solid #E5E7E9;">
+        <label id="pet-email-label">飼い主のメールアドレス <span class="opt">（必須・通知用）</span></label>
+        <input id="pet-email" inputmode="email" placeholder="例）you@example.com">
+        <div class="hint">情報が寄せられると、このアドレスへ通知が届きます。</div>
+        <label>特徴 <span class="opt">（任意）</span></label>
+        <textarea id="pet-characteristics" placeholder="例）首輪は赤色、右耳の先が少し折れています。"></textarea>
+        <div class="actions"><button class="ghost" onclick="closeOverlay()">やめる</button><button class="primary" onclick="submitPet()">この内容で登録</button></div>`);
+    renderPetCityField();
+}
+async function submitPet() {
+    const g = i => document.getElementById(i).value.trim();
+    const payload = {
+        type: petFormType,
+        species: petFormSpecies,
+        breed: g('pet-breed'),
+        gender: document.getElementById('pet-gender').value,
+        city: getPetCityValue(),
+        location: g('pet-location'),
+        photoDataUrl: petPhotoDataUrl,
+        email: g('pet-email'),
+        characteristics: g('pet-characteristics'),
+    };
+    if (!payload.city) { toast('市区町村を選択してください'); return; }
+    try {
+        await findApiFetch('/pets', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        await refreshPets();
+        closeOverlay();
+        toast('登録しました。情報をお待ちください');
+    } catch (e) {
+        toast(e.message);
+    }
+}
+function openPetDetail(id) {
+    const p = pets.find(x => x.id === id);
+    if (!p) return;
+    const isOk = p.status === 'ok';
+    const isSighting = p.type === 'sighting';
+    const msgs = p.messages.map(m => `<div class="msgbox"><div class="from">${esc(m.from)}・${fmtDate(m.at)}</div>${esc(m.text)}</div>`).join('') || '<div class="hint" style="margin-top:16px">まだ情報はありません。</div>';
+    const formBlock = isSighting
+        ? `<label>情報を伝える<span class="opt">（心当たりがあれば）</span></label>
+            <textarea id="pet-m-text" placeholder="例）迷子になった我が家の柴犬だと思います。特徴が一致します。"></textarea>
+            <label>あなたのお名前 <span class="opt">（任意）</span></label>
+            <input id="pet-m-from" placeholder="例）飼い主の△△">
+            <div class="notice warn"><span class="material-symbols-outlined">warning</span><div>送信すると状態が<b>「飼い主に連絡済み」</b>に更新され、投稿者へ<b>通知</b>されます。</div></div>
+            <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button><button class="primary" onclick="sendPetMsg('${p.id}')">自分のペットだと伝える</button></div>`
+        : `<label>情報を伝える<span class="opt">（見かけた場所・保護状況など）</span></label>
+            <textarea id="pet-m-text" placeholder="例）松橋駅の駐輪場付近で見かけました。"></textarea>
+            <label>あなたのお名前 <span class="opt">（任意）</span></label>
+            <input id="pet-m-from" placeholder="例）近所の△△">
+            <div class="notice warn"><span class="material-symbols-outlined">warning</span><div>送信すると状態が<b>「見つかった」</b>に更新され、飼い主へ<b>通知</b>されます。</div></div>
+            <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button><button class="primary" onclick="sendPetMsg('${p.id}')">見つかったことを伝える</button></div>`;
+    overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <h2>${esc(p.breed)}</h2>
+        <p class="sub">${petTypeLabel(p.type)}・${speciesLabel(p.species)}・${genderLabel(p.gender)}（${petStatusLabel(p)}）</p>
+        <img alt="${speciesLabel(p.species)}の写真" src="${esc(p.photoPath)}" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
+        <div class="kv"><b>市区町村</b><span>${esc(p.city) || '未設定'}</span></div>
+        <div class="kv"><b>場所</b><span>${esc(p.location)}</span></div>
+        <div class="kv" style="border-bottom:0"><b>特徴</b><span>${esc(p.characteristics) || '記載なし'}</span></div>
+        ${!isOk ? `<div style="margin-top:24px;border-top:1px solid #E5E7E9;padding-top:24px">${formBlock}</div>` : `<div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button></div>`}
+        <div style="margin-top:32px"><h3 class="font-label-lg text-label-lg" style="border-bottom:1px solid #E5E7E9;padding-bottom:8px">これまでの情報</h3>${msgs}</div>`);
+}
+async function sendPetMsg(id) {
+    const text = document.getElementById('pet-m-text').value.trim();
+    if (!text) { toast('メッセージを入力してください'); return; }
+    const from = document.getElementById('pet-m-from').value.trim() || '情報提供者';
+    try {
+        await findApiFetch(`/pets/${id}/message`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text, from }) });
+        await refreshPets();
+        closeOverlay();
+        toast('情報を送信しました。ありがとうございました');
+    } catch (e) {
+        toast(e.message);
+    }
+}
+function homePetRowHtml(p) {
+    const isOk = p.status === 'ok';
+    const statusColor = isOk ? 'text-[#137333]' : 'text-muted-gray';
+    return `<div onclick="openPetDetail('${p.id}')" class="flex items-center gap-3 py-3 border-b border-divider-line cursor-pointer active:opacity-70">
+        <div class="flex-1 min-w-0">
+            <span class="font-label-sm text-label-sm ${statusColor} font-bold">${petStatusLabel(p)}</span>
+            <p class="font-label-lg text-label-lg text-charcoal-text truncate">${speciesLabel(p.species)}・${esc(p.breed)}　${esc(p.location)}</p>
+        </div>
+        <span class="material-symbols-outlined text-muted-gray text-[20px] flex-none">chevron_right</span>
+    </div>`;
+}
+function renderHomePets() {
+    const el = document.getElementById('home-pets-list');
+    if (!el) return;
+    const list = [...pets].sort((a, b) => b.created - a.created).slice(0, 5);
+    el.innerHTML = list.length ? list.map(homePetRowHtml).join('') : `<p class="font-body-sm text-body-sm text-muted-gray py-3">該当する登録はありません</p>`;
+}
+function homeBoardRowHtml(t) {
+    return `<div onclick="openThreadDetail('${t.id}')" class="flex items-center gap-3 py-3 border-b border-divider-line cursor-pointer active:opacity-70">
+        <div class="flex-1 min-w-0">
+            <span class="font-label-sm text-label-sm text-muted-gray">${t.commentCount}件のコメント</span>
+            <p class="font-label-lg text-label-lg text-charcoal-text truncate">${esc(t.title)}</p>
+        </div>
+        <span class="material-symbols-outlined text-muted-gray text-[20px] flex-none">chevron_right</span>
+    </div>`;
+}
+function renderHomeBoard() {
+    const el = document.getElementById('home-board-list');
+    if (!el) return;
+    const list = [...threads].sort((a, b) => b.updated - a.updated).slice(0, 5);
+    el.innerHTML = list.length ? list.map(homeBoardRowHtml).join('') : `<p class="font-body-sm text-body-sm text-muted-gray py-3">まだスレッドがありません</p>`;
+}
+/* ---- 掲示板（非ログイン・匿名コメント） ---- */
+let threads = [];
+function getBoardOwnerToken() {
+    let t = localStorage.getItem('kt_board_owner');
+    if (!t) {
+        t = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now().toString(36) + Math.random().toString(36).slice(2));
+        localStorage.setItem('kt_board_owner', t);
+    }
+    return t;
+}
+function boardApiFetch(path, opts) {
+    const merged = Object.assign({}, opts);
+    merged.headers = Object.assign({}, opts && opts.headers, { 'X-Board-Owner': getBoardOwnerToken() });
+    return findApiFetch(path, merged);
+}
+function threadCardHtml(t) {
+    const delBtn = t.canDelete ? `<button onclick="event.stopPropagation(); deleteThread('${t.id}')" class="text-[#ba1a1a] font-label-sm text-label-sm flex items-center gap-1 hover:opacity-70"><span class="material-symbols-outlined text-[16px]">delete</span>削除</button>` : '';
+    const cityTag = t.city ? `<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded flex items-center gap-1 mb-1 w-fit"><span class="material-symbols-outlined text-[14px]">location_on</span>${esc(t.city)}</span>` : '';
+    return `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 shadow-[0_4px_12px_rgba(100,93,84,0.05)] cursor-pointer hover:scale-[0.98] transition-transform duration-200" onclick="openThreadDetail('${t.id}')">
+        ${cityTag}
+        <h4 class="font-headline-sm text-headline-sm text-charcoal-text line-clamp-1">${esc(t.title)}</h4>
+        <p class="font-body-sm text-body-sm text-secondary line-clamp-2 mt-1">${esc(t.body)}</p>
+        <div class="flex items-center justify-between mt-2 pt-2 border-t border-divider-line">
+            <span class="font-label-sm text-label-sm text-muted-gray flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span>${fmtRelTime(t.updated)}</span>
+            <div class="flex items-center gap-3">
+                <span class="text-primary font-label-sm text-label-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">chat_bubble</span>${t.commentCount}件のコメント</span>
+                ${delBtn}
+            </div>
+        </div>
+    </div>`;
+}
+async function refreshThreads() {
+    threads = await boardApiFetch('/board');
+    renderThreads();
+}
+function renderThreads() {
+    const el = document.getElementById('board-list');
+    if (!el) return;
+    const list = [...threads].sort((a, b) => b.updated - a.updated);
+    if (!list.length) { el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50">forum</span><p>まだスレッドがありません</p></div>`; return; }
+    el.innerHTML = list.map(threadCardHtml).join('');
+}
+function openThreadForm() {
+    const cityOpts = AREAS.map(a => `<optgroup label="${a}エリア">${DISTRICTS.filter(d => d.area === a).map(d => `<option>${d.name}</option>`).join('')}</optgroup>`).join('');
+    overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <h2>スレッドを立てる</h2>
+        <p class="sub">タイトルと内容を入力するだけで投稿できます。ログインは不要です。</p>
+        <label>タイトル <span class="opt">（必須）</span></label>
+        <input id="th-title" maxlength="100" placeholder="例）給水車が来る場所を教えてください">
+        <label>内容 <span class="opt">（必須）</span></label>
+        <textarea id="th-body" maxlength="2000" placeholder="例）中央区在住です。近くに給水車が来るスケジュールをご存知の方いたら教えてください。"></textarea>
+        <label>市区町村 <span class="opt">（任意）</span></label>
+        <select id="th-city"><option value="">選択なし</option>${cityOpts}<optgroup label="その他"><option>県外・その他</option></optgroup></select>
+        <div class="notice"><span class="material-symbols-outlined">info</span><div>投稿者名は表示されません。誰でも閲覧・コメントできる掲示板です。自分が立てたスレッドは、コメントが付く前であれば削除できます。</div></div>
+        <div class="actions"><button class="ghost" onclick="closeOverlay()">やめる</button><button class="primary" onclick="submitThread()">この内容で投稿</button></div>`);
+}
+async function submitThread() {
+    const title = document.getElementById('th-title').value.trim();
+    const body = document.getElementById('th-body').value.trim();
+    const city = document.getElementById('th-city').value;
+    if (!title || !body) { toast('タイトルと内容を入力してください'); return; }
+    try {
+        await boardApiFetch('/board', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, body, city }) });
+        await refreshThreads();
+        closeOverlay();
+        toast('スレッドを立てました');
+    } catch (e) {
+        toast(e.message);
+    }
+}
+async function deleteThread(id) {
+    if (!confirm('このスレッドを削除しますか？')) return;
+    try {
+        await boardApiFetch(`/board/${id}`, { method: 'DELETE' });
+        await refreshThreads();
+        toast('スレッドを削除しました');
+    } catch (e) {
+        toast(e.message);
+    }
+}
+function threadDetailHtml(t) {
+    const comments = t.comments.map(c => `<div class="msgbox">${esc(c.text)}
+        <div class="from" style="margin-top:6px;margin-bottom:0;display:flex;align-items:center;justify-content:space-between;">
+            <span>${fmtDate(c.created)}</span>
+            ${c.canDelete ? `<button onclick="deleteComment('${t.id}', ${c.id})" class="text-[#ba1a1a] flex items-center gap-1 hover:opacity-70">削除</button>` : ''}
+        </div>
+    </div>`).join('') || '<div class="hint" style="margin-top:16px">まだコメントはありません。</div>';
+    const delThreadBtn = t.canDelete ? `<button onclick="deleteThread('${t.id}')" class="ghost" style="color:#ba1a1a;border-color:#ffdad6;">スレッドを削除</button>` : '';
+    const cityLine = t.city ? `・${esc(t.city)}` : '';
+    return `<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <h2>${esc(t.title)}</h2>
+        <p class="sub">${fmtRelTime(t.updated)}${cityLine}</p>
+        <p style="white-space:pre-wrap;font-family:'Be Vietnam Pro',sans-serif;font-size:15px;color:#191C1A;line-height:1.6;margin-bottom:8px;">${esc(t.body)}</p>
+        ${delThreadBtn}
+        <div style="margin-top:24px;border-top:1px solid #E5E7E9;padding-top:24px">
+            <label>コメントする <span class="opt">（名前は表示されません）</span></label>
+            <textarea id="th-c-text" maxlength="2000" placeholder="例）情報ありがとうございます。"></textarea>
+            <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button><button class="primary" onclick="sendThreadComment('${t.id}')">コメントする</button></div>
+        </div>
+        <div style="margin-top:32px"><h3 class="font-label-lg text-label-lg" style="border-bottom:1px solid #E5E7E9;padding-bottom:8px">コメント（${t.comments.length}件）</h3>${comments}</div>`;
+}
+function openThreadDetail(id) {
+    boardApiFetch(`/board/${id}`).then(t => overlay(threadDetailHtml(t))).catch(e => toast(e.message));
+}
+async function sendThreadComment(id) {
+    const textEl = document.getElementById('th-c-text');
+    const text = textEl.value.trim();
+    if (!text) { toast('コメントを入力してください'); return; }
+    try {
+        await boardApiFetch(`/board/${id}/comments`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+        await refreshThreads();
+        openThreadDetail(id);
+        toast('コメントしました');
+    } catch (e) {
+        toast(e.message);
+    }
+}
+async function deleteComment(threadId, commentId) {
+    if (!confirm('このコメントを削除しますか？')) return;
+    try {
+        const t = await boardApiFetch(`/board/${threadId}/comments/${commentId}`, { method: 'DELETE' });
+        await refreshThreads();
+        overlay(threadDetailHtml(t));
+        toast('コメントを削除しました');
+    } catch (e) {
+        toast(e.message);
+    }
+}
+
+/* ---- 行政からのお知らせ（非ログイン投稿・管理者承認制） ---- */
+let govNotices = [];
+let govPhotoDataUrls = [];
+function govCardHtml(n) {
+    const cityTag = n.city ? `<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded flex items-center gap-1 mb-1 w-fit"><span class="material-symbols-outlined text-[14px]">location_on</span>${esc(n.city)}</span>` : '';
+    const photo = n.photoPaths && n.photoPaths[0];
+    return `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 shadow-[0_4px_12px_rgba(100,93,84,0.05)] cursor-pointer hover:scale-[0.98] transition-transform duration-200" onclick="openGovDetail('${n.id}')">
+        ${cityTag}
+        <div class="flex gap-3">
+            <div class="flex-1 min-w-0">
+                <h4 class="font-headline-sm text-headline-sm text-charcoal-text line-clamp-2">${esc(n.title)}</h4>
+                <p class="font-body-sm text-body-sm text-secondary line-clamp-2 mt-1">${esc(n.body)}</p>
+            </div>
+            ${photo ? `<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line"><img src="${esc(photo)}" alt="" class="w-full h-full object-cover" loading="lazy" decoding="async"/></div>` : ''}
+        </div>
+        <div class="flex items-center justify-between mt-2 pt-2 border-t border-divider-line">
+            <span class="font-label-sm text-label-sm text-muted-gray flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span>${fmtRelTime(n.created)}</span>
+            <span class="text-primary font-label-sm text-label-sm flex items-center gap-1">詳細を見る <span class="material-symbols-outlined text-[16px]">chevron_right</span></span>
+        </div>
+    </div>`;
+}
+async function refreshGovNotices() {
+    govNotices = await findApiFetch('/gov');
+    renderGovNotices();
+}
+function renderGovNotices() {
+    const el = document.getElementById('gov-list');
+    if (!el) return;
+    if (!govNotices.length) { el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50">campaign</span><p>現在お知らせはありません</p></div>`; return; }
+    el.innerHTML = govNotices.map(govCardHtml).join('');
+}
+function openGovDetail(id) {
+    const n = govNotices.find(x => x.id === id);
+    if (!n) return;
+    const photos = (n.photoPaths || []).map(p => `<img src="${esc(p)}" alt="" style="width:100%;border-radius:12px;margin-bottom:8px;object-fit:cover;max-height:260px;">`).join('');
+    overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <h2>${esc(n.title)}</h2>
+        <p class="sub">${esc(n.city || '熊本県')}・${fmtRelTime(n.created)}</p>
+        ${photos}
+        <p style="white-space:pre-wrap;font-family:'Be Vietnam Pro',sans-serif;font-size:15px;color:#191C1A;line-height:1.6;margin-bottom:16px;">${esc(n.body)}</p>
+        <div class="kv" style="border-bottom:0"><b>お問い合わせ</b><span>${esc(n.contact)}</span></div>
+        <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button></div>`);
+}
+function onGovPhotoChange(input) {
+    const files = Array.from(input.files || []).slice(0, 3);
+    govPhotoDataUrls = [];
+    if (!files.length) { renderGovPhotoPreviews(); return; }
+    let loaded = 0;
+    files.forEach((file, i) => {
+        if (file.size > 3 * 1024 * 1024) { toast('⚠️ 画像サイズは3MB以内にしてください'); return; }
+        const reader = new FileReader();
+        reader.onload = () => {
+            govPhotoDataUrls[i] = reader.result;
+            loaded++;
+            if (loaded === files.length) renderGovPhotoPreviews();
+        };
+        reader.readAsDataURL(file);
+    });
+}
+function renderGovPhotoPreviews() {
+    const el = document.getElementById('gov-photo-preview');
+    if (!el) return;
+    const imgs = govPhotoDataUrls.filter(Boolean).map(u => `<img src="${u}" style="width:31%;height:80px;object-fit:cover;border-radius:8px;border:1px solid #E5E7E9;">`).join('');
+    el.innerHTML = imgs;
+    el.style.display = imgs ? 'flex' : 'none';
+}
+function openGovForm() {
+    govPhotoDataUrls = [];
+    const cityOpts = AREAS.map(a => `<optgroup label="${a}エリア">${DISTRICTS.filter(d => d.area === a).map(d => `<option>${d.name}</option>`).join('')}</optgroup>`).join('');
+    overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
+        <h2>行政の方はこちら</h2>
+        <p class="sub">自治体・行政からのお知らせを登録します。内容は管理者の承認後に一覧へ表示されます。</p>
+        <label>タイトル <span class="opt">（必須）</span></label>
+        <input id="gov-title" maxlength="100" placeholder="例）給水車の巡回スケジュールについて">
+        <label>市区町村 <span class="opt">（任意）</span></label>
+        <select id="gov-city"><option value="">選択なし</option>${cityOpts}<optgroup label="その他"><option>県外・その他</option></optgroup></select>
+        <label>内容 <span class="opt">（必須）</span></label>
+        <textarea id="gov-body" maxlength="2000" placeholder="例）断水地域を対象に給水車を巡回させています。"></textarea>
+        <label>写真 <span class="opt">（任意・最大3枚）</span></label>
+        <label for="gov-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:16px;">
+            <span class="material-symbols-outlined" style="font-size:20px;">photo_camera</span>
+            <span>写真を選択（最大3枚）</span>
+        </label>
+        <input accept="image/*" id="gov-photo" multiple onchange="onGovPhotoChange(this)" type="file" style="display:none;">
+        <div id="gov-photo-preview" style="display:none;gap:8px;margin-top:8px;"></div>
+        <label>お問い合わせ <span class="opt">（必須・電話番号）</span></label>
+        <input id="gov-contact" inputmode="tel" placeholder="例）096-328-2111（熊本市 水道局）">
+        <div class="notice"><span class="material-symbols-outlined">info</span><div>投稿内容は管理者が確認し、承認され次第、一覧に公開されます。</div></div>
+        <div class="actions"><button class="ghost" onclick="closeOverlay()">やめる</button><button class="primary" onclick="submitGovNotice()">この内容で投稿</button></div>`);
+}
+async function submitGovNotice() {
+    const title = document.getElementById('gov-title').value.trim();
+    const city = document.getElementById('gov-city').value;
+    const body = document.getElementById('gov-body').value.trim();
+    const contact = document.getElementById('gov-contact').value.trim();
+    if (!title || !body || !contact) { toast('タイトル・内容・お問い合わせを入力してください'); return; }
+    try {
+        await findApiFetch('/gov', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title, city, body, contact, photoDataUrls: govPhotoDataUrls.filter(Boolean) }) });
+        closeOverlay();
+        toast('投稿しました。管理者の承認後に公開されます');
+    } catch (e) {
+        toast(e.message);
+    }
+}
+
+/* ---- 管理者ページ（行政お知らせの承認・却下） ---- */
+function adminHeaders() {
+    return { 'Content-Type': 'application/json', 'X-Admin-Password': sessionStorage.getItem('kt_admin_pw') || '' };
+}
+function adminStatusLabel(s) {
+    if (s === 'approved') return '<span class="status-badge sb-open">承認済み</span>';
+    if (s === 'rejected') return '<span class="status-badge sb-done">却下</span>';
+    return '<span class="status-badge sb-nego">承認待ち</span>';
+}
+function adminNoticeCardHtml(n) {
+    const photos = (n.photoPaths || []).map(p => `<img src="${esc(p)}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #E5E7E9;margin-right:6px;">`).join('');
+    const actions = n.status === 'pending'
+        ? `<div class="actions"><button class="ghost" onclick="adminReject('${n.id}')">却下</button><button class="primary" onclick="adminApprove('${n.id}')">承認する</button></div>`
+        : '';
+    return `<div class="p-4 border border-divider-line rounded-xl mb-3 bg-white">
+        <div class="flex items-center gap-2 mb-2">${adminStatusLabel(n.status)}<span class="font-label-sm text-label-sm text-muted-gray">${fmtDate(n.created)}</span></div>
+        <h4 class="font-headline-sm text-headline-sm text-charcoal-text">${esc(n.title)}</h4>
+        <p class="font-body-sm text-body-sm text-muted-gray mt-1">${esc(n.city || '（市区町村未設定）')}</p>
+        <p class="font-body-sm text-body-sm text-charcoal-text mt-2" style="white-space:pre-wrap;">${esc(n.body)}</p>
+        <p class="font-body-sm text-body-sm text-muted-gray mt-2">お問い合わせ: ${esc(n.contact)}</p>
+        ${photos ? `<div class="flex mt-2">${photos}</div>` : ''}
+        ${actions}
+    </div>`;
+}
+async function loadAdminQueue() {
+    const box = document.getElementById('admin-review-box');
+    try {
+        const res = await fetch(API + '/admin/gov', { headers: adminHeaders() });
+        if (!res.ok) throw new Error(res.status === 401 ? 'パスワードが正しくありません' : 'リクエストに失敗しました');
+        const rows = await res.json();
+        document.getElementById('admin-login-box').style.display = 'none';
+        box.style.display = '';
+        box.innerHTML = rows.length ? rows.map(adminNoticeCardHtml).join('') : '<p class="text-muted-gray">お知らせはまだありません。</p>';
+    } catch (e) {
+        sessionStorage.removeItem('kt_admin_pw');
+        document.getElementById('admin-login-box').style.display = '';
+        box.style.display = 'none';
+        toast(e.message);
+    }
+}
+function adminLogin() {
+    const pw = document.getElementById('admin-password').value;
+    if (!pw) { toast('パスワードを入力してください'); return; }
+    sessionStorage.setItem('kt_admin_pw', pw);
+    loadAdminQueue();
+}
+async function adminApprove(id) {
+    await fetch(`${API}/admin/gov/${id}/approve`, { method: 'POST', headers: adminHeaders() });
+    loadAdminQueue();
+}
+async function adminReject(id) {
+    if (!confirm('このお知らせを却下しますか？')) return;
+    await fetch(`${API}/admin/gov/${id}/reject`, { method: 'POST', headers: adminHeaders() });
+    loadAdminQueue();
+}
+function showAdminPanel() {
+    document.getElementById('goods-screen-content').style.display = 'none';
+    document.getElementById('root-admin').style.display = '';
+    if (sessionStorage.getItem('kt_admin_pw')) loadAdminQueue();
+}
+
+initPetFilters();
+refreshPets();
+refreshThreads();
+initHomeTabs();
+
+/* ---- ホーム（新着プレビュー） ---- */
+function openGoodsItemById(id) {
+    if (!window.vm) return;
+    const item = window.vm.goodsList.find(g => g.id === id);
+    if (item) window.vm.openItem(item);
+}
+function goodsPreviewList() {
+    if (!window.vm) return [];
+    return [...window.vm.goodsList].filter(g => g.status === 'open' || g.status === 'nego').sort((a,b) => b.created - a.created);
+}
+function homeGoodsRowHtml(item) {
+    const typeLabel = item.type === 'offer' ? 'ゆずります' : 'もとめています';
+    const typeColor = item.type === 'offer' ? 'text-forest-deep' : 'text-mustard-accent';
+    const priceLabel = item.type === 'offer' ? (item.isFree ? '無料' : `${item.price}円`) : '';
+    return `<div onclick="openGoodsItemById('${item.id}')" class="flex items-center gap-3 py-3 border-b border-divider-line cursor-pointer active:opacity-70">
+        <div class="flex-1 min-w-0">
+            <span class="font-label-sm text-label-sm ${typeColor} font-bold">${typeLabel}</span>
+            ${priceLabel ? `<span class="font-label-sm text-label-sm text-muted-gray">・${priceLabel}</span>` : ''}
+            <p class="font-label-lg text-label-lg text-charcoal-text truncate">${esc(item.title)}</p>
+        </div>
+        <span class="material-symbols-outlined text-muted-gray text-[20px] flex-none">chevron_right</span>
+    </div>`;
+}
+function renderHomeGoods() {
+    const el = document.getElementById('home-goods-list');
+    if (!el || !window.vm) return;
+    const list = goodsPreviewList().slice(0, 5);
+    el.innerHTML = list.length ? list.map(homeGoodsRowHtml).join('') : `<p class="font-body-sm text-body-sm text-muted-gray py-3">該当する投稿がありません</p>`;
+}
+function renderHomeGoodsIfVisible() {
+    const root = document.getElementById('root-home');
+    if (root && root.style.display !== 'none') renderHomeGoods();
+}
+function homeNewsRowHtml(n) {
+    return `<a href="${esc(n.link)}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 py-3 border-b border-divider-line active:opacity-70">
+        <div class="flex-1 min-w-0">
+            <span class="font-label-sm text-label-sm text-muted-gray">${esc(n.source || 'ニュース')}</span>
+            <p class="font-label-lg text-label-lg text-charcoal-text truncate">${esc(n.title)}</p>
+        </div>
+        <span class="material-symbols-outlined text-muted-gray text-[20px] flex-none">open_in_new</span>
+    </a>`;
+}
+function initHomeTabs() {
+    const ACTIVE = ['bg-surface-container-high', 'text-on-surface'];
+    const INACTIVE = ['bg-white', 'text-muted-gray', 'border', 'border-divider-line', 'hover:bg-surface-container-low'];
+    document.querySelectorAll('#home-tabs .home-tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const tab = e.currentTarget.dataset.tab;
+            document.querySelectorAll('#home-tabs .home-tab-btn').forEach(b => {
+                b.classList.remove(...ACTIVE, ...INACTIVE);
+                b.classList.add(...(b.dataset.tab === tab ? ACTIVE : INACTIVE));
+            });
+            ['news', 'goods', 'find', 'pets', 'board'].forEach(t => {
+                const panel = document.getElementById('home-tab-panel-' + t);
+                if (panel) panel.style.display = t === tab ? '' : 'none';
+            });
+        });
+    });
+}
+
+/* ---- 天気予報（熊本・Open-Meteo、APIキー不要） ---- */
+let weatherCache = null;
+function weatherMeta(code) {
+    if (code === 0) return { icon: 'sunny', label: '快晴' };
+    if ([1, 2].includes(code)) return { icon: 'partly_cloudy_day', label: '晴れ時々曇り' };
+    if (code === 3) return { icon: 'cloud', label: 'くもり' };
+    if ([45, 48].includes(code)) return { icon: 'foggy', label: '霧' };
+    if ([51, 53, 55, 56, 57].includes(code)) return { icon: 'rainy', label: '霧雨' };
+    if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return { icon: 'rainy', label: '雨' };
+    if ([71, 73, 75, 77, 85, 86].includes(code)) return { icon: 'ac_unit', label: '雪' };
+    if ([95, 96, 99].includes(code)) return { icon: 'thunderstorm', label: '雷雨' };
+    return { icon: 'partly_cloudy_day', label: '曇り時々晴れ' };
+}
+function weatherDayLabel(dateStr, idx) {
+    if (idx === 0) return '今日';
+    if (idx === 1) return '明日';
+    const d = new Date(dateStr);
+    return ['日', '月', '火', '水', '木', '金', '土'][d.getDay()] + '曜';
+}
+function weatherCardHtml(day, idx) {
+    const meta = weatherMeta(day.code);
+    return `<div class="flex flex-col items-center gap-1 flex-none w-16 py-2">
+        <span class="font-label-sm text-label-sm text-muted-gray">${weatherDayLabel(day.date, idx)}</span>
+        <span class="material-symbols-outlined text-forest-deep text-[26px]">${meta.icon}</span>
+        <span class="font-label-sm text-label-sm text-muted-gray whitespace-nowrap">${meta.label}</span>
+        <span class="font-label-lg text-label-lg text-charcoal-text">${Math.round(day.max)}°</span>
+        <span class="font-label-sm text-label-sm text-muted-gray">${Math.round(day.min)}°</span>
+    </div>`;
+}
+function renderWeather(days) {
+    const el = document.getElementById('home-weather-list');
+    if (el) el.innerHTML = days.map(weatherCardHtml).join('');
+}
+/* localStorage の stale-while-revalidate キャッシュ: 再訪時に即表示し、裏で最新化する */
+function readLocalCache(key, ttlMs) {
+    try {
+        const raw = localStorage.getItem(key);
+        if (!raw) return null;
+        const { at, data } = JSON.parse(raw);
+        return { data, fresh: Date.now() - at < ttlMs };
+    } catch (e) { return null; }
+}
+function writeLocalCache(key, data) {
+    try { localStorage.setItem(key, JSON.stringify({ at: Date.now(), data })); } catch (e) { /* storage full/unavailable */ }
+}
+
+const WEATHER_TTL_MS = 30 * 60 * 1000;
+async function loadWeather() {
+    const el = document.getElementById('home-weather-list');
+    if (!el) return;
+    if (weatherCache) { renderWeather(weatherCache); return; }
+    const cached = readLocalCache('kt_weather_cache', WEATHER_TTL_MS);
+    if (cached) { weatherCache = cached.data; renderWeather(cached.data); if (cached.fresh) return; }
+    else el.innerHTML = `<p class="font-body-sm text-body-sm text-muted-gray py-3 px-1">天気予報を取得しています…</p>`;
+    try {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=32.8032&longitude=130.7079&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=7';
+        const res = await fetch(url);
+        const data = await res.json();
+        const days = data.daily.time.map((date, i) => ({
+            date, code: data.daily.weathercode[i],
+            max: data.daily.temperature_2m_max[i], min: data.daily.temperature_2m_min[i]
+        }));
+        weatherCache = days;
+        writeLocalCache('kt_weather_cache', days);
+        renderWeather(days);
+    } catch (e) {
+        if (!cached) el.innerHTML = `<p class="font-body-sm text-body-sm text-muted-gray py-3 px-1">天気予報を取得できませんでした</p>`;
+    }
+}
+
+const NEWS_LOCAL_TTL_MS = 10 * 60 * 1000;
+async function loadHomePreviews() {
+    renderHomeGoods();
+    renderHomeFind();
+    renderHomePets();
+    renderHomeBoard();
+    loadWeather();
+    const newsEl = document.getElementById('home-news-list');
+    const cachedNews = readLocalCache('kt_news_cache', NEWS_LOCAL_TTL_MS);
+    if (cachedNews) {
+        lastNewsData = cachedNews.data;
+        const items = ((cachedNews.data && cachedNews.data.items) || []).slice(0, 5);
+        newsEl.innerHTML = items.length ? items.map(homeNewsRowHtml).join('') : `<p class="font-body-sm text-body-sm text-muted-gray py-3">現在表示できるニュースがありません</p>`;
+        if (cachedNews.fresh) return;
+    } else {
+        newsEl.innerHTML = `<p class="font-body-sm text-body-sm text-muted-gray py-3">ニュースを取得しています…</p>`;
+    }
+    try {
+        const data = await fetchNewsData();
+        writeLocalCache('kt_news_cache', data);
+        const items = ((data && data.items) || []).slice(0, 5);
+        newsEl.innerHTML = items.length ? items.map(homeNewsRowHtml).join('') : `<p class="font-body-sm text-body-sm text-muted-gray py-3">現在表示できるニュースがありません</p>`;
+    } catch (e) {
+        if (!cachedNews) newsEl.innerHTML = `<p class="font-body-sm text-body-sm text-muted-gray py-3">ニュースを取得できませんでした</p>`;
+    }
+}
+
+/* ---- ニュース（熊本地震関連） ---- */
+let lastNewsData = null;
+function newsCardHtml(n) {
+    return `<a class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 shadow-[0_4px_12px_rgba(100,93,84,0.05)] block hover:scale-[0.98] transition-transform duration-200" href="${esc(n.link)}" target="_blank" rel="noopener noreferrer">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2.5 py-1 rounded">${esc(n.source || 'ニュース')}</span>
+                ${n.publishedAt ? `<span class="font-body-sm text-body-sm text-muted-gray flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span>${fmtRelTime(n.publishedAt)}</span>` : ''}
+            </div>
+            <h4 class="font-headline-sm text-headline-sm text-charcoal-text text-balance">${esc(n.title)}</h4>
+            <div class="flex items-center justify-end mt-2 pt-2 border-t border-divider-line">
+                <span class="text-primary font-label-sm text-label-sm flex items-center gap-1">元記事を読む <span class="material-symbols-outlined text-[16px]">open_in_new</span></span>
+            </div>
+        </a>`;
+}
+async function fetchNewsData() {
+    const res = await fetch('/api/news');
+    const data = await res.json();
+    lastNewsData = data;
+    return data;
+}
+function renderNewsInto(elId, data, limit) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    const items = ((data && data.items) || []).slice(0, limit || 20);
+    if (!items.length) {
+        el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50">newspaper</span><p>現在表示できるニュースがありません</p></div>`;
+        return;
+    }
+    const staleNote = data.stale ? `<div class="notice-box warn"><span class="material-symbols-outlined notice-icon">info</span><div class="notice-content">最新の取得に失敗したため、前回取得した内容を表示しています。</div></div>` : '';
+    el.innerHTML = staleNote + items.map(newsCardHtml).join('');
+}
+async function loadNews(){
+    const el = document.getElementById('news-list');
+    el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50 animate-pulse">newspaper</span><p>ニュースを取得しています…</p></div>`;
+    try {
+        const data = await fetchNewsData();
+        renderNewsInto('news-list', data);
+    } catch (e) {
+        el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50">error</span><p>ニュースを取得できませんでした</p><button class="text-primary font-label-sm text-label-sm mt-3" onclick="loadNews()">再読み込み</button></div>`;
+    }
+}
+
+if (location.pathname === '/admin') {
+    showAdminPanel();
+} else {
+    switchScreen(screenForPath(location.pathname), { push: false });
+}
+</script>
+</body></html>

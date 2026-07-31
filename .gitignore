@@ -1,0 +1,6 @@
+node_modules/
+.env
+.env.local
+backend/data/
+backend/uploads/
+.vercel/
