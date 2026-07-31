@@ -690,6 +690,7 @@ async function fetchKumamotoNews() {
       publishedAt: pubDate ? new Date(pubDate).getTime() : null,
     });
   }
+  items.sort((a, b) => (b.publishedAt || 0) - (a.publishedAt || 0));
   return items;
 }
 
