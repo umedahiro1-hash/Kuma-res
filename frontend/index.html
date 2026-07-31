@@ -416,8 +416,9 @@
 </div>
 </div>
 <div class="flex gap-4">
-<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line" v-if="item.imagePath || getImageForCat(item.cat)">
-<img :src="item.imagePath || getImageForCat(item.cat)" alt="Item photo" class="w-full h-full object-cover" loading="lazy" decoding="async"/>
+<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line flex items-center justify-center bg-surface-container-low">
+<img :src="item.imagePath || getImageForCat(item.cat)" alt="Item photo" class="w-full h-full object-cover" loading="lazy" decoding="async" v-if="item.imagePath || getImageForCat(item.cat)"/>
+<span class="font-label-sm text-label-sm text-muted-gray text-center px-1" v-else="">画像なし</span>
 </div>
 <div class="flex-1">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text line-clamp-2">
@@ -614,8 +615,9 @@
 </div>
 </div>
 <!-- Photo -->
-<div class="w-full h-40 rounded-xl overflow-hidden border border-divider-line mb-4" v-if="activeItem.imagePath || getImageForCat(activeItem.cat)">
-<img :src="activeItem.imagePath || getImageForCat(activeItem.cat)" alt="Item photo" class="w-full h-full object-cover"/>
+<div class="w-full h-40 rounded-xl overflow-hidden border border-divider-line mb-4 flex items-center justify-center bg-surface-container-low">
+<img :src="activeItem.imagePath || getImageForCat(activeItem.cat)" alt="Item photo" class="w-full h-full object-cover" v-if="activeItem.imagePath || getImageForCat(activeItem.cat)"/>
+<span class="font-label-sm text-label-sm text-muted-gray" v-else="">画像なし</span>
 </div>
 <!-- Basic Details -->
 <div class="bg-surface-container-lowest rounded-xl p-4 border border-divider-line mb-6">
@@ -957,13 +959,18 @@
 <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">ホーム</h2>
 </div>
 </div>
+<!-- 掲示板（常時表示） -->
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">forum</span>掲示板</h3>
+<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-board-list"></div>
+<button onclick="switchScreen('board')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
 <!-- セクションタブ -->
 <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-1" id="home-tabs">
 <button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-surface-container-high text-on-surface" data-tab="news" type="button"><span class="material-symbols-outlined text-[16px]">newspaper</span>ニュース</button>
 <button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="goods" type="button"><span class="material-symbols-outlined text-[16px]">volunteer_activism</span>支援</button>
 <button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="find" type="button"><span class="material-symbols-outlined text-[16px]">diversity_1</span>さがす</button>
 <button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="pets" type="button"><span class="material-symbols-outlined text-[16px]">pets</span>ペット</button>
-<button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="board" type="button"><span class="material-symbols-outlined text-[16px]">forum</span>掲示板</button>
 </div>
 <!-- タブ内容 -->
 <div class="flex flex-col" id="home-tab-panel-news">
@@ -981,10 +988,6 @@
 <div class="flex flex-col" id="home-tab-panel-pets" style="display:none">
 <div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-pets-list"></div>
 <button onclick="switchScreen('pets')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
-</div>
-<div class="flex flex-col" id="home-tab-panel-board" style="display:none">
-<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-board-list"></div>
-<button onclick="switchScreen('board')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
 </div>
 <!-- 1週間の天気予報 -->
 <section class="flex flex-col">
@@ -2225,7 +2228,7 @@ function petCardHtml(p) {
     return `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 shadow-[0_4px_12px_rgba(100,93,84,0.05)] cursor-pointer hover:scale-[0.98] transition-transform duration-200 ${isOk ? 'opacity-85' : ''}" onclick="openPetDetail('${p.id}')">
         <div class="flex items-center gap-2 mb-2">${typeTag}${statusTag}</div>
         <div class="flex gap-3">
-            <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line"><img src="${esc(p.photoPath)}" alt="${speciesLabel(p.species)}の写真" class="w-full h-full object-cover" loading="lazy" decoding="async"/></div>
+            <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line flex items-center justify-center bg-surface-container-low">${p.photoPath ? `<img src="${esc(p.photoPath)}" alt="${speciesLabel(p.species)}の写真" class="w-full h-full object-cover" loading="lazy" decoding="async"/>` : `<span class="font-label-sm text-label-sm text-muted-gray text-center px-1">画像なし</span>`}</div>
             <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 mb-1"><span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded">${speciesLabel(p.species)}・${genderLabel(p.gender)}</span></div>
                 <h4 class="font-headline-sm text-headline-sm text-charcoal-text line-clamp-1">${esc(p.breed)}</h4>
@@ -2430,7 +2433,9 @@ function openPetDetail(id) {
     overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
         <h2>${esc(p.breed)}</h2>
         <p class="sub">${petTypeLabel(p.type)}・${speciesLabel(p.species)}・${genderLabel(p.gender)}（${petStatusLabel(p)}）</p>
-        <img alt="${speciesLabel(p.species)}の写真" src="${esc(p.photoPath)}" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;">
+        ${p.photoPath
+            ? `<img alt="${speciesLabel(p.species)}の写真" src="${esc(p.photoPath)}" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;">`
+            : `<div style="width:100%;height:200px;border-radius:12px;margin-bottom:16px;background:#F3F4F0;color:#6A7178;display:flex;align-items:center;justify-content:center;">画像なし</div>`}
         <div class="kv"><b>市区町村</b><span>${esc(p.city) || '未設定'}</span></div>
         <div class="kv"><b>場所</b><span>${esc(p.location)}</span></div>
         <div class="kv" style="border-bottom:0"><b>特徴</b><span>${esc(p.characteristics) || '記載なし'}</span></div>
@@ -2834,7 +2839,7 @@ function initHomeTabs() {
                 b.classList.remove(...ACTIVE, ...INACTIVE);
                 b.classList.add(...(b.dataset.tab === tab ? ACTIVE : INACTIVE));
             });
-            ['news', 'goods', 'find', 'pets', 'board'].forEach(t => {
+            ['news', 'goods', 'find', 'pets'].forEach(t => {
                 const panel = document.getElementById('home-tab-panel-' + t);
                 if (panel) panel.style.display = t === tab ? '' : 'none';
             });
