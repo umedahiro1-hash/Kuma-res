@@ -74,7 +74,7 @@
                         "on-secondary": "#ffffff",
                         "tertiary-container": "#944918",
                         "on-primary-fixed-variant": "#015236",
-                        "soft-terracotta": "#C2410C",
+                        "soft-terracotta": "#FB923C",
                         "inverse-surface": "#2e312f",
                         "inverse-on-surface": "#f0f1ed",
                         "surface-tint": "#266a4c",
@@ -473,7 +473,6 @@
 <span class="material-symbols-outlined text-4xl text-muted-gray mb-2">volunteer_activism</span>
 <p class="font-body-sm text-body-sm text-muted-gray">すべての投稿を表示しました</p>
 </div>
-</div>
 </main>
 <!-- Floating Action Button -->
 <button @click="openCreate()" aria-label="物資を登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
@@ -511,6 +510,7 @@
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
 </button>
 </nav>
+</div>
 <!-- Overlays / Bottom Sheets -->
 <!-- Registration Form -->
 <div :class="{show: showCreateForm}" @click.self="showCreateForm = false" class="overlay">
