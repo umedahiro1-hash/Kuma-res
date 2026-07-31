@@ -120,7 +120,7 @@ async function sendEmail({ to, subject, text }) {
         Authorization: `Bearer ${RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ from: EMAIL_FROM, to, subject, text }),
+      body: JSON.stringify({ from: `つながるくまもと <${EMAIL_FROM}>`, to, subject, text }),
     });
     if (!res.ok) {
       const body = await res.text().catch(() => '');
@@ -721,8 +721,8 @@ app.post('/api/persons/:id/message', ah(async (req, res) => {
 
   const emailResult = await sendEmail({
     to: p.email,
-    subject: `【つながるくまもと】${p.name}さんの情報が寄せられました`,
-    text: `${from} さんより情報が寄せられました。\n\n${text}\n\nアプリで詳細をご確認ください。`,
+    subject: `【つながるくまもと】${p.name}さんに関する情報が届きました`,
+    text: `${from}さんから、以下の情報が届きました。\n\n${text}\n\n詳細はアプリでご確認ください。`,
   });
 
   res.json({ notified: emailResult.sent || emailResult.simulated, person: await serializePersonListItem(await db.prepare('SELECT * FROM persons WHERE id = ?').get(p.id)) });
@@ -859,8 +859,8 @@ app.post('/api/pets/:id/message', ah(async (req, res) => {
 
   const emailResult = await sendEmail({
     to: p.email,
-    subject: `【つながるくまもと】${p.breed}についての情報が届きました`,
-    text: `${from} さんより情報が寄せられました。\n\n${text}\n\nアプリで詳細をご確認ください。`,
+    subject: `【つながるくまもと】${p.breed}に関する情報が届きました`,
+    text: `${from}さんから、以下の情報が届きました。\n\n${text}\n\n詳細はアプリでご確認ください。`,
   });
 
   res.json({ notified: emailResult.sent || emailResult.simulated, pet: await loadPetItem(p.id) });
