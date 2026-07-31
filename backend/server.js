@@ -160,9 +160,9 @@ function normTel(s) {
 
 function maskName(n) {
   const c = [...(n || '')];
-  if (c.length <= 1) return c[0] || '＊';
-  if (c.length === 2) return c[0] + '＊';
-  return c[0] + '＊'.repeat(c.length - 2) + c[c.length - 1];
+  if (c.length <= 1) return c[0] || '※';
+  if (c.length === 2) return c[0] + '※';
+  return c[0] + '※'.repeat(c.length - 2) + c[c.length - 1];
 }
 
 async function getProfiles() {
