@@ -4,18 +4,18 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ</title>
-<meta name="description" content="熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認（人探し）、迷子ペットの捜索、熊本地震関連の最新ニュースを一つのアプリで。"/>
+<meta name="description" content="熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認（人探し）、迷子動物の捜索、熊本地震関連の最新ニュースを一つのアプリで。"/>
 <meta name="robots" content="index,follow"/>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <meta property="og:site_name" content="つながるくまもと"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ"/>
-<meta property="og:description" content="物資の譲渡・募集、安否確認、迷子ペットの捜索、熊本地震関連ニュースを一つのアプリで。"/>
+<meta property="og:description" content="物資の譲渡・募集、安否確認、迷子動物の捜索、熊本地震関連ニュースを一つのアプリで。"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="つながるくまもと｜熊本地震 被災者支援アプリ"/>
-<meta name="twitter:description" content="物資の譲渡・募集、安否確認、迷子ペットの捜索、熊本地震関連ニュースを一つのアプリで。"/>
+<meta name="twitter:description" content="物資の譲渡・募集、安否確認、迷子動物の捜索、熊本地震関連ニュースを一つのアプリで。"/>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"つながるくまもと","alternateName":"Tsunagaru Kumamoto","description":"熊本地震の被災者支援アプリ。物資の譲渡・募集、安否確認、迷子ペットの捜索、熊本地震関連ニュースを提供します。","applicationCategory":"LifestyleApplication","operatingSystem":"Any","inLanguage":"ja"}
+{"@context":"https://schema.org","@type":"WebApplication","name":"つながるくまもと","alternateName":"Tsunagaru Kumamoto","description":"熊本地震の被災者支援アプリ。物資の譲渡・募集、安否確認、迷子動物の捜索、熊本地震関連ニュースを提供します。","applicationCategory":"LifestyleApplication","operatingSystem":"Any","inLanguage":"ja"}
 </script>
 <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
 <link rel="preconnect" href="https://unpkg.com"/>
@@ -501,9 +501,9 @@
 <span class="material-symbols-outlined">diversity_1</span>
 <span class="font-label-sm text-label-sm mt-1">さがす</span>
 </button>
-<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">ペット</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
 </button>
 <button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">newspaper</span>
@@ -988,7 +988,7 @@
 <button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-surface-container-high text-on-surface" data-tab="news" type="button"><span class="material-symbols-outlined text-[16px]">newspaper</span>ニュース</button>
 <button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="goods" type="button"><span class="material-symbols-outlined text-[16px]">volunteer_activism</span>支援</button>
 <button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="find" type="button"><span class="material-symbols-outlined text-[16px]">diversity_1</span>さがす</button>
-<button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="pets" type="button"><span class="material-symbols-outlined text-[16px]">pets</span>ペット</button>
+<button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-white text-muted-gray border border-divider-line hover:bg-surface-container-low" data-tab="pets" type="button"><span class="material-symbols-outlined text-[16px]">pets</span>動物</button>
 </div>
 <!-- タブ内容 -->
 <div class="flex flex-col" id="home-tab-panel-news">
@@ -1029,9 +1029,9 @@
 <span class="material-symbols-outlined">diversity_1</span>
 <span class="font-label-sm text-label-sm mt-1">さがす</span>
 </button>
-<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">ペット</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
 </button>
 <button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">newspaper</span>
@@ -1111,9 +1111,9 @@
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">diversity_1</span>
 <span class="font-label-sm text-label-sm mt-1">さがす</span>
 </button>
-<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">ペット</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
 </button>
 <button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">newspaper</span>
@@ -1121,7 +1121,7 @@
 </button>
 </nav>
 </div>
-<!-- ===================== ペットを探す画面 ===================== -->
+<!-- ===================== 動物を探す画面 ===================== -->
 <div id="root-pets" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
@@ -1152,8 +1152,8 @@
 <span class="material-symbols-outlined text-forest-deep text-[22px]">pets</span>
 </div>
 <div class="flex flex-col">
-<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">ペットを探す</h2>
-<p class="font-label-sm text-label-sm text-muted-gray">はぐれてしまったペットの情報共有掲示板</p>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">動物を探す</h2>
+<p class="font-label-sm text-label-sm text-muted-gray">はぐれてしまった動物の情報共有掲示板</p>
 </div>
 </div>
 </div>
@@ -1168,9 +1168,9 @@
 </div>
 <div class="flex flex-col gap-2" id="pets-list"></div>
 </main>
-<button onclick="openPetForm()" aria-label="ペットを登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button onclick="openPetForm()" aria-label="動物を登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
-<span class="font-label-lg text-label-lg">ペットを登録</span>
+<span class="font-label-lg text-label-lg">動物を登録</span>
 </button>
 <nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
 <button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
@@ -1193,9 +1193,9 @@
 <span class="material-symbols-outlined">diversity_1</span>
 <span class="font-label-sm text-label-sm mt-1">さがす</span>
 </button>
-<button onclick="switchScreen('pets')" aria-current="page" aria-label="ペット" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<button onclick="switchScreen('pets')" aria-current="page" aria-label="動物" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pets</span>
-<span class="font-label-sm text-label-sm mt-1">ペット</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
 </button>
 <button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">newspaper</span>
@@ -1264,9 +1264,9 @@
 <span class="material-symbols-outlined">diversity_1</span>
 <span class="font-label-sm text-label-sm mt-1">さがす</span>
 </button>
-<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">ペット</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
 </button>
 <button onclick="switchScreen('news')" aria-current="page" aria-label="ニュース" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">newspaper</span>
@@ -1337,9 +1337,9 @@
 <span class="material-symbols-outlined">diversity_1</span>
 <span class="font-label-sm text-label-sm mt-1">さがす</span>
 </button>
-<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">ペット</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
 </button>
 <button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">newspaper</span>
@@ -1410,9 +1410,9 @@
 <span class="material-symbols-outlined">diversity_1</span>
 <span class="font-label-sm text-label-sm mt-1">さがす</span>
 </button>
-<button onclick="switchScreen('pets')" aria-label="ペット" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">ペット</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
 </button>
 <button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">newspaper</span>
@@ -2162,10 +2162,10 @@ refreshPersons();
 /* ===================== 画面切替・設定 ===================== */
 let newsLoaded = false;
 const SCREEN_META = {
-    home: { path: '/', title: 'つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ', description: '熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認、迷子ペットの捜索、熊本地震関連の最新ニュースを一つのアプリで。' },
+    home: { path: '/', title: 'つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ', description: '熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認、迷子動物の捜索、熊本地震関連の最新ニュースを一つのアプリで。' },
     goods: { path: '/support', title: '物資の支援｜つながるくまもと', description: '水・食料・毛布などの物資を無料または有料でゆずる・もとめる掲示板。' },
     find: { path: '/find', title: 'さがす（安否確認）｜つながるくまもと', description: '熊本地震の被災者の安否確認・情報共有掲示板。氏名は一部伏せ字表示、電話番号照合で本人確認します。' },
-    pets: { path: '/pets', title: 'ペットを探す｜つながるくまもと', description: 'はぐれてしまったペットの捜索・目撃情報共有掲示板。' },
+    pets: { path: '/pets', title: '動物を探す｜つながるくまもと', description: 'はぐれてしまった動物の捜索・目撃情報共有掲示板。' },
     news: { path: '/news', title: 'ニュース｜つながるくまもと', description: '熊本地震に関する最新ニュースをまとめて表示します。' },
     board: { path: '/board', title: '掲示板｜つながるくまもと', description: 'みんなの声・情報交換掲示板。ログイン不要でスレッドを立て、匿名でコメントできます。' },
     gov: { path: '/gov', title: '行政からのお知らせ｜つながるくまもと', description: '自治体・行政からのお知らせを掲載。給水・避難所・罹災証明など最新情報をお届けします。' },
@@ -2241,7 +2241,7 @@ if (window.vm) {
     window.vm.$watch('goodsList', renderHomeGoodsIfVisible, { deep: true });
 }
 
-/* ---- ペットを探す（非ログイン利用） ---- */
+/* ---- 動物を探す（非ログイン利用） ---- */
 let pets = [];
 let petFilterSpecies = 'all';
 let petFilterCity = 'all';
@@ -2380,7 +2380,7 @@ function setPetFormType(t) {
     if (lostBtn) lostBtn.classList.toggle('on', t === 'lost');
     if (sightingBtn) sightingBtn.classList.toggle('on', t === 'sighting');
     const sub = document.getElementById('pet-form-sub');
-    if (sub) sub.textContent = t === 'sighting' ? '保護した・見かけたペットの情報を登録します。' : 'はぐれてしまったペットの情報を登録します。';
+    if (sub) sub.textContent = t === 'sighting' ? '保護した・見かけた動物の情報を登録します。' : 'はぐれてしまった動物の情報を登録します。';
     const emailLabel = document.getElementById('pet-email-label');
     if (emailLabel) emailLabel.innerHTML = (t === 'sighting' ? 'あなたの連絡先メールアドレス' : '飼い主のメールアドレス') + ' <span class="opt">（必須・通知用）</span>';
     renderPetCityField();
@@ -2390,8 +2390,8 @@ function openPetForm() {
     petFormType = 'lost';
     petFormSpecies = 'dog';
     overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
-        <h2>ペットを登録</h2>
-        <p class="sub" id="pet-form-sub">はぐれてしまったペットの情報を登録します。</p>
+        <h2>動物を登録</h2>
+        <p class="sub" id="pet-form-sub">はぐれてしまった動物の情報を登録します。</p>
         <label>登録内容 <span class="opt">（必須）</span></label>
         <div class="seg-control">
             <button class="on" id="pet-type-lost" onclick="setPetFormType('lost')" type="button">さがしています</button>
@@ -2464,7 +2464,7 @@ function openPetDetail(id) {
             <label>あなたのお名前 <span class="opt">（任意）</span></label>
             <input id="pet-m-from" placeholder="例）飼い主の△△">
             <div class="notice warn"><span class="material-symbols-outlined">warning</span><div>送信すると状態が<b>「飼い主に連絡済み」</b>に更新され、投稿者へ<b>通知</b>されます。</div></div>
-            <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button><button class="primary" onclick="sendPetMsg('${p.id}')">自分のペットだと伝える</button></div>`
+            <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button><button class="primary" onclick="sendPetMsg('${p.id}')">自分の動物だと伝える</button></div>`
         : `<label>情報を伝える<span class="opt">（見かけた場所・保護状況など）</span></label>
             <textarea id="pet-m-text" placeholder="例）松橋駅の駐輪場付近で見かけました。"></textarea>
             <label>あなたのお名前 <span class="opt">（任意）</span></label>
