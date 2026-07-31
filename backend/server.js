@@ -134,16 +134,49 @@ async function sendEmail({ to, subject, text }) {
   }
 }
 
-// ---------- SMS送信（Textbelt / 未設定時はシミュレーション） ----------
-// Textbelt (https://textbelt.com) は無料の共有クォータキー 'textbelt' で
-// 1日1通まで実際にSMSを送信できるサービス（IPアドレス単位で共有・国際番号対応）。
-// 本格運用（複数ユーザーへの同時送信）には有料キーの取得が必須。
-// TEXTBELT_API_KEY が未設定の場合は 'textbelt'（無料共有枠）を既定値として使う。
+// ---------- SMS送信（Twilio優先 / なければTextbelt / どちらも未設定ならシミュレーション） ----------
+// Twilio (https://www.twilio.com) が設定されていれば優先的に使用する（有料・従量課金、日本向け実績あり）。
+// TWILIO_ACCOUNT_SID + TWILIO_AUTH_TOKEN + TWILIO_FROM_NUMBER の3つがすべて設定されている場合のみ使用。
+//
+// Twilio未設定の場合は Textbelt (https://textbelt.com) にフォールバックする。
+// 無料の共有クォータキー 'textbelt' は「サーバーのIPアドレスごとに1日1通」という
+// 非常に厳しい制限があり、本格運用（複数ユーザーの同時登録）には全く足りない。
+
+const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID || '';
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN || '';
+const TWILIO_FROM_NUMBER = process.env.TWILIO_FROM_NUMBER || '';
+const USE_TWILIO = !!(TWILIO_ACCOUNT_SID && TWILIO_AUTH_TOKEN && TWILIO_FROM_NUMBER);
 
 const TEXTBELT_API_KEY = process.env.TEXTBELT_API_KEY || 'textbelt';
 const TEXTBELT_DISABLED = process.env.TEXTBELT_DISABLED === '1';
 
+async function sendSmsViaTwilio({ to, message }) {
+  const url = `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_ACCOUNT_SID}/Messages.json`;
+  const auth = Buffer.from(`${TWILIO_ACCOUNT_SID}:${TWILIO_AUTH_TOKEN}`).toString('base64');
+  const body = new URLSearchParams({ To: to, From: TWILIO_FROM_NUMBER, Body: message });
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { Authorization: `Basic ${auth}`, 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  });
+  const data = await res.json().catch(() => null);
+  if (!res.ok || !data || !data.sid) {
+    console.error('[sms] Twilio送信失敗', res.status, data);
+    return { sent: false, simulated: false, error: true, detail: data && data.message };
+  }
+  console.log(`[sms] Twilio送信成功 sid=${data.sid} status=${data.status}`);
+  return { sent: true, simulated: false };
+}
+
 async function sendSms({ to, message }) {
+  if (USE_TWILIO) {
+    try {
+      return await sendSmsViaTwilio({ to, message });
+    } catch (e) {
+      console.error('[sms] Twilio送信エラー', e);
+      return { sent: false, simulated: false, error: true };
+    }
+  }
   if (TEXTBELT_DISABLED) {
     console.log(`[sms:simulated] to=${to}\n${message}`);
     return { sent: false, simulated: true };
