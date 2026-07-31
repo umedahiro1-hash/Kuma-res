@@ -234,7 +234,7 @@ function maskName(n) {
 async function getProfiles() {
   const rows = await db.prepare('SELECT * FROM profiles').all();
   const out = {};
-  rows.forEach(r => { out[r.name] = { name: r.name, city: r.city, photoPath: r.photo_path, completed: r.completed, noshow: r.noshow, praises: r.praises }; });
+  rows.forEach(r => { out[r.name] = { name: r.name, city: r.city, photoPath: r.photo_path, completed: r.completed, noshow: r.noshow }; });
   return out;
 }
 
@@ -263,9 +263,6 @@ async function serializeGoods(id) {
   const chat = (await db.prepare('SELECT from_nick as "from", text, at FROM goods_chat WHERE goods_id = ? ORDER BY at ASC').all(id))
     .map(c => ({ ...c, at: Number(c.at) }));
   const dealRow = await db.prepare('SELECT * FROM deals WHERE goods_id = ?').get(id);
-  const reviewRows = await db.prepare('SELECT reviewer_nick, star FROM reviews WHERE goods_id = ?').all(id);
-  const reviewed = {};
-  reviewRows.forEach(r => { reviewed[r.reviewer_nick] = r.star; });
 
   let deal = null;
   if (dealRow) {
@@ -277,7 +274,6 @@ async function serializeGoods(id) {
       time: dealRow.time,
       giverDone: !!dealRow.giver_done,
       takerDone: !!dealRow.taker_done,
-      reviewed,
     };
   }
 
@@ -492,8 +488,6 @@ app.post('/api/me', requireUser, ah(async (req, res) => {
       await txDb.prepare('UPDATE goods_chat SET from_nick = ? WHERE from_nick = ?').run(name, oldName);
       await txDb.prepare('UPDATE deals SET partner = ? WHERE partner = ?').run(name, oldName);
       await txDb.prepare('UPDATE deals SET owner = ? WHERE owner = ?').run(name, oldName);
-      await txDb.prepare('UPDATE reviews SET reviewer_nick = ? WHERE reviewer_nick = ?').run(name, oldName);
-      await txDb.prepare('UPDATE reviews SET target_nick = ? WHERE target_nick = ?').run(name, oldName);
       await txDb.prepare('UPDATE sessions SET name = ? WHERE name = ?').run(name, oldName);
     }
   });
@@ -623,27 +617,6 @@ app.post('/api/goods/:id/confirm', requireUser, ah(async (req, res) => {
   }
 
   res.json({ goods: await serializeGoods(goods.id), bothDone });
-}));
-
-app.post('/api/goods/:id/review', requireUser, ah(async (req, res) => {
-  const goods = await serializeGoods(req.params.id);
-  if (!goods) return res.status(404).json({ error: '投稿が見つかりません' });
-  if (goods.status !== 'done' || !goods.deal) return res.status(409).json({ error: '受渡完了後のみ評価できます' });
-  if (!isDealParticipant(goods, req.me)) return res.status(403).json({ error: '取引の当事者のみ評価できます' });
-  if (goods.deal.reviewed[req.me]) return res.status(409).json({ error: 'すでに評価済みです' });
-
-  const star = Number(req.body && req.body.star);
-  if (!Number.isInteger(star) || star < 1 || star > 5) return res.status(400).json({ error: 'star は1〜5で指定してください' });
-  const msg = (req.body && req.body.msg) || '';
-
-  const otherParty = goods.nick === req.me ? goods.deal.partner : goods.nick;
-  const now = Date.now();
-  await db.prepare('INSERT INTO reviews (goods_id, reviewer_nick, target_nick, star, msg, at) VALUES (?,?,?,?,?,?)')
-    .run(goods.id, req.me, otherParty, star, msg, now);
-
-  if (star >= 4) await db.prepare('UPDATE profiles SET praises = praises + 1 WHERE name = ?').run(otherParty);
-
-  res.json(await serializeGoods(goods.id));
 }));
 
 app.post('/api/goods/:id/no-show', requireUser, ah(async (req, res) => {

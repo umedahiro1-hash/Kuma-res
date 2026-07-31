@@ -245,12 +245,7 @@
         .step-item.done .step-label { color: #0A5238; }
         .step-item.active .step-dot { border-color: #D97706; border-width: 3px; }
         .step-item.active .step-label { color: #D97706; font-weight: 800; }
-        
-        /* Review Stars */
-        .star-rating { display: flex; justify-content: center; gap: 8px; margin: 16px 0; font-size: 32px; color: #e1e3df; cursor: pointer; }
-        .star-rating .star { transition: color 0.2s; }
-        .star-rating .star.active { color: #D97706; }
-        
+
         [v-cloak] { display: none; }
     </style>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,700&amp;display=swap" rel="stylesheet"/>
@@ -743,18 +738,6 @@
                             受け渡しが完了しました。ご協力ありがとうございました！
                         </div>
 </div>
-<div class="mt-6 border border-divider-line rounded-xl p-5 bg-surface" v-if="!hasReviewed(activeItem) &amp;&amp; isParticipant(activeItem)">
-<h4 class="font-headline-sm text-headline-sm text-charcoal-text text-center mb-1">お相手の評価</h4>
-<p class="text-xs text-center text-muted-gray mb-4">この評価は相手の「信頼温度」に影響します</p>
-<div class="star-rating">
-<span :class="{active: reviewStar &gt;= n}" :key="n" @click="reviewStar = n" class="star" v-for="n in 5">★</span>
-</div>
-<textarea class="form-input mt-4 mb-4 h-20" placeholder="ひとこと（任意）例：時間通りに来てくださり助かりました" v-model="reviewMsg"></textarea>
-<button :disabled="reviewStar === 0" @click="submitReview" class="btn-primary">評価を送信する</button>
-</div>
-<div class="text-center py-6 text-muted-gray font-bold" v-else-if="hasReviewed(activeItem)">
-                        評価送信済みです。
-                    </div>
 </div>
 </div>
 </div>
@@ -1504,9 +1487,6 @@ const goodsApp = createApp({
             showAppointmentForm: false,
             apptForm: { partner: '', place: '', date: '', time: '', chkQty: false, chkCond: false, chkPlace: false, chkTime: false },
 
-            reviewStar: 0,
-            reviewMsg: '',
-
             toast: { msg: '', visible: false, timeout: null },
 
             showAuthSheet: false,
@@ -1766,27 +1746,6 @@ const goodsApp = createApp({
                 } else {
                     this.showToast('確認しました。相手の確認をお待ちください');
                 }
-            } catch (e) {
-                this.showToast(`⚠️ ${e.message}`);
-            }
-        },
-
-        hasReviewed(item) {
-            return item.deal && item.deal.reviewed && item.deal.reviewed[this.me];
-        },
-
-        async submitReview() {
-            if (!this.activeItem || this.reviewStar === 0) return;
-            try {
-                const updated = await apiFetch(`/goods/${this.activeItem.id}/review`, {
-                    method: 'POST',
-                    headers: authHeaders(),
-                    body: JSON.stringify({ star: this.reviewStar, msg: this.reviewMsg })
-                });
-                this.applyUpdatedGoods(updated);
-                await this.loadProfiles();
-                this.showToast('⭐ 評価を送信しました。ありがとうございました');
-                setTimeout(() => { this.closeItem(); }, 1500);
             } catch (e) {
                 this.showToast(`⚠️ ${e.message}`);
             }
