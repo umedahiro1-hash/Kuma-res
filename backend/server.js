@@ -309,10 +309,22 @@ function giverNick(goods) {
 function takerNick(goods) {
   return goods.type === 'offer' ? goods.deal.partner : goods.nick;
 }
+// チャット用: 交渉が成立(予約)する前は「現在申し出中の相手」も参加者とみなす。
+// 過去にキャンセル等で外れた申し出者は対象にしない（別の相手との新しい交渉に紛れ込めないようにする）。
 function isParticipant(goods, me) {
   if (goods.nick === me) return true;
   if (goods.deal && (goods.deal.partner === me || goods.deal.owner === me)) return true;
-  if (goods.applicants.some(a => a.nick === me)) return true;
+  const currentApplicant = goods.applicants[goods.applicants.length - 1];
+  if (currentApplicant && currentApplicant.nick === me) return true;
+  return false;
+}
+
+// 評価・受渡確認・キャンセル・不着報告用: 現在有効な予約の当事者（投稿者⇔予約相手）のみに厳密に限定する。
+// isParticipant() は過去に申し出て後にキャンセル等で外れた人も含んでしまうため、
+// 別の相手と再度成立した予約を無関係な過去の申し出者が操作できてしまう不具合を防ぐ。
+function isDealParticipant(goods, me) {
+  if (goods.nick === me) return true;
+  if (goods.deal && (goods.deal.partner === me || goods.deal.owner === me)) return true;
   return false;
 }
 
@@ -321,21 +333,22 @@ function isParticipant(goods, me) {
 // 投稿者→の発言は、予約相手が確定していればその相手のみ、未確定なら現在の申し出者全員に通知する
 // （申し出者が複数いる可能性があり、誰に向けた発言か機械的には判別できないため）。
 async function notifyGoodsChatSms(goods, senderNick, text) {
-  let recipientNicks;
+  // 投稿が「open」の間しか新規の申し出はできないため、交渉中(nego)以降は
+  // 投稿者⇔申し出者（予約確定後は予約相手）の1対1になる。相手は常に一意に決まる。
+  let recipientNick;
   if (senderNick === goods.nick) {
-    recipientNicks = goods.deal ? [goods.deal.partner] : goods.applicants.map(a => a.nick);
+    recipientNick = goods.deal ? goods.deal.partner : (goods.applicants[goods.applicants.length - 1] || {}).nick;
   } else {
-    recipientNicks = [goods.nick];
+    recipientNick = goods.nick;
   }
-  recipientNicks = [...new Set(recipientNicks)].filter(n => n && n !== senderNick);
-  if (!recipientNicks.length) return;
+  if (!recipientNick || recipientNick === senderNick) return;
 
-  const message = `【つながるくまもと】${senderNick}さんから新しいメッセージが届きました。\n\n${text}\n\nアプリでご確認ください。`;
-  for (const nick of recipientNicks) {
-    const profile = await db.prepare('SELECT phone FROM profiles WHERE name = ?').get(nick);
-    if (!profile || !profile.phone) continue;
-    await sendSms({ to: toIntlPhone(profile.phone), message });
-  }
+  const profile = await db.prepare('SELECT phone FROM profiles WHERE name = ?').get(recipientNick);
+  if (!profile || !profile.phone) return;
+  await sendSms({
+    to: toIntlPhone(profile.phone),
+    message: `【つながるくまもと】${senderNick}さんから新しいメッセージが届きました。\n\n${text}\n\nアプリでご確認ください。`,
+  });
 }
 
 async function requireUser(req, res, next) {
@@ -547,8 +560,7 @@ app.post('/api/goods/:id/chat', requireUser, ah(async (req, res) => {
   const goods = await serializeGoods(req.params.id);
   if (!goods) return res.status(404).json({ error: '投稿が見つかりません' });
   if (goods.status === 'done') return res.status(409).json({ error: 'この取引は完了しています' });
-  const canChat = goods.status !== 'open' || goods.applicants.some(a => a.nick === req.me) || goods.nick === req.me;
-  if (!canChat) return res.status(403).json({ error: 'この投稿にはまだ参加していません' });
+  if (!isParticipant(goods, req.me)) return res.status(403).json({ error: 'この投稿にはまだ参加していません' });
 
   const text = (req.body && req.body.text || '').trim();
   if (!text) return res.status(400).json({ error: 'メッセージを入力してください' });
@@ -617,7 +629,7 @@ app.post('/api/goods/:id/review', requireUser, ah(async (req, res) => {
   const goods = await serializeGoods(req.params.id);
   if (!goods) return res.status(404).json({ error: '投稿が見つかりません' });
   if (goods.status !== 'done' || !goods.deal) return res.status(409).json({ error: '受渡完了後のみ評価できます' });
-  if (!isParticipant(goods, req.me)) return res.status(403).json({ error: '取引の当事者のみ評価できます' });
+  if (!isDealParticipant(goods, req.me)) return res.status(403).json({ error: '取引の当事者のみ評価できます' });
   if (goods.deal.reviewed[req.me]) return res.status(409).json({ error: 'すでに評価済みです' });
 
   const star = Number(req.body && req.body.star);
@@ -638,7 +650,7 @@ app.post('/api/goods/:id/no-show', requireUser, ah(async (req, res) => {
   const goods = await serializeGoods(req.params.id);
   if (!goods) return res.status(404).json({ error: '投稿が見つかりません' });
   if (goods.status !== 'reserved' || !goods.deal) return res.status(409).json({ error: '予約済みの投稿のみ報告できます' });
-  if (!isParticipant(goods, req.me)) return res.status(403).json({ error: '取引の当事者のみ報告できます' });
+  if (!isDealParticipant(goods, req.me)) return res.status(403).json({ error: '取引の当事者のみ報告できます' });
 
   const otherParty = goods.nick === req.me ? goods.deal.partner : goods.nick;
   await db.prepare('UPDATE profiles SET noshow = noshow + 1 WHERE name = ?').run(otherParty);
@@ -655,7 +667,7 @@ app.post('/api/goods/:id/cancel', requireUser, ah(async (req, res) => {
   const goods = await serializeGoods(req.params.id);
   if (!goods) return res.status(404).json({ error: '投稿が見つかりません' });
   if (goods.status !== 'reserved') return res.status(409).json({ error: '予約済みの投稿のみキャンセルできます' });
-  if (!isParticipant(goods, req.me)) return res.status(403).json({ error: '取引の当事者のみキャンセルできます' });
+  if (!isDealParticipant(goods, req.me)) return res.status(403).json({ error: '取引の当事者のみキャンセルできます' });
 
   const now = Date.now();
   await db.prepare('DELETE FROM deals WHERE goods_id = ?').run(goods.id);

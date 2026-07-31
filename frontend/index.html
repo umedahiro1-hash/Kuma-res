@@ -423,7 +423,7 @@
 </div>
 <div class="flex gap-4">
 <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line flex items-center justify-center bg-surface-container-low">
-<img :src="item.imagePath || getImageForCat(item.cat)" alt="Item photo" class="w-full h-full object-cover" loading="lazy" decoding="async" v-if="item.imagePath || getImageForCat(item.cat)"/>
+<img :src="item.imagePath || getImageForCat(item.cat)" alt="Item photo" class="w-full h-full object-cover" loading="lazy" decoding="async" @error="markImageBroken(item.imagePath || getImageForCat(item.cat))" v-if="(item.imagePath || getImageForCat(item.cat)) &amp;&amp; !brokenImages.has(item.imagePath || getImageForCat(item.cat))"/>
 <span class="font-label-sm text-label-sm text-muted-gray text-center px-1" v-else="">画像なし</span>
 </div>
 <div class="flex-1">
@@ -622,7 +622,7 @@
 </div>
 <!-- Photo -->
 <div class="w-full h-40 rounded-xl overflow-hidden border border-divider-line mb-4 flex items-center justify-center bg-surface-container-low">
-<img :src="activeItem.imagePath || getImageForCat(activeItem.cat)" alt="Item photo" class="w-full h-full object-cover" v-if="activeItem.imagePath || getImageForCat(activeItem.cat)"/>
+<img :src="activeItem.imagePath || getImageForCat(activeItem.cat)" alt="Item photo" class="w-full h-full object-cover" @error="markImageBroken(activeItem.imagePath || getImageForCat(activeItem.cat))" v-if="(activeItem.imagePath || getImageForCat(activeItem.cat)) &amp;&amp; !brokenImages.has(activeItem.imagePath || getImageForCat(activeItem.cat))"/>
 <span class="font-label-sm text-label-sm text-muted-gray" v-else="">画像なし</span>
 </div>
 <!-- Basic Details -->
@@ -1492,6 +1492,7 @@ const goodsApp = createApp({
             goodsType: 'all',
             goodsArea: 'all',
             goodsList: [],
+            brokenImages: new Set(),
 
             activeItem: null,
             chatInput: '',
@@ -1580,6 +1581,9 @@ const goodsApp = createApp({
                 '食料': 'https://storage.googleapis.com/aida-studio-stage-bucket/AB6AXuAQ6m0G4s1D0c6b1Q8V0D3R6v5M8W5N3Z2B3x1X3b8w5y5E0p7Q2Y4X3p9q4V9b3u1D3M2X3B9L8v9A0_5e9f8485-6126-4076-afde-86efba5e6d6d.jpeg'
             };
             return imgMap[cat] || null;
+        },
+        markImageBroken(url) {
+            if (url) this.brokenImages.add(url);
         },
         formatDate(ts) {
             if (!ts) return '';
@@ -1956,6 +1960,8 @@ const verifiedPhones = {}; // { personId: '照合に使った電話番号' } 送
 // DISTRICTS / AREAS（市区町村マスタ）は最初の <script> ブロック（Vueアプリより前）で定義済み
 let findArea = 'all';
 function esc(s) { return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])) }
+function imgFallback() { return '<span class="font-label-sm text-label-sm text-muted-gray text-center px-1">画像なし</span>'; }
+function imgFallbackBlock() { return '<div style="width:100%;height:200px;border-radius:12px;margin-bottom:16px;background:#F3F4F0;color:#6A7178;display:flex;align-items:center;justify-content:center;">画像なし</div>'; }
 function fmtRelTime(ts) { const ms = Date.now() - ts; const h = Math.floor(ms / 3600000); if (h < 1) return 'たった今'; if (h < 24) return `${h}時間前`; const d = Math.floor(h / 24); if (d === 1) return '昨日'; return `${d}日前`; }
 function fmtDate(ts) { const d = new Date(ts); return `${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`; }
 async function findApiFetch(path, opts) {
@@ -2060,7 +2066,7 @@ function showPersonDetail(p) {
         <div class="notice success"><span class="material-symbols-outlined">check_circle</span><div>照合成功。詳細を表示しています。</div></div>
         <h2>${esc(p.name)} さん</h2>
         <p class="sub">捜索を登録した方へ連絡できます。</p>
-        ${p.photoPath ? `<img src="${esc(p.photoPath)}" alt="写真" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;">` : ''}
+        ${p.photoPath ? `<img src="${esc(p.photoPath)}" alt="写真" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;" onerror="this.outerHTML=imgFallback()">` : ''}
         <div class="kv"><b>お名前</b><span>${esc(p.name)}</span></div>
         <div class="kv"><b>在住</b><span>${esc(p.pref)} ${esc(p.city)}</span></div>
         <div class="kv"><b>携帯</b><span>${esc(p.mobile) || '—'}</span></div>
@@ -2263,7 +2269,7 @@ function petCardHtml(p) {
     return `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 shadow-[0_4px_12px_rgba(100,93,84,0.05)] cursor-pointer hover:scale-[0.98] transition-transform duration-200 ${isOk ? 'opacity-85' : ''}" onclick="openPetDetail('${p.id}')">
         <div class="flex items-center gap-2 mb-2">${typeTag}${statusTag}</div>
         <div class="flex gap-3">
-            <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line flex items-center justify-center bg-surface-container-low">${p.photoPath ? `<img src="${esc(p.photoPath)}" alt="${speciesLabel(p.species)}の写真" class="w-full h-full object-cover" loading="lazy" decoding="async"/>` : `<span class="font-label-sm text-label-sm text-muted-gray text-center px-1">画像なし</span>`}</div>
+            <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line flex items-center justify-center bg-surface-container-low">${p.photoPath ? `<img src="${esc(p.photoPath)}" alt="${speciesLabel(p.species)}の写真" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.outerHTML=imgFallback()"/>` : imgFallback()}</div>
             <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 mb-1"><span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded">${speciesLabel(p.species)}・${genderLabel(p.gender)}</span></div>
                 <h4 class="font-headline-sm text-headline-sm text-charcoal-text line-clamp-1">${esc(p.breed)}</h4>
@@ -2469,8 +2475,8 @@ function openPetDetail(id) {
         <h2>${esc(p.breed)}</h2>
         <p class="sub">${petTypeLabel(p.type)}・${speciesLabel(p.species)}・${genderLabel(p.gender)}（${petStatusLabel(p)}）</p>
         ${p.photoPath
-            ? `<img alt="${speciesLabel(p.species)}の写真" src="${esc(p.photoPath)}" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;">`
-            : `<div style="width:100%;height:200px;border-radius:12px;margin-bottom:16px;background:#F3F4F0;color:#6A7178;display:flex;align-items:center;justify-content:center;">画像なし</div>`}
+            ? `<img alt="${speciesLabel(p.species)}の写真" src="${esc(p.photoPath)}" style="width:100%;height:200px;object-fit:cover;border-radius:12px;margin-bottom:16px;" onerror="this.outerHTML=imgFallbackBlock()">`
+            : imgFallbackBlock()}
         <div class="kv"><b>市区町村</b><span>${esc(p.city) || '未設定'}</span></div>
         <div class="kv"><b>場所</b><span>${esc(p.location)}</span></div>
         <div class="kv" style="border-bottom:0"><b>特徴</b><span>${esc(p.characteristics) || '記載なし'}</span></div>
@@ -2540,7 +2546,7 @@ function boardApiFetch(path, opts) {
 function threadCardHtml(t) {
     const delBtn = t.canDelete ? `<button onclick="event.stopPropagation(); deleteThread('${t.id}')" class="text-[#ba1a1a] font-label-sm text-label-sm flex items-center gap-1 hover:opacity-70"><span class="material-symbols-outlined text-[16px]">delete</span>削除</button>` : '';
     const cityTag = t.city ? `<span class="bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm px-2 py-0.5 rounded flex items-center gap-1 mb-1 w-fit"><span class="material-symbols-outlined text-[14px]">location_on</span>${esc(t.city)}</span>` : '';
-    const photo = t.photoPath ? `<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line"><img src="${esc(t.photoPath)}" alt="" class="w-full h-full object-cover" loading="lazy" decoding="async"/></div>` : '';
+    const photo = t.photoPath ? `<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line flex items-center justify-center bg-surface-container-low"><img src="${esc(t.photoPath)}" alt="" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.outerHTML=imgFallback()"/></div>` : '';
     return `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 shadow-[0_4px_12px_rgba(100,93,84,0.05)] cursor-pointer hover:scale-[0.98] transition-transform duration-200" onclick="openThreadDetail('${t.id}')">
         ${cityTag}
         <div class="flex gap-3">
@@ -2608,7 +2614,7 @@ function openThreadForm() {
         </label>
         <input accept="image/*" id="th-photo" onchange="onThreadPhotoChange(this)" type="file" style="display:none;">
         <div id="th-photo-preview" style="display:none;gap:8px;margin-top:8px;"></div>
-        <div class="notice"><span class="material-symbols-outlined">info</span><div>投稿者名は表示されません。誰でも閲覧・コメントできる掲示板です。自分が立てたスレッドは、コメントが付く前であれば削除できます。</div></div>
+        <div class="notice"><span class="material-symbols-outlined">info</span><div>投稿者名は表示されません。誰でも閲覧・コメントできる掲示板です。</div></div>
         <div class="actions"><button class="ghost" onclick="closeOverlay()">やめる</button><button class="primary" onclick="submitThread()">この内容で投稿</button></div>`);
 }
 async function submitThread() {
@@ -2644,7 +2650,7 @@ function threadDetailHtml(t) {
     </div>`).join('') || '<div class="hint" style="margin-top:16px">まだコメントはありません。</div>';
     const delThreadBtn = t.canDelete ? `<button onclick="deleteThread('${t.id}')" class="ghost" style="color:#ba1a1a;border-color:#ffdad6;">スレッドを削除</button>` : '';
     const cityLine = t.city ? `・${esc(t.city)}` : '';
-    const photo = t.photoPath ? `<img src="${esc(t.photoPath)}" alt="" style="width:100%;border-radius:12px;margin-bottom:8px;object-fit:cover;max-height:260px;">` : '';
+    const photo = t.photoPath ? `<img src="${esc(t.photoPath)}" alt="" style="width:100%;border-radius:12px;margin-bottom:8px;object-fit:cover;max-height:260px;" onerror="this.outerHTML=imgFallbackBlock()">` : '';
     return `<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
         <h2>${esc(t.title)}</h2>
         <p class="sub">${fmtRelTime(t.updated)}${cityLine}</p>
@@ -2699,7 +2705,7 @@ function govCardHtml(n) {
                 <h4 class="font-headline-sm text-headline-sm text-charcoal-text line-clamp-2">${esc(n.title)}</h4>
                 <p class="font-body-sm text-body-sm text-secondary line-clamp-2 mt-1">${esc(n.body)}</p>
             </div>
-            ${photo ? `<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line"><img src="${esc(photo)}" alt="" class="w-full h-full object-cover" loading="lazy" decoding="async"/></div>` : ''}
+            ${photo ? `<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border border-divider-line flex items-center justify-center bg-surface-container-low"><img src="${esc(photo)}" alt="" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.outerHTML=imgFallback()"/></div>` : ''}
         </div>
         <div class="flex items-center justify-between mt-2 pt-2 border-t border-divider-line">
             <span class="font-label-sm text-label-sm text-muted-gray flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span>${fmtRelTime(n.created)}</span>
@@ -2720,7 +2726,7 @@ function renderGovNotices() {
 function openGovDetail(id) {
     const n = govNotices.find(x => x.id === id);
     if (!n) return;
-    const photos = (n.photoPaths || []).map(p => `<img src="${esc(p)}" alt="" style="width:100%;border-radius:12px;margin-bottom:8px;object-fit:cover;max-height:260px;">`).join('');
+    const photos = (n.photoPaths || []).map(p => `<img src="${esc(p)}" alt="" style="width:100%;border-radius:12px;margin-bottom:8px;object-fit:cover;max-height:260px;" onerror="this.outerHTML=imgFallbackBlock()">`).join('');
     overlay(`<button class="close" onclick="closeOverlay()"><span class="material-symbols-outlined">close</span></button>
         <h2>${esc(n.title)}</h2>
         <p class="sub">${esc(n.city || '熊本県')}・${fmtRelTime(n.created)}</p>
@@ -2797,7 +2803,7 @@ function adminStatusLabel(s) {
     return '<span class="status-badge sb-nego">承認待ち</span>';
 }
 function adminNoticeCardHtml(n) {
-    const photos = (n.photoPaths || []).map(p => `<img src="${esc(p)}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #E5E7E9;margin-right:6px;">`).join('');
+    const photos = (n.photoPaths || []).map(p => `<img src="${esc(p)}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #E5E7E9;margin-right:6px;" onerror="this.outerHTML='<div style=&quot;width:60px;height:60px;border-radius:8px;border:1px solid #E5E7E9;margin-right:6px;background:#F3F4F0;color:#6A7178;display:flex;align-items:center;justify-content:center;font-size:10px;&quot;>画像なし</div>'">`).join('');
     const actions = n.status === 'pending'
         ? `<div class="actions"><button class="ghost" onclick="adminReject('${n.id}')">却下</button><button class="primary" onclick="adminApprove('${n.id}')">承認する</button></div>`
         : '';
