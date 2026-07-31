@@ -314,6 +314,28 @@ function isParticipant(goods, me) {
   return false;
 }
 
+// 支援(物資)のチャットで新着メッセージをSMS通知する。
+// 申し出者→投稿者への発言は常に投稿者へ通知。
+// 投稿者→の発言は、予約相手が確定していればその相手のみ、未確定なら現在の申し出者全員に通知する
+// （申し出者が複数いる可能性があり、誰に向けた発言か機械的には判別できないため）。
+async function notifyGoodsChatSms(goods, senderNick, text) {
+  let recipientNicks;
+  if (senderNick === goods.nick) {
+    recipientNicks = goods.deal ? [goods.deal.partner] : goods.applicants.map(a => a.nick);
+  } else {
+    recipientNicks = [goods.nick];
+  }
+  recipientNicks = [...new Set(recipientNicks)].filter(n => n && n !== senderNick);
+  if (!recipientNicks.length) return;
+
+  const message = `【つながるくまもと】${senderNick}さんから新しいメッセージが届きました。\n\n${text}\n\nアプリでご確認ください。`;
+  for (const nick of recipientNicks) {
+    const profile = await db.prepare('SELECT phone FROM profiles WHERE name = ?').get(nick);
+    if (!profile || !profile.phone) continue;
+    await sendSms({ to: toIntlPhone(profile.phone), message });
+  }
+}
+
 async function requireUser(req, res, next) {
   try {
     const auth = req.get('authorization') || '';
@@ -341,6 +363,10 @@ app.get('/api/profiles', ah(async (req, res) => {
   res.json(await getProfiles());
 }));
 
+function toIntlPhone(phone) {
+  return '+81' + normPhone(phone).replace(/^0/, '');
+}
+
 // ---------- auth（電話番号＋SMS認証＋パスワード） ----------
 
 const OTP_TTL_MS = 5 * 60 * 1000;
@@ -353,9 +379,8 @@ app.post('/api/auth/request-otp', ah(async (req, res) => {
     ON CONFLICT(phone) DO UPDATE SET code=excluded.code, expires=excluded.expires`)
     .run(phone, code, Date.now() + OTP_TTL_MS);
 
-  const intlPhone = '+81' + phone.replace(/^0/, '');
   const smsResult = await sendSms({
-    to: intlPhone,
+    to: toIntlPhone(phone),
     message: `【つながるくまもと】認証コード: ${code}（5分間有効）`,
   });
 
@@ -511,6 +536,7 @@ app.post('/api/goods/:id/apply', requireUser, ah(async (req, res) => {
   const text = msg || (goods.type === 'request' ? '提供できます。' : '受け取りを希望します。');
   await db.prepare('INSERT INTO goods_chat (goods_id, from_nick, text, at) VALUES (?,?,?,?)').run(goods.id, req.me, text, now);
   await db.prepare('UPDATE goods SET status = ?, updated = ? WHERE id = ?').run('nego', now, goods.id);
+  await notifyGoodsChatSms(goods, req.me, text);
 
   res.json(await serializeGoods(goods.id));
 }));
@@ -528,6 +554,7 @@ app.post('/api/goods/:id/chat', requireUser, ah(async (req, res) => {
   const now = Date.now();
   await db.prepare('INSERT INTO goods_chat (goods_id, from_nick, text, at) VALUES (?,?,?,?)').run(goods.id, req.me, text, now);
   await db.prepare('UPDATE goods SET updated = ? WHERE id = ?').run(now, goods.id);
+  await notifyGoodsChatSms(goods, req.me, text);
 
   res.json(await serializeGoods(goods.id));
 }));
