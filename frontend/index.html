@@ -846,7 +846,8 @@
 <div class="input-group" v-if="otpSent">
 <label class="input-label">認証コード <span class="opt">（SMSで届いた6桁）</span></label>
 <input class="form-input" inputmode="numeric" placeholder="例）123456" v-model="authForm.code"/>
-<div class="notice-box"><span class="material-symbols-outlined notice-icon">info</span><div class="notice-content">デモ環境のため実際のSMSは送信されません。コード「{{ otpDevCode }}」を入力してください。</div></div>
+<div class="notice-box" v-if="otpDevCode"><span class="material-symbols-outlined notice-icon">info</span><div class="notice-content">SMS送信が未設定のため、コードをここに表示します：「{{ otpDevCode }}」</div></div>
+<div class="notice-box" v-else="">SMSで届いた認証コードを入力してください。</div>
 </div>
 </template>
 
@@ -1861,8 +1862,8 @@ const goodsApp = createApp({
                     body: JSON.stringify({ phone: this.authForm.phone })
                 });
                 this.otpSent = true;
-                this.otpDevCode = data.devCode;
-                this.showToast(`📩 デモ環境のため認証コードを表示します：${data.devCode}`);
+                this.otpDevCode = data.devCode || '';
+                this.showToast(data.devCode ? `📩 デモ環境のため認証コードを表示します：${data.devCode}` : '📩 SMSを送信しました');
             } catch (e) {
                 this.showToast(`⚠️ ${e.message}`);
             }

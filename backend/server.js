@@ -134,6 +134,39 @@ async function sendEmail({ to, subject, text }) {
   }
 }
 
+// ---------- SMS送信（Textbelt / 未設定時はシミュレーション） ----------
+// Textbelt (https://textbelt.com) は無料の共有クォータキー 'textbelt' で
+// 1日1通まで実際にSMSを送信できるサービス（IPアドレス単位で共有・国際番号対応）。
+// 本格運用（複数ユーザーへの同時送信）には有料キーの取得が必須。
+// TEXTBELT_API_KEY が未設定の場合は 'textbelt'（無料共有枠）を既定値として使う。
+
+const TEXTBELT_API_KEY = process.env.TEXTBELT_API_KEY || 'textbelt';
+const TEXTBELT_DISABLED = process.env.TEXTBELT_DISABLED === '1';
+
+async function sendSms({ to, message }) {
+  if (TEXTBELT_DISABLED) {
+    console.log(`[sms:simulated] to=${to}\n${message}`);
+    return { sent: false, simulated: true };
+  }
+  try {
+    const res = await fetch('https://textbelt.com/text', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: to, message, key: TEXTBELT_API_KEY }),
+    });
+    const body = await res.json().catch(() => null);
+    if (!body || !body.success) {
+      console.error('[sms] Textbelt送信失敗', body);
+      return { sent: false, simulated: false, error: true, detail: body && body.error };
+    }
+    console.log(`[sms] Textbelt送信成功 quotaRemaining=${body.quotaRemaining}`);
+    return { sent: true, simulated: false, quotaRemaining: body.quotaRemaining };
+  } catch (e) {
+    console.error('[sms] Textbelt送信エラー', e);
+    return { sent: false, simulated: false, error: true };
+  }
+}
+
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send('User-agent: *\nAllow: /\nDisallow: /admin\nSitemap: /sitemap.xml\n');
 });
@@ -286,8 +319,17 @@ app.post('/api/auth/request-otp', ah(async (req, res) => {
   await db.prepare(`INSERT INTO otp_codes (phone, code, expires) VALUES (?,?,?)
     ON CONFLICT(phone) DO UPDATE SET code=excluded.code, expires=excluded.expires`)
     .run(phone, code, Date.now() + OTP_TTL_MS);
-  // デモ用: 実SMS送信は行わず、認証コードをそのまま返す（本番ではSMSゲートウェイ連携が必要）
-  res.json({ sent: true, phone, devCode: code });
+
+  const intlPhone = '+81' + phone.replace(/^0/, '');
+  const smsResult = await sendSms({
+    to: intlPhone,
+    message: `【つながるくまもと】認証コード: ${code}（5分間有効）`,
+  });
+
+  // 実際にSMS送信できた場合はコードを画面に出さない。未設定/失敗時のみ開発用に返す
+  const payload = { sent: smsResult.sent || smsResult.simulated, phone };
+  if (!smsResult.sent) payload.devCode = code;
+  res.json(payload);
 }));
 
 app.post('/api/auth/register', ah(async (req, res) => {
