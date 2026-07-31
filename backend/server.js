@@ -258,8 +258,10 @@ function genOtp() {
 async function serializeGoods(id) {
   const g = await db.prepare('SELECT * FROM goods WHERE id = ?').get(id);
   if (!g) return null;
-  const applicants = await db.prepare('SELECT nick, msg, at FROM applicants WHERE goods_id = ? ORDER BY at ASC').all(id);
-  const chat = await db.prepare('SELECT from_nick as "from", text, at FROM goods_chat WHERE goods_id = ? ORDER BY at ASC').all(id);
+  const applicants = (await db.prepare('SELECT nick, msg, at FROM applicants WHERE goods_id = ? ORDER BY at ASC').all(id))
+    .map(a => ({ ...a, at: Number(a.at) }));
+  const chat = (await db.prepare('SELECT from_nick as "from", text, at FROM goods_chat WHERE goods_id = ? ORDER BY at ASC').all(id))
+    .map(c => ({ ...c, at: Number(c.at) }));
   const dealRow = await db.prepare('SELECT * FROM deals WHERE goods_id = ?').get(id);
   const reviewRows = await db.prepare('SELECT reviewer_nick, star FROM reviews WHERE goods_id = ?').all(id);
   const reviewed = {};
@@ -714,7 +716,8 @@ app.post('/api/persons/:id/verify', ah(async (req, res) => {
   const ok = (p.mobile && normTel(p.mobile) === inp) || (p.home && normTel(p.home) === inp);
   if (!ok) return res.status(403).json({ error: '一致しませんでした。番号をご確認ください' });
 
-  const messages = await db.prepare('SELECT from_text as "from", text, at FROM person_messages WHERE person_id = ? ORDER BY at DESC').all(p.id);
+  const messages = (await db.prepare('SELECT from_text as "from", text, at FROM person_messages WHERE person_id = ? ORDER BY at DESC').all(p.id))
+    .map(m => ({ ...m, at: Number(m.at) }));
   res.json({
     id: p.id,
     name: p.name,
@@ -835,14 +838,16 @@ function serializePetItem(row, messages) {
 async function loadPetItem(id) {
   const row = await db.prepare('SELECT * FROM pets WHERE id = ?').get(id);
   if (!row) return null;
-  const messages = await db.prepare('SELECT from_text as "from", text, at FROM pet_messages WHERE pet_id = ? ORDER BY at DESC').all(row.id);
+  const messages = (await db.prepare('SELECT from_text as "from", text, at FROM pet_messages WHERE pet_id = ? ORDER BY at DESC').all(row.id))
+    .map(m => ({ ...m, at: Number(m.at) }));
   return serializePetItem(row, messages);
 }
 
 app.get('/api/pets', ah(async (req, res) => {
   const rows = await db.prepare('SELECT * FROM pets ORDER BY created DESC').all();
   const withMessages = await Promise.all(rows.map(async (row) => {
-    const messages = await db.prepare('SELECT from_text as "from", text, at FROM pet_messages WHERE pet_id = ? ORDER BY at DESC').all(row.id);
+    const messages = (await db.prepare('SELECT from_text as "from", text, at FROM pet_messages WHERE pet_id = ? ORDER BY at DESC').all(row.id))
+    .map(m => ({ ...m, at: Number(m.at) }));
     return serializePetItem(row, messages);
   }));
   res.json(withMessages);

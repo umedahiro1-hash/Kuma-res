@@ -1943,6 +1943,8 @@ const goodsApp = createApp({
         await Promise.all(tasks);
     }
 });
+goodsApp.config.globalProperties.AREAS = AREAS;
+goodsApp.config.globalProperties.DISTRICTS = DISTRICTS;
 const vm = goodsApp.mount('#app');
 window.vm = vm;
     </script>
