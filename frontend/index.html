@@ -1855,7 +1855,7 @@ const goodsApp = createApp({
                 this.applyAuthResult(data);
                 this.showAuthSheet = false;
                 await this.loadGoods();
-                this.showToast(`👋 ${data.profile.name} としてログインしました`);
+                this.showToast(`${data.profile.name} としてログインしました`);
             } catch (e) {
                 this.showToast(`⚠️ ${e.message}`);
             }
