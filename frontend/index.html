@@ -965,6 +965,11 @@
 <div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-board-list"></div>
 <button onclick="switchScreen('board')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
 </div>
+<!-- 1週間の天気予報 -->
+<section class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[18px]">partly_cloudy_day</span>1週間の天気予報（熊本）</h3>
+<div class="flex gap-2 overflow-x-auto hide-scrollbar bg-surface-container-lowest rounded-xl border border-divider-line p-3 premium-shadow" id="home-weather-list"></div>
+</section>
 <!-- セクションタブ -->
 <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar pb-1" id="home-tabs">
 <button class="px-5 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 home-tab-btn bg-surface-container-high text-on-surface" data-tab="news" type="button"><span class="material-symbols-outlined text-[16px]">newspaper</span>ニュース</button>
@@ -989,11 +994,6 @@
 <div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-pets-list"></div>
 <button onclick="switchScreen('pets')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
 </div>
-<!-- 1週間の天気予報 -->
-<section class="flex flex-col">
-<h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[18px]">partly_cloudy_day</span>1週間の天気予報（熊本）</h3>
-<div class="flex gap-2 overflow-x-auto hide-scrollbar bg-surface-container-lowest rounded-xl border border-divider-line p-3 premium-shadow" id="home-weather-list"></div>
-</section>
 </main>
 <nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
 <button onclick="switchScreen('home')" aria-current="page" aria-label="ホーム" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
