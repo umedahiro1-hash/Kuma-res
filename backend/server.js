@@ -24,6 +24,7 @@ const ROUTE_META = {
   '/news': { title: 'ニュース｜つながるくまもと', description: '熊本地震に関する最新ニュースをまとめて表示します。' },
   '/board': { title: '掲示板｜つながるくまもと', description: 'みんなの声・情報交換掲示板。ログイン不要でスレッドを立て、匿名でコメントできます。' },
   '/gov': { title: '行政からのお知らせ｜つながるくまもと', description: '自治体・行政からのお知らせを掲載。給水・避難所・罹災証明など最新情報をお届けします。' },
+  '/safety': { title: '安全情報｜つながるくまもと', description: '緊急連絡先、車中泊・熱中症の注意点、悪質商法への警戒など、被災時に役立つ安全情報をまとめています。' },
 };
 
 function renderIndexForRoute(pathname) {

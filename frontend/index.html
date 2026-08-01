@@ -962,6 +962,15 @@
 <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">ホーム</h2>
 </div>
 </div>
+<!-- 安全情報への導線（常時表示） -->
+<button onclick="switchScreen('safety')" class="flex items-center gap-3 bg-[#fdecea] border border-[#f5c6c0] rounded-xl px-4 py-3 hover:opacity-90 transition-opacity text-left">
+<span class="material-symbols-outlined text-[#ba1a1a] text-[24px] flex-none">health_and_safety</span>
+<span class="flex-1">
+<span class="font-headline-sm text-headline-sm text-[#ba1a1a] block">安全情報</span>
+<span class="font-body-sm text-body-sm text-charcoal-text block">緊急連絡先・熱中症対策・詐欺への注意</span>
+</span>
+<span class="material-symbols-outlined text-[#ba1a1a] flex-none">chevron_right</span>
+</button>
 <!-- 掲示板（常時表示） -->
 <div class="flex flex-col gap-1">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">forum</span>掲示板</h3>
@@ -1390,6 +1399,100 @@
 </button>
 <button onclick="switchScreen('gov')" aria-current="page" aria-label="行政" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
+</button>
+<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+</nav>
+</div>
+<!-- ===================== 安全情報（静的コンテンツ） ===================== -->
+<div id="root-safety" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<span class="flex flex-col items-center leading-tight">
+<span>Tsunagaru</span>
+<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+</span>
+<span class="flex flex-col items-center leading-tight">
+<span>Kumamoto</span>
+<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+</span>
+</h1>
+</div>
+<div class="flex items-center">
+<div id="safety-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="safety-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="safety-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">health_and_safety</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">安全情報</h2>
+<p class="font-label-sm text-label-sm text-muted-gray">被災時に知っておきたい基本情報</p>
+</div>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">call</span>緊急連絡先</h3>
+<div class="grid grid-cols-2 gap-2">
+<a href="tel:119" class="flex flex-col items-center justify-center gap-1 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors"><span class="font-headline-sm text-headline-sm text-forest-deep">119</span><span class="font-label-sm text-label-sm text-muted-gray">火事・救急</span></a>
+<a href="tel:110" class="flex flex-col items-center justify-center gap-1 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors"><span class="font-headline-sm text-headline-sm text-forest-deep">110</span><span class="font-label-sm text-label-sm text-muted-gray">警察</span></a>
+<a href="tel:171" class="flex flex-col items-center justify-center gap-1 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors"><span class="font-headline-sm text-headline-sm text-forest-deep">171</span><span class="font-label-sm text-label-sm text-muted-gray">災害用伝言ダイヤル（安否の録音・再生）</span></a>
+<a href="tel:188" class="flex flex-col items-center justify-center gap-1 py-3 rounded-xl bg-surface-container-low hover:bg-surface-container transition-colors"><span class="font-headline-sm text-headline-sm text-forest-deep">188</span><span class="font-label-sm text-label-sm text-muted-gray">消費者ホットライン</span></a>
+</div>
+<p class="font-label-sm text-label-sm text-muted-gray mt-3">回線が混み合うことがあります。安否確認は171や本アプリの「さがす」機能も活用し、電話は緊急の用件を優先してください。</p>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px] text-[#ba1a1a]">warning</span>車中泊・熱中症にご注意ください</h3>
+<p class="font-body-sm text-body-sm text-charcoal-text">車中泊が続くと、同じ姿勢が長時間続くことでエコノミークラス症候群（血栓症）のリスクが高まります。こまめな水分補給と、1〜2時間おきに車外で体を動かすことを心がけてください。日中は車内・屋外とも高温になりやすいため、熱中症にも注意が必要です。</p>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px] text-[#ba1a1a]">gpp_maybe</span>悪質な訪問業者・詐欺にご注意ください</h3>
+<p class="font-body-sm text-body-sm text-charcoal-text">大きな災害の後は、点検商法や高額な修理契約を持ちかける悪質な業者が現れることがあります。その場で契約せず、複数の業者から見積もりを取りましょう。少しでも不審に感じたら、消費者ホットライン「188」にご相談ください。</p>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">wifi</span>無料Wi-Fi「00000JAPAN」について</h3>
+<p class="font-body-sm text-body-sm text-charcoal-text">大規模災害時には、通信各社が共同でパスワード不要の無料Wi-Fi「00000JAPAN」を提供することがあります。スマートフォンのWi-Fi設定から接続できますが、通信が暗号化されていないため、パスワードやクレジットカード番号などの入力は避け、安否確認や情報収集にとどめてご利用ください。</p>
+</div>
+
+<p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">このページは一般的な安全情報の案内です。最新の公式情報は、お住まいの市区町村・熊本県の発表を必ずご確認ください。</p>
+</main>
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">campaign</span>
 <span class="font-label-sm text-label-sm mt-1">行政</span>
 </button>
 <button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
@@ -2160,6 +2263,7 @@ const SCREEN_META = {
     news: { path: '/news', title: 'ニュース｜つながるくまもと', description: '熊本地震に関する最新ニュースをまとめて表示します。' },
     board: { path: '/board', title: '掲示板｜つながるくまもと', description: 'みんなの声・情報交換掲示板。ログイン不要でスレッドを立て、匿名でコメントできます。' },
     gov: { path: '/gov', title: '行政からのお知らせ｜つながるくまもと', description: '自治体・行政からのお知らせを掲載。給水・避難所・罹災証明など最新情報をお届けします。' },
+    safety: { path: '/safety', title: '安全情報｜つながるくまもと', description: '緊急連絡先、車中泊・熱中症の注意点、悪質商法への警戒など、被災時に役立つ安全情報をまとめています。' },
 };
 function screenForPath(pathname) {
     const found = Object.entries(SCREEN_META).find(([, m]) => m.path === pathname);
@@ -2180,6 +2284,7 @@ function switchScreen(s, opts){
     document.getElementById('root-news').style.display = s === 'news' ? '' : 'none';
     document.getElementById('root-board').style.display = s === 'board' ? '' : 'none';
     document.getElementById('root-gov').style.display = s === 'gov' ? '' : 'none';
+    document.getElementById('root-safety').style.display = s === 'safety' ? '' : 'none';
     if (s === 'news' && !newsLoaded) { newsLoaded = true; loadNews(); }
     if (s === 'pets') { refreshPets(); }
     if (s === 'board') { refreshThreads(); }
@@ -2203,7 +2308,7 @@ function syncHeaderAvatars(){
     if (!window.vm) return;
     const me = window.vm.me;
     const photo = window.vm.myProfile && window.vm.myProfile.photoPath;
-    ['home', 'find', 'pets', 'news', 'board', 'gov'].forEach(prefix => {
+    ['home', 'find', 'pets', 'news', 'board', 'gov', 'safety'].forEach(prefix => {
         const label = document.getElementById(prefix + '-header-avatar-label');
         const img = document.getElementById(prefix + '-header-avatar-img');
         if (!label) return;
