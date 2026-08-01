@@ -511,6 +511,14 @@
 <span class="material-symbols-outlined">newspaper</span>
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
 </button>
+<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
+</button>
 </nav>
 </div>
 <!-- Overlays / Bottom Sheets -->
@@ -962,7 +970,7 @@
 <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">ホーム</h2>
 </div>
 </div>
-<!-- 安全情報への導線（常時表示） -->
+<!-- 安全情報・支援場所への導線（常時表示） -->
 <button onclick="switchScreen('safety')" class="flex items-center gap-3 bg-[#fdecea] border border-[#f5c6c0] rounded-xl px-4 py-3 hover:opacity-90 transition-opacity text-left">
 <span class="material-symbols-outlined text-[#ba1a1a] text-[24px] flex-none">health_and_safety</span>
 <span class="flex-1">
@@ -970,6 +978,14 @@
 <span class="font-body-sm text-body-sm text-charcoal-text block">緊急連絡先・熱中症対策・詐欺への注意</span>
 </span>
 <span class="material-symbols-outlined text-[#ba1a1a] flex-none">chevron_right</span>
+</button>
+<button onclick="switchScreen('places')" class="flex items-center gap-3 bg-[#e6f4ea] border border-[#b8e0c4] rounded-xl px-4 py-3 hover:opacity-90 transition-opacity text-left">
+<span class="material-symbols-outlined text-forest-deep text-[24px] flex-none">location_on</span>
+<span class="flex-1">
+<span class="font-headline-sm text-headline-sm text-forest-deep block">支援場所を探す</span>
+<span class="font-body-sm text-body-sm text-charcoal-text block">給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレ</span>
+</span>
+<span class="material-symbols-outlined text-forest-deep flex-none">chevron_right</span>
 </button>
 <!-- 掲示板（常時表示） -->
 <div class="flex flex-col gap-1">
@@ -1035,6 +1051,14 @@
 <button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">newspaper</span>
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
 </button>
 </nav>
 </div>
@@ -1118,6 +1142,14 @@
 <span class="material-symbols-outlined">newspaper</span>
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
 </button>
+<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
+</button>
 </nav>
 </div>
 <!-- ===================== 動物を探す画面 ===================== -->
@@ -1200,6 +1232,14 @@
 <span class="material-symbols-outlined">newspaper</span>
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
 </button>
+<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
+</button>
 </nav>
 </div>
 <!-- ===================== ニュース画面 ===================== -->
@@ -1270,6 +1310,14 @@
 <button onclick="switchScreen('news')" aria-current="page" aria-label="ニュース" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">newspaper</span>
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
 </button>
 </nav>
 </div>
@@ -1344,6 +1392,14 @@
 <span class="material-symbols-outlined">newspaper</span>
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
 </button>
+<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
+</button>
 </nav>
 </div>
 <!-- ===================== 行政からのお知らせ（非ログイン投稿・承認制） ===================== -->
@@ -1417,6 +1473,14 @@
 <span class="material-symbols-outlined">newspaper</span>
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
 </button>
+<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
+</button>
 </nav>
 </div>
 <!-- ===================== 安全情報（静的コンテンツ） ===================== -->
@@ -1465,14 +1529,6 @@
 <p class="font-label-sm text-label-sm text-muted-gray mt-3">回線が混み合うことがあります。安否確認は171や本アプリの「さがす」機能も活用し、電話は緊急の用件を優先してください。</p>
 </div>
 
-<button onclick="switchScreen('places')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl p-4 premium-shadow hover:bg-surface-container-low transition-colors text-left">
-<span class="material-symbols-outlined text-forest-deep text-[24px] flex-none">location_on</span>
-<span class="flex-1">
-<span class="font-headline-sm text-headline-sm text-charcoal-text block">支援場所を探す</span>
-<span class="font-body-sm text-body-sm text-muted-gray block">給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレを一覧で確認</span>
-</span>
-<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
-</button>
 
 <div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">location_city</span>お住まいの市町村の情報</h3>
@@ -1480,6 +1536,15 @@
 <select id="safety-city-select" class="form-input mb-3" onchange="renderSafetyCitySection(this.value)"><option value="">市町村を選んでください</option></select>
 <div id="safety-city-content"></div>
 </div>
+
+<button onclick="switchScreen('mizu')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl p-4 premium-shadow hover:bg-surface-container-low transition-colors text-left">
+<span class="material-symbols-outlined text-forest-deep text-[24px] flex-none">water_drop</span>
+<span class="flex-1">
+<span class="font-headline-sm text-headline-sm text-charcoal-text block">きょうの給水・断水情報</span>
+<span class="font-body-sm text-body-sm text-muted-gray block">給水所・断水状況・炊き出し・協力井戸・災害ボランティアを市町村別に確認</span>
+</span>
+<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
+</button>
 
 <div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">campaign</span>給水・り災証明などのお知らせ</h3>
@@ -1562,6 +1627,14 @@
 <span class="material-symbols-outlined">newspaper</span>
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
 </button>
+<button onclick="switchScreen('safety')" aria-current="page" aria-label="安全情報" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
+</button>
 </nav>
 </div>
 <!-- ===================== 支援場所（外部サイト kumamoto-shien.jp 連携） ===================== -->
@@ -1637,6 +1710,94 @@
 <button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
 <span class="material-symbols-outlined">newspaper</span>
 <span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-current="page" aria-label="支援場所" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
+</button>
+</nav>
+</div>
+<!-- ===================== きょうの給水・断水情報（外部サイト kumamoto-shien.jp 連携） ===================== -->
+<div id="root-mizu" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<span class="flex flex-col items-center leading-tight">
+<span>Tsunagaru</span>
+<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+</span>
+<span class="flex flex-col items-center leading-tight">
+<span>Kumamoto</span>
+<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+</span>
+</h1>
+</div>
+<div class="flex items-center">
+<div id="mizu-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="mizu-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="mizu-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">water_drop</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">きょうの給水・断水情報</h2>
+<p id="mizu-fetched-at" class="font-label-sm text-label-sm text-muted-gray"></p>
+</div>
+</div>
+
+<div class="flex gap-2 overflow-x-auto hide-scrollbar pb-1" id="mizu-section-tabs"></div>
+
+<div id="mizu-content"><p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">情報を取得しています…</p></div>
+
+<p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">出典: 各市町村など一次情報源・<a href="https://kumamoto-shien.jp/" target="_blank" rel="noopener" class="text-primary">くまもと被災者支援ナビ</a>。給水の時間・場所は変わることがあるため、出発前に発表日時を必ずご確認ください。</p>
+</main>
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
+</button>
+<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-sm text-label-sm mt-1">安全情報</span>
+</button>
+<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">location_on</span>
+<span class="font-label-sm text-label-sm mt-1">支援場所</span>
 </button>
 </nav>
 </div>
@@ -2384,6 +2545,7 @@ refreshPersons();
 let newsLoaded = false;
 let safetyLoaded = false;
 let placesLoaded = false;
+let mizuLoaded = false;
 const SCREEN_META = {
     home: { path: '/', title: 'つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ', description: '熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認、迷子動物の捜索、熊本地震関連の最新ニュースを一つのアプリで。' },
     goods: { path: '/support', title: '物資の支援｜つながるくまもと', description: '水・食料・毛布などの物資を無料または有料でゆずる・もとめる掲示板。' },
@@ -2394,6 +2556,7 @@ const SCREEN_META = {
     gov: { path: '/gov', title: '行政からのお知らせ｜つながるくまもと', description: '自治体・行政からのお知らせを掲載。給水・避難所・罹災証明など最新情報をお届けします。' },
     safety: { path: '/safety', title: '安全情報｜つながるくまもと', description: '緊急連絡先、車中泊・熱中症の注意点、悪質商法への警戒など、被災時に役立つ安全情報をまとめています。' },
     places: { path: '/support-map', title: '支援場所｜つながるくまもと', description: '給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレの場所を一覧で確認できます。' },
+    mizu: { path: '/mizu', title: 'きょうの給水・断水情報｜つながるくまもと', description: '給水所・断水の状況・炊き出し・災害時協力井戸・災害ボランティアの最新情報を市町村の公式発表からまとめています。' },
 };
 function screenForPath(pathname) {
     const found = Object.entries(SCREEN_META).find(([, m]) => m.path === pathname);
@@ -2416,12 +2579,14 @@ function switchScreen(s, opts){
     document.getElementById('root-gov').style.display = s === 'gov' ? '' : 'none';
     document.getElementById('root-safety').style.display = s === 'safety' ? '' : 'none';
     document.getElementById('root-places').style.display = s === 'places' ? '' : 'none';
+    document.getElementById('root-mizu').style.display = s === 'mizu' ? '' : 'none';
     if (s === 'news' && !newsLoaded) { newsLoaded = true; loadNews(); }
     if (s === 'pets') { refreshPets(); }
     if (s === 'board') { refreshThreads(); }
     if (s === 'gov') { refreshGovNotices(); }
     if (s === 'safety' && !safetyLoaded) { safetyLoaded = true; loadSafetyScreen(); }
     if (s === 'places' && !placesLoaded) { placesLoaded = true; loadPlacesScreen(); }
+    if (s === 'mizu' && !mizuLoaded) { mizuLoaded = true; loadMizuScreen(); }
     if (s === 'home') { loadHomePreviews(); }
     track('screen_view', null, null, s);
     applyScreenMeta(s);
@@ -2441,7 +2606,7 @@ function syncHeaderAvatars(){
     if (!window.vm) return;
     const me = window.vm.me;
     const photo = window.vm.myProfile && window.vm.myProfile.photoPath;
-    ['home', 'find', 'pets', 'news', 'board', 'gov', 'safety', 'places'].forEach(prefix => {
+    ['home', 'find', 'pets', 'news', 'board', 'gov', 'safety', 'places', 'mizu'].forEach(prefix => {
         const label = document.getElementById(prefix + '-header-avatar-label');
         const img = document.getElementById(prefix + '-header-avatar-img');
         if (!label) return;
@@ -3744,6 +3909,80 @@ function renderPlacesListInner() {
 function showMorePlaces() {
     placesShownCount += PLACES_PAGE_SIZE;
     renderPlacesListInner();
+}
+
+/* ---- きょうの給水・断水情報画面 ---- */
+const MIZU_SECTIONS = [
+    { key: 'water', label: '給水所', icon: 'water_drop' },
+    { key: 'status', label: '断水・水道の状況', icon: 'info' },
+    { key: 'takidashi', label: '炊き出し・食料', icon: 'restaurant' },
+    { key: 'wells', label: '協力井戸', icon: 'water' },
+    { key: 'volunteer', label: '災害ボランティア', icon: 'volunteer_activism' },
+];
+let mizuData = null;
+let mizuActiveSection = 'water';
+
+async function loadMizuScreen() {
+    const tabsEl = document.getElementById('mizu-section-tabs');
+    tabsEl.innerHTML = MIZU_SECTIONS.map(s => `
+        <button onclick="setMizuSection('${s.key}')" data-mizu-section="${s.key}" class="mizu-section-btn px-4 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 ${s.key === mizuActiveSection ? 'bg-forest-deep text-white' : 'bg-white text-muted-gray border border-divider-line'}">
+            <span class="material-symbols-outlined text-[16px]">${s.icon}</span>${s.label}
+        </button>
+    `).join('');
+    document.getElementById('mizu-content').innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">情報を取得しています…</p>';
+    try {
+        mizuData = await apiFetch('/live-info');
+        document.getElementById('mizu-fetched-at').textContent = `情報確認: ${mizuData.fetchedAt}${mizuData.stale ? '（最新の取得に失敗したため、前回取得時点の情報です）' : ''}`;
+        renderMizuSection();
+    } catch (e) {
+        document.getElementById('mizu-content').innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">情報を取得できませんでした。</p>';
+    }
+}
+
+function setMizuSection(key) {
+    mizuActiveSection = key;
+    document.querySelectorAll('.mizu-section-btn').forEach(btn => {
+        const active = btn.dataset.mizuSection === key;
+        btn.classList.toggle('bg-forest-deep', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('bg-white', !active);
+        btn.classList.toggle('text-muted-gray', !active);
+        btn.classList.toggle('border', !active);
+        btn.classList.toggle('border-divider-line', !active);
+    });
+    renderMizuSection();
+}
+
+function mizuWellCardHtml(w) {
+    const groups = (w.groups || []).map(g => `
+        <details class="mt-2">
+            <summary class="font-label-lg text-label-lg text-charcoal-text cursor-pointer">${esc(g.area)}</summary>
+            <div class="flex flex-col gap-2 mt-2">
+                ${(g.places || []).map(p => `<div class="bg-surface-container-low rounded-lg p-2">
+                    <p class="font-label-lg text-label-lg text-charcoal-text">${esc(p.name)} <span class="font-label-sm text-label-sm ${p.use === '飲料用' ? 'text-forest-deep' : 'text-mustard-accent'}">${esc(p.use || '')}</span></p>
+                    <p class="font-body-sm text-body-sm text-muted-gray">${esc(p.address || '')}${p.time ? `・${esc(p.time)}` : ''}</p>
+                </div>`).join('')}
+            </div>
+        </details>
+    `).join('');
+    return `<div class="mb-3 pb-3 border-b border-divider-line last:border-b-0">
+        <p class="font-label-lg text-label-lg text-charcoal-text">${esc(w.city || '')}</p>
+        ${w.text ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-1">${w.text}</p>` : ''}
+        ${groups}
+        <p class="font-label-sm text-label-sm text-muted-gray mt-2">${esc(w.asOf || '')}</p>
+    </div>`;
+}
+
+function renderMizuSection() {
+    const box = document.getElementById('mizu-content');
+    if (!mizuData) return;
+    const list = mizuData[mizuActiveSection] || [];
+    if (!list.length) {
+        box.innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">現在、発表が確認できている情報はありません。</p>';
+        return;
+    }
+    const renderer = mizuActiveSection === 'wells' ? mizuWellCardHtml : safetyLiveEntryHtml;
+    box.innerHTML = `<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">${list.map(renderer).join('')}</div>`;
 }
 
 if (location.pathname === '/admin') {
