@@ -391,7 +391,13 @@
 </div>
 <!-- List Section -->
 <div class="flex flex-col gap-3">
-<div class="py-12 text-center flex flex-col items-center justify-center opacity-70" v-if="filteredGoods.length === 0">
+<div class="py-12 text-center flex flex-col items-center justify-center" v-if="goodsList.length === 0">
+<span class="material-symbols-outlined text-5xl text-primary mb-3">volunteer_activism</span>
+<p class="font-headline-sm text-charcoal-text">まだ投稿がありません</p>
+<p class="font-body-sm text-muted-gray mt-2 mb-4">物資を「ゆずる」「もとめる」、最初の投稿をしてみませんか？</p>
+<button @click="openCreate()" class="bg-forest-deep text-white font-label-lg text-label-lg px-6 py-3 rounded-full hover:bg-opacity-90 transition-colors">＋ 物資を登録する</button>
+</div>
+<div class="py-12 text-center flex flex-col items-center justify-center opacity-70" v-else-if="filteredGoods.length === 0">
 <span class="material-symbols-outlined text-5xl text-muted-gray mb-3">inventory_2</span>
 <p class="font-headline-sm text-charcoal-text">該当する投稿がありません</p>
 <p class="font-body-sm text-muted-gray mt-2">条件を変えてお試しください</p>
@@ -2512,7 +2518,7 @@ function renderHomeBoard() {
     const el = document.getElementById('home-board-list');
     if (!el) return;
     const list = [...threads].sort((a, b) => b.updated - a.updated).slice(0, 5);
-    el.innerHTML = list.length ? list.map(homeBoardRowHtml).join('') : `<p class="font-body-sm text-body-sm text-muted-gray py-3">まだスレッドがありません</p>`;
+    el.innerHTML = list.length ? list.map(homeBoardRowHtml).join('') : `<div class="py-3"><p class="font-body-sm text-body-sm text-muted-gray mb-2">まだスレッドがありません</p><button onclick="switchScreen('board'); openThreadForm();" class="text-primary font-label-lg text-label-lg">＋ 最初のスレッドを立てる</button></div>`;
 }
 /* ---- 掲示板（非ログイン・匿名コメント） ---- */
 let threads = [];
@@ -2560,7 +2566,12 @@ function renderThreads() {
     const el = document.getElementById('board-list');
     if (!el) return;
     const list = [...threads].sort((a, b) => b.updated - a.updated);
-    if (!list.length) { el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50">forum</span><p>まだスレッドがありません</p></div>`; return; }
+    if (!list.length) { el.innerHTML = `<div class="py-12 text-center flex flex-col items-center justify-center">
+        <span class="material-symbols-outlined text-5xl text-primary mb-3">forum</span>
+        <p class="font-headline-sm text-charcoal-text">まだスレッドがありません</p>
+        <p class="font-body-sm text-muted-gray mt-2 mb-4">情報交換の最初のスレッドを立ててみませんか？</p>
+        <button onclick="openThreadForm()" class="bg-forest-deep text-white font-label-lg text-label-lg px-6 py-3 rounded-full hover:bg-opacity-90 transition-colors">＋ スレッドを立てる</button>
+    </div>`; return; }
     el.innerHTML = list.map(threadCardHtml).join('');
 }
 let threadPhotoDataUrl = null;
@@ -2916,7 +2927,7 @@ function renderHomeGoods() {
     const el = document.getElementById('home-goods-list');
     if (!el || !window.vm) return;
     const list = goodsPreviewList().slice(0, 5);
-    el.innerHTML = list.length ? list.map(homeGoodsRowHtml).join('') : `<p class="font-body-sm text-body-sm text-muted-gray py-3">該当する投稿がありません</p>`;
+    el.innerHTML = list.length ? list.map(homeGoodsRowHtml).join('') : `<div class="py-3"><p class="font-body-sm text-body-sm text-muted-gray mb-2">まだ投稿がありません</p><button onclick="switchScreen('goods'); if(window.vm) window.vm.openCreate();" class="text-primary font-label-lg text-label-lg">＋ 最初の投稿をする</button></div>`;
 }
 function renderHomeGoodsIfVisible() {
     const root = document.getElementById('root-home');
