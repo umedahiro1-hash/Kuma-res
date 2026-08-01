@@ -450,6 +450,7 @@
 </p>
 </div>
 </div>
+<span class="text-primary font-label-sm text-label-sm flex items-center gap-1 flex-shrink-0">詳細を見る <span class="material-symbols-outlined text-[16px]">chevron_right</span></span>
 </div>
 <!-- Progress specific info snippet -->
 <div class="bg-surface-container-low rounded-lg p-3 mt-2 font-body-sm text-sm text-charcoal-text border border-surface-container-high" v-if="goodsType === 'progress' &amp;&amp; item.status !== 'open'">
@@ -2544,8 +2545,9 @@ function threadCardHtml(t) {
         <div class="flex items-center justify-between mt-2 pt-2 border-t border-divider-line">
             <span class="font-label-sm text-label-sm text-muted-gray flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">schedule</span>${fmtRelTime(t.updated)}</span>
             <div class="flex items-center gap-3">
-                <span class="text-primary font-label-sm text-label-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">chat_bubble</span>${t.commentCount}件のコメント</span>
+                <span class="text-muted-gray font-label-sm text-label-sm flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">chat_bubble</span>${t.commentCount}件</span>
                 ${delBtn}
+                <span class="text-primary font-label-sm text-label-sm flex items-center gap-1 flex-shrink-0">コメントする <span class="material-symbols-outlined text-[16px]">chevron_right</span></span>
             </div>
         </div>
     </div>`;
