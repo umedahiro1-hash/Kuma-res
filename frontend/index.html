@@ -2676,7 +2676,7 @@ function homeBoardRowHtml(t) {
     const bodyPreview = (t.body || '').slice(0, 10) + ((t.body || '').length > 10 ? '…' : '');
     return `<div onclick="openThreadDetail('${t.id}')" class="flex items-center gap-3 py-3 border-b border-divider-line cursor-pointer active:opacity-70">
         <div class="flex-1 min-w-0">
-            <span class="font-label-sm text-label-sm text-muted-gray">${t.commentCount}件のコメント</span>
+            <span class="font-label-sm text-label-sm text-muted-gray">${t.commentCount}件のコメント${t.city ? `・${esc(t.city)}` : ''}</span>
             <p class="font-label-lg text-label-lg text-charcoal-text truncate">${esc(t.title)}</p>
             <p class="font-body-sm text-body-sm text-muted-gray truncate">${esc(bodyPreview)}</p>
         </div>
