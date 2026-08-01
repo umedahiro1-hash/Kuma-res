@@ -344,13 +344,6 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center gap-3">
-<div @click="openAccountSheet()" aria-label="アカウント" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img alt="User Avatar" class="w-full h-full object-cover" :src="myProfile.photoPath" v-if="myProfile &amp;&amp; myProfile.photoPath"/>
-<span class="font-label-lg text-forest-deep" v-else-if="me">{{ me.charAt(0) }}</span>
-<span class="material-symbols-outlined text-muted-gray" v-else="">person</span>
-</div>
-</div>
 </div>
 </header>
 <!-- Main Content -->
@@ -930,11 +923,6 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center gap-3">
-<div id="home-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="home-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="home-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
-</div>
 </div>
 </header>
 <main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
@@ -1023,11 +1011,6 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center gap-3">
-<div id="find-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="find-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="find-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
-</div>
 </div>
 </header>
 <main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
@@ -1080,11 +1063,6 @@
 <span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
-</div>
-<div class="flex items-center gap-3">
-<div id="pets-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="pets-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="pets-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
 </div>
 </div>
 </header>
@@ -1139,11 +1117,6 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center gap-3">
-<div id="news-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="news-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="news-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
-</div>
 </div>
 </header>
 <main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
@@ -1185,11 +1158,6 @@
 <span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
-</div>
-<div class="flex items-center gap-3">
-<div id="board-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="board-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="board-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
 </div>
 </div>
 </header>
@@ -1235,11 +1203,6 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center gap-3">
-<div id="gov-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="gov-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="gov-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
-</div>
 </div>
 </header>
 <main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-2">
@@ -1283,11 +1246,6 @@
 <span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
-</div>
-<div class="flex items-center gap-3">
-<div id="safety-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="safety-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="safety-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
 </div>
 </div>
 </header>
@@ -1408,11 +1366,6 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center gap-3">
-<div id="places-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="places-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="places-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
-</div>
 </div>
 </header>
 <main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-3">
@@ -1469,11 +1422,6 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center gap-3">
-<div id="mizu-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="mizu-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="mizu-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
-</div>
 </div>
 </header>
 <main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-3">
@@ -1516,11 +1464,6 @@
 <span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
-</div>
-<div class="flex items-center gap-3">
-<div id="gasoline-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
-<img id="gasoline-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="gasoline-header-avatar-label" class="font-label-lg text-forest-deep"></span>
-</div>
 </div>
 </div>
 </header>
@@ -1566,6 +1509,12 @@
 <span class="material-symbols-outlined">close</span>
 </button>
 </div>
+<button onclick="openUserSwitcher(); closeNavDrawer();" class="flex items-center gap-3 mx-2 mt-2 px-3 py-3 rounded-xl border border-divider-line bg-surface-container-lowest hover:bg-surface-container-low text-left transition-colors">
+<div id="drawer-account-avatar" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center flex-none">
+<img id="drawer-account-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="drawer-account-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+<span id="drawer-account-label" class="font-label-lg text-label-lg text-charcoal-text">ログイン・会員登録</span>
+</button>
 <nav class="flex flex-col p-2 gap-1">
 <button onclick="switchScreen('home'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
 <span class="material-symbols-outlined text-forest-deep">home</span>
@@ -2421,28 +2370,28 @@ function syncHeaderAvatars(){
     if (!window.vm) return;
     const me = window.vm.me;
     const photo = window.vm.myProfile && window.vm.myProfile.photoPath;
-    ['home', 'find', 'pets', 'news', 'board', 'gov', 'safety', 'places', 'mizu', 'gasoline'].forEach(prefix => {
-        const label = document.getElementById(prefix + '-header-avatar-label');
-        const img = document.getElementById(prefix + '-header-avatar-img');
-        if (!label) return;
-        if (photo) {
-            if (img) { img.src = photo; img.style.display = ''; }
-            label.style.display = 'none';
-            label.textContent = '';
+    const label = document.getElementById('drawer-account-avatar-label');
+    const img = document.getElementById('drawer-account-avatar-img');
+    const nameLabel = document.getElementById('drawer-account-label');
+    if (!label) return;
+    if (photo) {
+        img.src = photo; img.style.display = '';
+        label.style.display = 'none';
+        label.textContent = '';
+    } else {
+        img.style.display = 'none'; img.src = '';
+        label.style.display = '';
+        if (me) {
+            label.textContent = me.charAt(0);
+            label.classList.remove('material-symbols-outlined');
+            label.style.fontFamily = '';
         } else {
-            if (img) { img.style.display = 'none'; img.src = ''; }
-            label.style.display = '';
-            if (me) {
-                label.textContent = me.charAt(0);
-                label.classList.remove('material-symbols-outlined');
-                label.style.fontFamily = '';
-            } else {
-                label.textContent = 'person';
-                label.style.fontFamily = "'Material Symbols Outlined'";
-                label.classList.add('material-symbols-outlined');
-            }
+            label.textContent = 'person';
+            label.style.fontFamily = "'Material Symbols Outlined'";
+            label.classList.add('material-symbols-outlined');
         }
-    });
+    }
+    if (nameLabel) nameLabel.textContent = me || 'ログイン・会員登録';
 }
 if (window.vm) {
     syncHeaderAvatars();
