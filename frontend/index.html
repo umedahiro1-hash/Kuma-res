@@ -3897,6 +3897,7 @@ function renderPlacesList() {
 }
 
 function renderPlacesListInner() {
+    if (placesActiveType === 'fuel') { renderFuelSection(); return; }
     const all = placesFiltered();
     const shown = all.slice(0, placesShownCount);
     document.getElementById('places-count').textContent = `${all.length}件中 ${shown.length}件を表示`;
@@ -3904,6 +3905,137 @@ function renderPlacesListInner() {
         ? shown.map(placeRowHtml).join('')
         : '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">該当する場所が見つかりませんでした。</p>';
     document.getElementById('places-more-btn').style.display = all.length > shown.length ? '' : 'none';
+}
+
+/* ---- ガソリンスタンド専用表示（12/24時間の鮮度・地域別アコーディオン） ---- */
+const FUEL_TOWN_TO_GUN = {
+    '益城町': '上益城郡', '嘉島町': '上益城郡', '御船町': '上益城郡', '甲佐町': '上益城郡', '山都町': '上益城郡',
+    '美里町': '下益城郡', '大津町': '菊池郡', '菊陽町': '菊池郡',
+    '南関町': '玉名郡', '長洲町': '玉名郡', '玉東町': '玉名郡', '和水町': '玉名郡',
+    '氷川町': '八代郡', '芦北町': '葦北郡', '津奈木町': '葦北郡',
+    '西原村': '阿蘇郡', '南阿蘇村': '阿蘇郡', '高森町': '阿蘇郡', '小国町': '阿蘇郡', '南小国町': '阿蘇郡', '産山村': '阿蘇郡',
+    '錦町': '球磨郡', '多良木町': '球磨郡', '湯前町': '球磨郡', '水上村': '球磨郡', '相良村': '球磨郡',
+    '五木村': '球磨郡', '山江村': '球磨郡', '球磨村': '球磨郡', 'あさぎり町': '球磨郡', '苓北町': '天草郡',
+};
+const FUEL_PAIR_MERGE = {
+    '阿蘇市': '阿蘇市・阿蘇郡', '阿蘇郡': '阿蘇市・阿蘇郡',
+    '菊池市': '菊池市・菊池郡', '菊池郡': '菊池市・菊池郡',
+    '玉名市': '玉名市・玉名郡', '玉名郡': '玉名市・玉名郡',
+    '八代市': '八代市・八代郡', '八代郡': '八代市・八代郡',
+    '天草市': '天草市・天草郡', '天草郡': '天草市・天草郡',
+};
+const FUEL_AREA_ORDER = ['熊本市', '宇土市', '宇城市', '上益城郡', '下益城郡', '菊池市・菊池郡', '合志市', '山鹿市', '玉名市・玉名郡', '荒尾市', '阿蘇市・阿蘇郡', '八代市・八代郡', '水俣市', '葦北郡', '人吉市', '球磨郡', '天草市・天草郡', '上天草市', '熊本県内（広域）', 'その他'];
+const FUEL_WARD_ORDER = ['熊本市中央区', '熊本市東区', '熊本市西区', '熊本市南区', '熊本市北区', '熊本市内'];
+
+function fuelAreaGroup(str) {
+    const s = String(str || '');
+    if (!s) return 'その他';
+    if (s.indexOf('熊本市') === 0) return '熊本市';
+    const gunMatch = s.match(/^(.+?郡)/);
+    if (gunMatch) return FUEL_PAIR_MERGE[gunMatch[1]] || gunMatch[1];
+    const cityMatch = s.match(/^(.+?市)/);
+    if (cityMatch) return FUEL_PAIR_MERGE[cityMatch[1]] || cityMatch[1];
+    for (const t in FUEL_TOWN_TO_GUN) {
+        if (s.indexOf(t) !== -1) {
+            const gun = FUEL_TOWN_TO_GUN[t];
+            return FUEL_PAIR_MERGE[gun] || gun;
+        }
+    }
+    if (s.indexOf('県内') !== -1) return '熊本県内（広域）';
+    return 'その他';
+}
+function fuelWardGroup(str) {
+    const m = String(str || '').match(/^熊本市(中央|東|西|南|北)区/);
+    return m ? `熊本市${m[1]}区` : '熊本市内';
+}
+function fuelOrderIndex(order, g) {
+    const i = order.indexOf(g);
+    return i < 0 ? 998 : i;
+}
+function fuelReportTimeMs(value) {
+    const m = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/);
+    if (!m) return NaN;
+    return Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4] - 9, +m[5]);
+}
+function fuelReportAgeHours(value) {
+    const ms = fuelReportTimeMs(value);
+    return Number.isFinite(ms) ? (Date.now() - ms) / 3600000 : Infinity;
+}
+function fuelFormatReportTime(value) {
+    const m = String(value || '').match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/);
+    return m ? `${Number(m[2])}月${Number(m[3])}日 ${m[4]}:${m[5]}` : '報告日時不明';
+}
+
+let fuelData = null;
+async function loadFuelData() {
+    if (fuelData) return fuelData;
+    fuelData = await apiFetch('/gas-stations');
+    return fuelData;
+}
+
+function fuelStationItemHtml(s) {
+    const telDigits = (s.tel || '').replace(/[^0-9]/g, '');
+    const tel = s.tel ? `<a href="tel:${telDigits}" class="text-primary">${esc(s.tel)}</a>` : '';
+    const gmap = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((s.name || '').split('/').pop() + ' ' + (s.city || '熊本県'))}`;
+    const stale = fuelReportAgeHours(s.reportedAt) >= 12
+        ? '<span class="font-label-sm text-label-sm text-mustard-accent">・古い報告（12時間以上前）</span>' : '';
+    return `<div class="bg-surface-container-low rounded-lg p-2 mb-2">
+        <p class="font-label-lg text-label-lg text-charcoal-text">${esc(s.name)}</p>
+        <p class="font-body-sm text-body-sm text-muted-gray">${esc(s.city || '')}${tel ? `　${tel}` : ''}　<a href="${gmap}" target="_blank" rel="noopener" class="text-primary">地図</a></p>
+        <p class="font-label-sm text-label-sm text-muted-gray">営業可の報告: ${esc(fuelFormatReportTime(s.reportedAt))}${stale}</p>
+    </div>`;
+}
+
+function renderFuelGrouped(stations) {
+    const byArea = {};
+    const areas = [];
+    stations.forEach(s => {
+        const g = fuelAreaGroup(s.city);
+        if (!byArea[g]) { byArea[g] = []; areas.push(g); }
+        byArea[g].push(s);
+    });
+    areas.sort((a, b) => fuelOrderIndex(FUEL_AREA_ORDER, a) - fuelOrderIndex(FUEL_AREA_ORDER, b));
+    return areas.map(g => {
+        const list = byArea[g];
+        let inner;
+        if (g === '熊本市') {
+            const byW = {}; const wards = [];
+            list.forEach(s => { const w = fuelWardGroup(s.city); if (!byW[w]) { byW[w] = []; wards.push(w); } byW[w].push(s); });
+            wards.sort((a, b) => fuelOrderIndex(FUEL_WARD_ORDER, a) - fuelOrderIndex(FUEL_WARD_ORDER, b));
+            inner = wards.map(w => `<details class="mt-2"><summary class="font-label-lg text-label-lg text-charcoal-text cursor-pointer">${esc(w)}（${byW[w].length}件）</summary><div class="mt-2 pl-2">${byW[w].map(fuelStationItemHtml).join('')}</div></details>`).join('');
+        } else {
+            inner = list.map(fuelStationItemHtml).join('');
+        }
+        return `<details class="mt-2"><summary class="font-label-lg text-label-lg text-charcoal-text cursor-pointer">${esc(g)}（${list.length}件）</summary><div class="mt-2 pl-2">${inner}</div></details>`;
+    }).join('');
+}
+
+async function renderFuelSection() {
+    const listEl = document.getElementById('places-list');
+    listEl.innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">取得しています…</p>';
+    document.getElementById('places-more-btn').style.display = 'none';
+    try {
+        const data = await loadFuelData();
+        const off = data.official || {};
+        const q = (document.getElementById('places-search').value || '').trim().toLowerCase();
+        const stations = (off.stations || []).filter(s =>
+            fuelReportAgeHours(s.reportedAt) < 24 &&
+            (!q || (s.name || '').toLowerCase().includes(q) || (s.city || '').toLowerCase().includes(q))
+        );
+        const hidden = (off.stations || []).length - (off.stations || []).filter(s => fuelReportAgeHours(s.reportedAt) < 24).length;
+        document.getElementById('places-count').textContent = `24時間以内の「営業可」報告: ${stations.length}件${hidden ? `（24時間以上前の${hidden}件は非表示）` : ''}`;
+        let html = stations.length ? renderFuelGrouped(stations) : '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">該当するスタンドが見つかりませんでした。</p>';
+        (data.announcements || []).forEach(n => {
+            html += `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 mt-2">
+                <p class="font-label-lg text-label-lg text-charcoal-text">${esc(n.title)}</p>
+                ${n.text ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-1">${esc(n.text)}</p>` : ''}
+                ${shienAttributionHtml(n.srcName, n.srcUrl)}
+            </div>`;
+        });
+        listEl.innerHTML = html;
+    } catch (e) {
+        listEl.innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">情報を取得できませんでした。</p>';
+    }
 }
 
 function showMorePlaces() {

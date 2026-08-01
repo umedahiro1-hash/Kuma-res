@@ -845,13 +845,16 @@ app.get('/api/news', ah(async (req, res) => {
 // 明示して表示すること。個別レコードにも一次情報源（各市町村・資源エネルギー庁など）の名前とURLが
 // 含まれるため、表示側ではそれらもあわせて示す。
 //
-// 取得したデータは external_cache テーブル（DB）に永続化し、Vercel Cron
-// （/api/cron/refresh-external-data、30〜60分間隔）が定期的に更新する。読み出し側のAPIは
-// 基本的にDBキャッシュを返すだけで、外部サイトへ都度アクセスしない。cronが長時間動いていない
-// 等でキャッシュが古すぎる場合のみ、そのリクエストの中で即時取得してフォールバックする。
+// 取得したデータは external_cache テーブル（DB）に永続化する。読み出し側のAPIは基本的に
+// DBキャッシュを返すだけで、外部サイトへ都度アクセスしない。キャッシュが1時間より古い場合だけ、
+// そのリクエストが「最初の一人」として即時取得・DB更新を行い、以降1時間は他の全員が同じ
+// キャッシュを見る。定期実行（cron）は行わない：常にアクセスがある前提であれば、この
+// on-demandな更新だけで十分に鮮度を保てるため（Vercel HobbyプランはCronが1日1回までに
+// 制限されており、それより高頻度の定期実行はそもそも使えない）。
+// /api/cron/refresh-external-data は手動での強制更新用に残してあるが、スケジュール実行はしていない。
 
 const SHIEN_SOURCE = { name: 'くまもと被災者支援ナビ（kumamoto-shien.jp）', url: 'https://kumamoto-shien.jp/' };
-const SHIEN_CACHE_TTL_MS = 60 * 60 * 1000; // cronでの定期更新が前提。読み出し時のフォールバック判定用
+const SHIEN_CACHE_TTL_MS = 60 * 60 * 1000; // この時間より古いキャッシュは、次のリクエストで即時再取得する
 
 function extractDeclaredLiteral(text, varName) {
   for (const kw of ['const', 'var']) {
