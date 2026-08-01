@@ -1395,6 +1395,15 @@
 </div>
 </div>
 
+<button onclick="switchScreen('gasoline')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl p-3 hover:bg-surface-container-low transition-colors text-left">
+<span class="material-symbols-outlined text-forest-deep text-[22px] flex-none">local_gas_station</span>
+<span class="flex-1">
+<span class="font-label-lg text-label-lg text-charcoal-text block">営業中のガソリンスタンドを探す</span>
+<span class="font-label-sm text-label-sm text-muted-gray block">地域別に一覧表示（別ページ）</span>
+</span>
+<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
+</button>
+
 <div class="flex gap-2 overflow-x-auto hide-scrollbar pb-1" id="places-type-filters"></div>
 
 <input id="places-search" type="search" inputmode="search" placeholder="例：八代市、シャワー、熊本市南区" class="form-input" oninput="renderPlacesList()"/>
@@ -1449,6 +1458,52 @@
 <div id="mizu-content"><p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">情報を取得しています…</p></div>
 
 <p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">出典: 各市町村など一次情報源・<a href="https://kumamoto-shien.jp/" target="_blank" rel="noopener" class="text-primary">くまもと被災者支援ナビ</a>。給水の時間・場所は変わることがあるため、出発前に発表日時を必ずご確認ください。</p>
+</main>
+</div>
+<!-- ===================== ガソリンスタンドを探す（外部サイト kumamoto-shien.jp 連携） ===================== -->
+<div id="root-gasoline" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<span class="flex flex-col items-center leading-tight">
+<span>Tsunagaru</span>
+<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+</span>
+<span class="flex flex-col items-center leading-tight">
+<span>Kumamoto</span>
+<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+</span>
+</h1>
+</div>
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div id="gasoline-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="gasoline-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="gasoline-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">local_gas_station</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">ガソリンスタンドを探す</h2>
+<p id="gasoline-fetched-at" class="font-label-sm text-label-sm text-muted-gray"></p>
+</div>
+</div>
+
+<input id="gasoline-search" type="search" inputmode="search" placeholder="例：熊本市北区、店名" class="form-input" oninput="renderGasolineList()"/>
+
+<p id="gasoline-count" class="font-label-sm text-label-sm text-muted-gray"></p>
+<div id="gasoline-list" class="flex flex-col gap-2"></div>
+
+<p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">出典: 資源エネルギー庁「住民拠点SS等検索」（くまもと被災者支援ナビ経由で取得）。「営業可」は報告時点の情報で、在庫・混雑状況までは分かりません。セルフスタンドでの携行缶への給油は法律で禁止されています。</p>
 </main>
 </div>
 <!-- ===================== 管理者ページ（行政お知らせの承認・非公開導線） ===================== -->
@@ -1515,6 +1570,10 @@
 <button onclick="switchScreen('mizu'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
 <span class="material-symbols-outlined text-forest-deep">water_drop</span>
 <span class="font-label-lg text-label-lg text-charcoal-text">給水・断水情報</span>
+</button>
+<button onclick="switchScreen('gasoline'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">local_gas_station</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">ガソリンスタンド</span>
 </button>
 </nav>
 </div>
@@ -2249,6 +2308,7 @@ let newsLoaded = false;
 let safetyLoaded = false;
 let placesLoaded = false;
 let mizuLoaded = false;
+let gasolineScreenLoaded = false;
 const SCREEN_META = {
     home: { path: '/', title: 'つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ', description: '熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認、迷子動物の捜索、熊本地震関連の最新ニュースを一つのアプリで。' },
     goods: { path: '/support', title: '物資の支援｜つながるくまもと', description: '水・食料・毛布などの物資を無料または有料でゆずる・もとめる掲示板。' },
@@ -2260,6 +2320,7 @@ const SCREEN_META = {
     safety: { path: '/safety', title: '安全情報｜つながるくまもと', description: '緊急連絡先、車中泊・熱中症の注意点、悪質商法への警戒など、被災時に役立つ安全情報をまとめています。' },
     places: { path: '/support-map', title: '支援場所｜つながるくまもと', description: '給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレの場所を一覧で確認できます。' },
     mizu: { path: '/mizu', title: 'きょうの給水・断水情報｜つながるくまもと', description: '給水所・断水の状況・炊き出し・災害時協力井戸・災害ボランティアの最新情報を市町村の公式発表からまとめています。' },
+    gasoline: { path: '/gasoline', title: 'ガソリンスタンドを探す｜つながるくまもと', description: '資源エネルギー庁の検索システムに「営業可」と報告された熊本県内のガソリンスタンドを地域別に確認できます。' },
 };
 function screenForPath(pathname) {
     const found = Object.entries(SCREEN_META).find(([, m]) => m.path === pathname);
@@ -2283,6 +2344,7 @@ function switchScreen(s, opts){
     document.getElementById('root-safety').style.display = s === 'safety' ? '' : 'none';
     document.getElementById('root-places').style.display = s === 'places' ? '' : 'none';
     document.getElementById('root-mizu').style.display = s === 'mizu' ? '' : 'none';
+    document.getElementById('root-gasoline').style.display = s === 'gasoline' ? '' : 'none';
     if (s === 'news' && !newsLoaded) { newsLoaded = true; loadNews(); }
     if (s === 'pets') { refreshPets(); }
     if (s === 'board') { refreshThreads(); }
@@ -2290,6 +2352,7 @@ function switchScreen(s, opts){
     if (s === 'safety' && !safetyLoaded) { safetyLoaded = true; loadSafetyScreen(); }
     if (s === 'places' && !placesLoaded) { placesLoaded = true; loadPlacesScreen(); }
     if (s === 'mizu' && !mizuLoaded) { mizuLoaded = true; loadMizuScreen(); }
+    if (s === 'gasoline' && !gasolineScreenLoaded) { gasolineScreenLoaded = true; loadGasolineScreen(); }
     if (s === 'home') { loadHomePreviews(); }
     track('screen_view', null, null, s);
     applyScreenMeta(s);
@@ -2321,7 +2384,7 @@ function syncHeaderAvatars(){
     if (!window.vm) return;
     const me = window.vm.me;
     const photo = window.vm.myProfile && window.vm.myProfile.photoPath;
-    ['home', 'find', 'pets', 'news', 'board', 'gov', 'safety', 'places', 'mizu'].forEach(prefix => {
+    ['home', 'find', 'pets', 'news', 'board', 'gov', 'safety', 'places', 'mizu', 'gasoline'].forEach(prefix => {
         const label = document.getElementById(prefix + '-header-avatar-label');
         const img = document.getElementById(prefix + '-header-avatar-img');
         if (!label) return;
@@ -3529,7 +3592,6 @@ const PLACES_TYPES = [
     { value: 'bath', label: 'お風呂', icon: 'bathtub' },
     { value: 'takidashi', label: '炊き出し・食料', icon: 'restaurant' },
     { value: 'well', label: '協力井戸', icon: 'water' },
-    { value: 'fuel', label: 'ガソリン', icon: 'local_gas_station' },
     { value: 'toilet', label: '災害用トイレ', icon: 'wc' },
 ];
 const PLACES_PAGE_SIZE = 30;
@@ -3547,10 +3609,11 @@ async function loadPlacesScreen() {
     document.getElementById('places-list').innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">支援場所を読み込んでいます…</p>';
     try {
         placesData = await apiFetch('/support-map');
+        const nonFuelCount = placesData.locations.filter(l => l.type !== 'fuel').length;
         PLACES_TYPES.forEach(t => {
             const el = document.getElementById(`places-count-${t.value}`);
             if (!el) return;
-            const count = t.value === 'all' ? placesData.locations.length : placesData.locations.filter(l => l.type === t.value).length;
+            const count = t.value === 'all' ? nonFuelCount : placesData.locations.filter(l => l.type === t.value).length;
             el.textContent = `（${count}）`;
         });
         renderPlacesList();
@@ -3578,6 +3641,7 @@ function placesFiltered() {
     if (!placesData) return [];
     const q = (document.getElementById('places-search').value || '').trim().toLowerCase();
     return placesData.locations.filter(l => {
+        if (l.type === 'fuel') return false; // ガソリンは専用画面（switchScreen('gasoline')）に分離
         if (placesActiveType !== 'all' && l.type !== placesActiveType) return false;
         if (!q) return true;
         return (l.name || '').toLowerCase().includes(q) || (l.area || '').toLowerCase().includes(q);
@@ -3612,7 +3676,6 @@ function renderPlacesList() {
 }
 
 function renderPlacesListInner() {
-    if (placesActiveType === 'fuel') { renderFuelSection(); return; }
     const all = placesFiltered();
     const shown = all.slice(0, placesShownCount);
     document.getElementById('places-count').textContent = `${all.length}件中 ${shown.length}件を表示`;
@@ -3725,32 +3788,35 @@ function renderFuelGrouped(stations) {
     }).join('');
 }
 
-async function renderFuelSection() {
-    const listEl = document.getElementById('places-list');
+async function loadGasolineScreen() {
+    const listEl = document.getElementById('gasoline-list');
     listEl.innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">取得しています…</p>';
-    document.getElementById('places-more-btn').style.display = 'none';
     try {
         const data = await loadFuelData();
-        const off = data.official || {};
-        const q = (document.getElementById('places-search').value || '').trim().toLowerCase();
-        const stations = (off.stations || []).filter(s =>
-            fuelReportAgeHours(s.reportedAt) < 24 &&
-            (!q || (s.name || '').toLowerCase().includes(q) || (s.city || '').toLowerCase().includes(q))
-        );
-        const hidden = (off.stations || []).length - (off.stations || []).filter(s => fuelReportAgeHours(s.reportedAt) < 24).length;
-        document.getElementById('places-count').textContent = `24時間以内の「営業可」報告: ${stations.length}件${hidden ? `（24時間以上前の${hidden}件は非表示）` : ''}`;
-        let html = stations.length ? renderFuelGrouped(stations) : '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">該当するスタンドが見つかりませんでした。</p>';
-        (data.announcements || []).forEach(n => {
-            html += `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 mt-2">
-                <p class="font-label-lg text-label-lg text-charcoal-text">${esc(n.title)}</p>
-                ${n.text ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-1">${esc(n.text)}</p>` : ''}
-                ${shienAttributionHtml(n.srcName, n.srcUrl)}
-            </div>`;
-        });
-        listEl.innerHTML = html;
+        document.getElementById('gasoline-fetched-at').textContent = `情報確認: ${data.fetchedAt}${data.stale ? '（最新の取得に失敗したため、前回取得時点の情報です）' : ''}`;
+        renderGasolineList();
     } catch (e) {
         listEl.innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">情報を取得できませんでした。</p>';
     }
+}
+function renderGasolineList() {
+    const listEl = document.getElementById('gasoline-list');
+    if (!fuelData) return;
+    const off = fuelData.official || {};
+    const q = (document.getElementById('gasoline-search').value || '').trim().toLowerCase();
+    const all24h = (off.stations || []).filter(s => fuelReportAgeHours(s.reportedAt) < 24);
+    const stations = all24h.filter(s => !q || (s.name || '').toLowerCase().includes(q) || (s.city || '').toLowerCase().includes(q));
+    const hidden = (off.stations || []).length - all24h.length;
+    document.getElementById('gasoline-count').textContent = `24時間以内の「営業可」報告: ${stations.length}件${hidden ? `（24時間以上前の${hidden}件は非表示）` : ''}`;
+    let html = stations.length ? renderFuelGrouped(stations) : '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">該当するスタンドが見つかりませんでした。</p>';
+    (fuelData.announcements || []).forEach(n => {
+        html += `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3 mt-2">
+            <p class="font-label-lg text-label-lg text-charcoal-text">${esc(n.title)}</p>
+            ${n.text ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-1">${esc(n.text)}</p>` : ''}
+            ${shienAttributionHtml(n.srcName, n.srcUrl)}
+        </div>`;
+    });
+    listEl.innerHTML = html;
 }
 
 function showMorePlaces() {
