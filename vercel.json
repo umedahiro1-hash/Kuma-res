@@ -7,6 +7,6 @@
     { "src": "/(.*)", "dest": "backend/server.js" }
   ],
   "crons": [
-    { "path": "/api/cron/refresh-external-data", "schedule": "0 * * * *" }
+    { "path": "/api/cron/refresh-external-data", "schedule": "0 21 * * *" }
   ]
 }
