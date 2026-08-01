@@ -319,7 +319,7 @@
 </svg>
 <!-- Vue App Mount Point -->
 <div id="app" v-cloak="">
-<div id="goods-screen-content" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg">
+<div id="goods-screen-content" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg">
 <!-- TopAppBar (From JSON) -->
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
@@ -337,7 +337,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div @click="openAccountSheet()" aria-label="アカウント" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img alt="User Avatar" class="w-full h-full object-cover" :src="myProfile.photoPath" v-if="myProfile &amp;&amp; myProfile.photoPath"/>
 <span class="font-label-lg text-forest-deep" v-else-if="me">{{ me.charAt(0) }}</span>
@@ -477,49 +480,11 @@
 </div>
 </main>
 <!-- Floating Action Button -->
-<button @click="openCreate()" aria-label="物資を登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button @click="openCreate()" aria-label="物資を登録する" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
 <span class="font-label-lg text-label-lg">物資を登録</span>
 </button>
 <!-- BottomNavBar -->
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-current="page" aria-label="支援" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- Overlays / Bottom Sheets -->
 <!-- Registration Form -->
@@ -938,7 +903,7 @@
         </div>
 </div>
 <!-- ===================== ホーム画面 ===================== -->
-<div id="root-home" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<div id="root-home" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
@@ -955,7 +920,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div id="home-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="home-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="home-header-avatar-label" class="font-label-lg text-forest-deep"></span>
 </div>
@@ -1023,47 +991,9 @@
 <button onclick="switchScreen('pets')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
 </div>
 </main>
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-current="page" aria-label="ホーム" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- ===================== 人探し（つながり）画面 ＝ Stitch _5 ===================== -->
-<div id="root-find" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<div id="root-find" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
@@ -1080,7 +1010,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div id="find-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="find-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="find-header-avatar-label" class="font-label-lg text-forest-deep"></span>
 </div>
@@ -1109,51 +1042,13 @@
 </div>
 <div class="flex flex-col gap-2" id="find-list"></div>
 </main>
-<button onclick="openFindForm()" aria-label="さがすを登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button onclick="openFindForm()" aria-label="さがすを登録する" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
 <span class="font-label-lg text-label-lg">さがすを登録</span>
 </button>
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-current="page" aria-label="さがす" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- ===================== 動物を探す画面 ===================== -->
-<div id="root-pets" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<div id="root-pets" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
@@ -1170,7 +1065,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div id="pets-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="pets-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="pets-header-avatar-label" class="font-label-lg text-forest-deep"></span>
 </div>
@@ -1199,51 +1097,13 @@
 </div>
 <div class="flex flex-col gap-2" id="pets-list"></div>
 </main>
-<button onclick="openPetForm()" aria-label="動物を登録する" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button onclick="openPetForm()" aria-label="動物を登録する" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
 <span class="font-label-lg text-label-lg">動物を登録</span>
 </button>
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-current="page" aria-label="動物" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- ===================== ニュース画面 ===================== -->
-<div id="root-news" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<div id="root-news" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
@@ -1260,7 +1120,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div id="news-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="news-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="news-header-avatar-label" class="font-label-lg text-forest-deep"></span>
 </div>
@@ -1282,47 +1145,9 @@
 </div>
 <div class="flex flex-col gap-2" id="news-list"></div>
 </main>
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-current="page" aria-label="ニュース" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- ===================== 掲示板（非ログイン利用） ===================== -->
-<div id="root-board" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<div id="root-board" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
@@ -1339,7 +1164,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div id="board-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="board-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="board-header-avatar-label" class="font-label-lg text-forest-deep"></span>
 </div>
@@ -1359,51 +1187,13 @@
 </div>
 <div class="flex flex-col gap-2" id="board-list"></div>
 </main>
-<button onclick="openThreadForm()" aria-label="スレッドを立てる" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button onclick="openThreadForm()" aria-label="スレッドを立てる" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined">add</span>
 <span class="font-label-lg text-label-lg">スレッドを立てる</span>
 </button>
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-current="page" aria-label="掲示板" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- ===================== 行政からのお知らせ（非ログイン投稿・承認制） ===================== -->
-<div id="root-gov" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<div id="root-gov" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
@@ -1420,7 +1210,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div id="gov-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="gov-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="gov-header-avatar-label" class="font-label-lg text-forest-deep"></span>
 </div>
@@ -1440,51 +1233,13 @@
 </div>
 <div class="flex flex-col gap-2" id="gov-list"></div>
 </main>
-<button onclick="openGovForm()" aria-label="行政の方はこちら" class="fixed bottom-24 right-4 md:right-8 md:bottom-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button onclick="openGovForm()" aria-label="行政の方はこちら" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined">campaign</span>
 <span class="font-label-lg text-label-lg">行政の方はこちら</span>
 </button>
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-current="page" aria-label="行政" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- ===================== 安全情報（静的コンテンツ） ===================== -->
-<div id="root-safety" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<div id="root-safety" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
@@ -1501,7 +1256,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div id="safety-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="safety-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="safety-header-avatar-label" class="font-label-lg text-forest-deep"></span>
 </div>
@@ -1598,47 +1356,9 @@
 
 <p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">このページは一般的な安全情報の案内です。最新の公式情報は、お住まいの市区町村・熊本県の発表を必ずご確認ください。</p>
 </main>
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-current="page" aria-label="安全情報" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- ===================== 支援場所（外部サイト kumamoto-shien.jp 連携） ===================== -->
-<div id="root-places" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<div id="root-places" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
@@ -1655,7 +1375,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div id="places-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="places-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="places-header-avatar-label" class="font-label-lg text-forest-deep"></span>
 </div>
@@ -1682,47 +1405,9 @@
 
 <p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">出典: 各市町村・資源エネルギー庁など一次情報源・<a href="https://kumamoto-shien.jp/" target="_blank" rel="noopener" class="text-primary">くまもと被災者支援ナビ</a>。営業・開設状況は変わることがあるため、出発前に発表日時をご確認ください。</p>
 </main>
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-current="page" aria-label="支援場所" class="flex flex-col items-center justify-center text-forest-deep bg-primary-container/10 rounded-xl px-3 py-1 scale-90 transition-all duration-150 touch-target-min w-16 relative">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- ===================== きょうの給水・断水情報（外部サイト kumamoto-shien.jp 連携） ===================== -->
-<div id="root-mizu" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<div id="root-mizu" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
 <header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
@@ -1739,7 +1424,10 @@
 </span>
 </h1>
 </div>
-<div class="flex items-center">
+<div class="flex items-center gap-3">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
 <div id="mizu-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="mizu-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="mizu-header-avatar-label" class="font-label-lg text-forest-deep"></span>
 </div>
@@ -1762,44 +1450,6 @@
 
 <p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">出典: 各市町村など一次情報源・<a href="https://kumamoto-shien.jp/" target="_blank" rel="noopener" class="text-primary">くまもと被災者支援ナビ</a>。給水の時間・場所は変わることがあるため、出発前に発表日時を必ずご確認ください。</p>
 </main>
-<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
-<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">home</span>
-<span class="font-label-sm text-label-sm mt-1">ホーム</span>
-</button>
-<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">forum</span>
-<span class="font-label-sm text-label-sm mt-1">掲示板</span>
-</button>
-<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">campaign</span>
-<span class="font-label-sm text-label-sm mt-1">行政</span>
-</button>
-<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">volunteer_activism</span>
-<span class="font-label-sm text-label-sm mt-1">支援</span>
-</button>
-<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">diversity_1</span>
-<span class="font-label-sm text-label-sm mt-1">さがす</span>
-</button>
-<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">pets</span>
-<span class="font-label-sm text-label-sm mt-1">動物</span>
-</button>
-<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">newspaper</span>
-<span class="font-label-sm text-label-sm mt-1">ニュース</span>
-</button>
-<button onclick="switchScreen('safety')" aria-label="安全情報" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">health_and_safety</span>
-<span class="font-label-sm text-label-sm mt-1">安全情報</span>
-</button>
-<button onclick="switchScreen('places')" aria-label="支援場所" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
-<span class="material-symbols-outlined">location_on</span>
-<span class="font-label-sm text-label-sm mt-1">支援場所</span>
-</button>
-</nav>
 </div>
 <!-- ===================== 管理者ページ（行政お知らせの承認・非公開導線） ===================== -->
 <div id="root-admin" style="display:none" class="min-h-screen bg-cream-bg">
@@ -1814,6 +1464,59 @@
 <div id="admin-review-box" style="display:none"></div>
 <div id="admin-analytics-box" style="display:none"></div>
 </div>
+</div>
+<!-- ===================== ナビゲーションドロワー（左メニュー・グローバル） ===================== -->
+<div id="nav-drawer-backdrop" onclick="closeNavDrawer()" class="fixed inset-0 bg-black/40 z-[90] transition-opacity duration-200" style="display:none;opacity:0;"></div>
+<div id="nav-drawer" class="fixed top-0 left-0 h-full w-72 max-w-[80%] bg-white z-[91] shadow-2xl overflow-y-auto transition-transform duration-200" style="transform:translateX(-100%);">
+<div class="flex items-center justify-between px-4 h-16 border-b border-divider-line">
+<h2 class="font-headline-sm text-headline-sm text-forest-deep">メニュー</h2>
+<button onclick="closeNavDrawer()" aria-label="閉じる" class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex flex-col p-2 gap-1">
+<button onclick="switchScreen('home'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">home</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">ホーム</span>
+</button>
+<button onclick="switchScreen('board'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">forum</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">掲示板</span>
+</button>
+<button onclick="switchScreen('gov'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">campaign</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">行政</span>
+</button>
+<button onclick="switchScreen('goods'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">volunteer_activism</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">支援</span>
+</button>
+<button onclick="switchScreen('find'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">diversity_1</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">さがす</span>
+</button>
+<button onclick="switchScreen('pets'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">pets</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">動物</span>
+</button>
+<button onclick="switchScreen('news'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">newspaper</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">ニュース</span>
+</button>
+<hr class="border-divider-line my-1"/>
+<button onclick="switchScreen('safety'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-[#ba1a1a]">health_and_safety</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">安全情報</span>
+</button>
+<button onclick="switchScreen('places'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">location_on</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">支援場所</span>
+</button>
+<button onclick="switchScreen('mizu'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">water_drop</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">給水・断水情報</span>
+</button>
+</nav>
 </div>
 <!-- 人探し用オーバーレイ・トースト（グローバル） -->
 <div class="overlay-find" id="overlay-find"><div class="sheet-find" id="sheet-find"></div></div>
@@ -2601,6 +2304,18 @@ window.addEventListener('popstate', () => {
 });
 function openUserSwitcher(){
     if (window.vm) window.vm.openAccountSheet();
+}
+function openNavDrawer() {
+    const backdrop = document.getElementById('nav-drawer-backdrop');
+    backdrop.style.display = '';
+    requestAnimationFrame(() => { backdrop.style.opacity = '1'; });
+    document.getElementById('nav-drawer').style.transform = 'translateX(0)';
+}
+function closeNavDrawer() {
+    const backdrop = document.getElementById('nav-drawer-backdrop');
+    backdrop.style.opacity = '0';
+    document.getElementById('nav-drawer').style.transform = 'translateX(-100%)';
+    setTimeout(() => { backdrop.style.display = 'none'; }, 200);
 }
 function syncHeaderAvatars(){
     if (!window.vm) return;
