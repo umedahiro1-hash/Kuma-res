@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://news.google.com"/>
 <link rel="preconnect" href="https://api.open-meteo.com"/>
 <script src="https://cdn.tailwindcss.com?plugins=container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Shippori+Mincho:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -32,7 +32,7 @@
             theme: {
                 extend: {
                     "colors": {
-                        "cream-bg": "#F9F7F2",
+                        "cream-bg": "#FFFFFF",
                         "muted-gray": "#6A7178",
                         "on-error-container": "#93000a",
                         "on-tertiary": "#ffffff",
@@ -74,7 +74,7 @@
                         "on-secondary": "#ffffff",
                         "tertiary-container": "#944918",
                         "on-primary-fixed-variant": "#015236",
-                        "soft-terracotta": "#FB923C",
+                        "soft-terracotta": "#D97748",
                         "inverse-surface": "#2e312f",
                         "inverse-on-surface": "#f0f1ed",
                         "surface-tint": "#266a4c",
@@ -88,9 +88,12 @@
                         "on-tertiary-fixed": "#331200"
                     },
                     "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
+                        "sm": "0.5rem",
+                        "DEFAULT": "0.75rem",
+                        "md": "0.875rem",
+                        "lg": "1rem",
+                        "xl": "1.25rem",
+                        "2xl": "1.5rem",
                         "full": "9999px"
                     },
                     "spacing": {
@@ -103,15 +106,15 @@
                         "margin-mobile": "16px"
                     },
                     "fontFamily": {
-                        "label-sm": ["Hanken Grotesk"],
-                        "body-md": ["Be Vietnam Pro"],
-                        "body-sm": ["Be Vietnam Pro"],
-                        "label-lg": ["Hanken Grotesk"],
-                        "headline-sm": ["Hanken Grotesk"],
-                        "body-lg": ["Be Vietnam Pro"],
-                        "headline-lg": ["Hanken Grotesk"],
-                        "headline-lg-mobile": ["Hanken Grotesk"],
-                        "headline-md": ["Hanken Grotesk"]
+                        "label-sm": ["Noto Sans JP"],
+                        "body-md": ["Noto Sans JP"],
+                        "body-sm": ["Noto Sans JP"],
+                        "label-lg": ["Noto Sans JP"],
+                        "headline-sm": ["Noto Sans JP"],
+                        "body-lg": ["Noto Sans JP"],
+                        "headline-lg": ["Noto Sans JP"],
+                        "headline-lg-mobile": ["Noto Sans JP"],
+                        "headline-md": ["Noto Sans JP"]
                     },
                     "fontSize": {
                         "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }],
@@ -130,9 +133,9 @@
     </script>
 <style>
         body {
-            background-color: #F9F7F2;
-            /* cream-bg */
-            font-family: "Be Vietnam Pro", sans-serif;
+            background-color: #FFFFFF;
+            /* cream-bg (white per redesign) */
+            font-family: "Noto Sans JP", sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -173,19 +176,19 @@
 
         /* Form elements */
         .input-group { margin-bottom: 0; }
-        .input-label { display: block; font-family: "Hanken Grotesk", sans-serif; font-size: 14px; font-weight: 700; color: #191C1A; margin: 20px 0 8px; }
+        .input-label { display: block; font-family: "Noto Sans JP", sans-serif; font-size: 14px; font-weight: 700; color: #191C1A; margin: 20px 0 8px; }
         .input-label .opt { color: #6A7178; font-weight: 400; font-size: 12px; }
-        .form-input { width: 100%; padding: 14px 16px; border: 1px solid #E5E7E9; border-radius: 12px; font-family: "Be Vietnam Pro", sans-serif; font-size: 16px; background: #ffffff; transition: all 0.2s; }
+        .form-input { width: 100%; padding: 14px 16px; border: 1px solid #E5E7E9; border-radius: 12px; font-family: "Noto Sans JP", sans-serif; font-size: 16px; background: #ffffff; transition: all 0.2s; }
         .form-input:focus { outline: none; border-color: #0A5238; box-shadow: 0 0 0 4px rgba(10,82,56,0.1); }
         textarea.form-input { min-height: 100px; resize: vertical; }
 
         /* Buttons within sheet */
-        .btn-primary { background: #0A5238; color: white; border: none; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; box-shadow: 0 4px 12px rgba(10,82,56,0.2); text-align: center; }
+        .btn-primary { background: #0A5238; color: white; border: none; padding: 14px 20px; border-radius: 12px; font-family: "Noto Sans JP", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; box-shadow: 0 4px 12px rgba(10,82,56,0.2); text-align: center; }
         .btn-primary:hover { background: #002113; }
         .btn-primary:disabled { background: #bec9c0; box-shadow: none; cursor: not-allowed; }
-        .btn-ghost { background: white; color: #191C1A; border: 1.5px solid #E5E7E9; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; text-align: center; }
+        .btn-ghost { background: white; color: #191C1A; border: 1.5px solid #E5E7E9; padding: 14px 20px; border-radius: 12px; font-family: "Noto Sans JP", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; text-align: center; }
         .btn-ghost:hover { background: #f3f4f0; }
-        .btn-danger { background: white; color: #ba1a1a; border: 1.5px solid #ffdad6; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; text-align: center; }
+        .btn-danger { background: white; color: #ba1a1a; border: 1.5px solid #ffdad6; padding: 14px 20px; border-radius: 12px; font-family: "Noto Sans JP", sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.2s; text-align: center; }
         .btn-danger:hover { background: #fff8f7; }
         .btn-row { display: flex; gap: 12px; margin-top: 24px; }
         .btn-row > * { flex: 1; }
@@ -195,15 +198,15 @@
         .chk-item.on { border-color: #E5E7E9; }
         .chk-item input { width: 20px; height: 20px; margin-top: 2px; accent-color: #0A5238; flex: none; }
         .chk-item .chk-content { flex: 1; }
-        .chk-item .chk-title { font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; color: #191C1A; }
-        .chk-item .chk-desc { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #6A7178; margin-top: 2px; }
+        .chk-item .chk-title { font-family: "Noto Sans JP", sans-serif; font-size: 15px; font-weight: 700; color: #191C1A; }
+        .chk-item .chk-desc { font-family: "Noto Sans JP", sans-serif; font-size: 14px; color: #6A7178; margin-top: 2px; }
 
         .seg-control { display: flex; background: #e7e9e5; padding: 4px; border-radius: 12px; margin-bottom: 20px; }
-        .seg-control button { flex: 1; padding: 10px 8px; font-family: "Hanken Grotesk", sans-serif; font-size: 15px; font-weight: 700; color: #6a635a; border-radius: 8px; transition: all 0.2s; }
+        .seg-control button { flex: 1; padding: 10px 8px; font-family: "Noto Sans JP", sans-serif; font-size: 15px; font-weight: 700; color: #6a635a; border-radius: 8px; transition: all 0.2s; }
         .seg-control button.on { background: white; color: #0A5238; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
         /* Badges & Status */
-        .status-badge { display: inline-flex; align-items: center; justify-content: center; padding: 4px 10px; border-radius: 6px; font-family: "Hanken Grotesk", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
+        .status-badge { display: inline-flex; align-items: center; justify-content: center; padding: 4px 10px; border-radius: 6px; font-family: "Noto Sans JP", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
         .sb-open { background: rgba(37,105,75,0.1); color: #0A5238; }
         .sb-nego { background: rgba(217,119,6,0.1); color: #D97706; }
         .sb-resv { background: #efe7fb; color: #6b46c1; }
@@ -213,26 +216,26 @@
         .notice-box.warn { border-color: rgba(217,119,6,0.3); }
         .notice-icon { color: #6A7178; flex: none; font-size: 18px; margin-top: 1px; }
         .notice-box.warn .notice-icon { color: #D97706; }
-        .notice-content { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #3f4943; line-height: 1.5; }
+        .notice-content { font-family: "Noto Sans JP", sans-serif; font-size: 14px; color: #3f4943; line-height: 1.5; }
 
         /* Chat */
         .chat-container { background: #f8faf6; border-radius: 16px; padding: 16px; max-height: 300px; overflow-y: auto; margin-bottom: 16px; display: flex; flex-direction: column; gap: 12px; border: 1px solid #E5E7E9; }
-        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; position: relative; }
-        .chat-meta { font-size: 11px; color: #6A7178; margin-bottom: 4px; font-family: "Hanken Grotesk", sans-serif; }
+        .chat-bubble { max-width: 85%; padding: 12px 16px; border-radius: 16px; font-family: "Noto Sans JP", sans-serif; font-size: 14px; position: relative; }
+        .chat-meta { font-size: 11px; color: #6A7178; margin-bottom: 4px; font-family: "Noto Sans JP", sans-serif; }
         .chat-bubble.me { align-self: flex-end; background: #0A5238; color: white; border-bottom-right-radius: 4px; }
         .chat-bubble.me .chat-meta { color: rgba(255,255,255,0.8); }
         .chat-bubble.you { align-self: flex-start; background: white; border: 1px solid #E5E7E9; color: #191c1a; border-bottom-left-radius: 4px; }
 
         /* Toast */
-        .toast-msg { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #191c1a; color: white; padding: 14px 24px; border-radius: 99px; font-family: "Hanken Grotesk", sans-serif; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,0.15); text-align: center; width: max-content; max-width: 90vw; }
+        .toast-msg { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px); background: #191c1a; color: white; padding: 14px 24px; border-radius: 99px; font-family: "Noto Sans JP", sans-serif; font-size: 14px; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 200; box-shadow: 0 10px 30px rgba(0,0,0,0.15); text-align: center; width: max-content; max-width: 90vw; }
         .toast-msg.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         @media(min-width:768px){ .toast-msg { bottom: 40px; } }
 
         /* Details KV */
-        .kv-row { display: flex; padding: 12px 0; border-bottom: 1px dashed #E5E7E9; font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; align-items: baseline; gap: 16px; }
+        .kv-row { display: flex; padding: 12px 0; border-bottom: 1px dashed #E5E7E9; font-family: "Noto Sans JP", sans-serif; font-size: 14px; align-items: baseline; gap: 16px; }
         .kv-row:last-child { border-bottom: none; }
         #home-goods-list > div:last-child, #home-find-list > div:last-child, #home-pets-list > div:last-child, #home-news-list > a:last-child { border-bottom: none; }
-        .kv-key { color: #6a635a; font-weight: 600; min-width: 80px; flex: none; font-family: "Hanken Grotesk", sans-serif; font-size: 13px; }
+        .kv-key { color: #6a635a; font-weight: 600; min-width: 80px; flex: none; font-family: "Noto Sans JP", sans-serif; font-size: 13px; }
         .kv-val { color: #191C1A; }
 
         /* Step Progress */
@@ -240,7 +243,7 @@
         .step-progress::before { content: ''; position: absolute; top: 12px; left: 20px; right: 20px; height: 2px; background: #e1e3df; z-index: 1; }
         .step-item { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; z-index: 2; flex: 1; }
         .step-dot { width: 24px; height: 24px; border-radius: 50%; background: #ffffff; border: 2px solid #bec9c0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; color: #bec9c0; background-clip: padding-box; }
-        .step-label { font-family: "Hanken Grotesk", sans-serif; font-size: 11px; font-weight: 700; color: #6a635a; text-align: center; }
+        .step-label { font-family: "Noto Sans JP", sans-serif; font-size: 11px; font-weight: 700; color: #6a635a; text-align: center; }
         .step-item.done .step-dot { background: #0A5238; border-color: #0A5238; color: white; }
         .step-item.done .step-label { color: #0A5238; }
         .step-item.active .step-dot { border-color: #D97706; border-width: 3px; }
@@ -248,39 +251,38 @@
 
         [v-cloak] { display: none; }
     </style>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,600;0,700;0,800;1,700&amp;display=swap" rel="stylesheet"/>
 <style>
         /* ---- 人探し（find）画面用スタイル（Stitch _5） ---- */
-        /* フォントは全画面共通: 見出し/ラベル/ボタン=Hanken Grotesk、本文=Be Vietnam Pro */
+        /* フォントは全画面共通: Noto Sans JP */
         .text-balance { text-wrap: balance; }
         #root-find .close { position: absolute; right: 20px; top: 20px; width: 36px; height: 36px; border-radius: 50%; background: #F3F4F0; color: #6A7178; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
-        .sheet-find h2 { font-family: "Hanken Grotesk", sans-serif; font-size: 22px; font-weight: 700; color: #191C1A; margin-bottom: 8px; }
-        .sheet-find .sub { font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #6A7178; margin-bottom: 24px; line-height: 1.6; }
+        .sheet-find h2 { font-family: "Noto Sans JP", sans-serif; font-size: 22px; font-weight: 700; color: #191C1A; margin-bottom: 8px; }
+        .sheet-find .sub { font-family: "Noto Sans JP", sans-serif; font-size: 14px; color: #6A7178; margin-bottom: 24px; line-height: 1.6; }
         .sheet-find .close { position: absolute; right: 20px; top: 20px; width: 36px; height: 36px; border-radius: 50%; background: #F3F4F0; color: #6A7178; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; }
-        .sheet-find label { display: block; font-family: "Hanken Grotesk", sans-serif; font-size: 14px; font-weight: 700; color: #191C1A; margin: 20px 0 8px; }
+        .sheet-find label { display: block; font-family: "Noto Sans JP", sans-serif; font-size: 14px; font-weight: 700; color: #191C1A; margin: 20px 0 8px; }
         .sheet-find label .opt { font-weight: 400; color: #6A7178; font-size: 12px; }
-        .sheet-find input, .sheet-find select, .sheet-find textarea { width: 100%; padding: 14px 16px; border: 1px solid #E5E7E9; border-radius: 12px; font-family: "Be Vietnam Pro", sans-serif; font-size: 16px; background: #fff; }
+        .sheet-find input, .sheet-find select, .sheet-find textarea { width: 100%; padding: 14px 16px; border: 1px solid #E5E7E9; border-radius: 12px; font-family: "Noto Sans JP", sans-serif; font-size: 16px; background: #fff; }
         .sheet-find input:focus, .sheet-find select:focus, .sheet-find textarea:focus { outline: none; border-color: #0A5238; box-shadow: 0 0 0 4px rgba(10,82,56,0.1); }
         .sheet-find textarea { min-height: 100px; resize: vertical; }
         .sheet-find .two { display: flex; gap: 16px; } .sheet-find .two > div { flex: 1; }
-        .sheet-find .hint { font-family: "Be Vietnam Pro", sans-serif; font-size: 13px; color: #6A7178; margin-top: 8px; line-height: 1.5; }
+        .sheet-find .hint { font-family: "Noto Sans JP", sans-serif; font-size: 13px; color: #6A7178; margin-top: 8px; line-height: 1.5; }
         .sheet-find .actions { display: flex; gap: 12px; margin-top: 24px; }
-        .sheet-find .actions button { flex: 1; padding: 14px 20px; border-radius: 12px; font-family: "Hanken Grotesk", sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; text-align: center; }
+        .sheet-find .actions button { flex: 1; padding: 14px 20px; border-radius: 12px; font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; text-align: center; }
         .sheet-find .actions button.primary { background: #0A5238; color: #fff; border: none; box-shadow: 0 4px 12px rgba(10,82,56,0.2); }
         .sheet-find .actions button.primary:hover { background: #002113; }
         .sheet-find .actions button.ghost { background: #fff; color: #191C1A; border: 1.5px solid #E5E7E9; }
         .sheet-find .actions button.ghost:hover { background: #f3f4f0; }
-        .sheet-find .notice { display: flex; gap: 10px; align-items: flex-start; padding: 12px 0; margin: 12px 0; border-top: 1px solid #E5E7E9; font-family: "Be Vietnam Pro", sans-serif; font-size: 14px; color: #3f4943; line-height: 1.5; }
+        .sheet-find .notice { display: flex; gap: 10px; align-items: flex-start; padding: 12px 0; margin: 12px 0; border-top: 1px solid #E5E7E9; font-family: "Noto Sans JP", sans-serif; font-size: 14px; color: #3f4943; line-height: 1.5; }
         .sheet-find .notice > .material-symbols-outlined { color: #6A7178; flex: none; font-size: 18px; margin-top: 1px; }
         .sheet-find .notice.warn { border-color: rgba(217,119,6,0.3); color: #78350F; }
         .sheet-find .notice.warn > .material-symbols-outlined { color: #D97706; }
         .sheet-find .notice.success { border-color: rgba(10,82,56,0.3); color: #166534; }
         .sheet-find .notice.success > .material-symbols-outlined { color: #0A5238; }
-        .sheet-find .kv { display: flex; border-bottom: 1px solid #E5E7E9; font-family: "Be Vietnam Pro", sans-serif; font-size: 15px; padding: 12px 0; }
+        .sheet-find .kv { display: flex; border-bottom: 1px solid #E5E7E9; font-family: "Noto Sans JP", sans-serif; font-size: 15px; padding: 12px 0; }
         .sheet-find .kv b { width: 100px; flex: none; color: #6A7178; font-weight: 600; }
         .sheet-find .kv span { flex: 1; color: #191C1A; }
-        .sheet-find .msgbox { background: #F9F7F2; border: 1px solid #E5E7E9; border-radius: 16px; padding: 16px; font-family: "Be Vietnam Pro", sans-serif; font-size: 15px; margin-top: 12px; }
-        .sheet-find .msgbox .from { font-family: "Hanken Grotesk", sans-serif; font-size: 13px; color: #6A7178; margin-bottom: 4px; font-weight: 600; }
+        .sheet-find .msgbox { background: #F9F7F2; border: 1px solid #E5E7E9; border-radius: 16px; padding: 16px; font-family: "Noto Sans JP", sans-serif; font-size: 15px; margin-top: 12px; }
+        .sheet-find .msgbox .from { font-family: "Noto Sans JP", sans-serif; font-size: 13px; color: #6A7178; margin-bottom: 4px; font-weight: 600; }
         .toast-find { position: fixed; left: 50%; bottom: 100px; transform: translateX(-50%) translateY(20px); background: #191C1A; color: #fff; padding: 12px 24px; border-radius: 12px; font-size: 14px; opacity: 0; transition: 0.3s cubic-bezier(0.16,1,0.3,1); z-index: 210; pointer-events: none; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.15); white-space: nowrap; }
         .toast-find.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         .overlay-find { position: fixed; inset: 0; background: rgba(25,28,26,0.6); display: none; align-items: flex-end; justify-content: center; z-index: 200; backdrop-filter: blur(4px); }
@@ -319,21 +321,23 @@
 </svg>
 <!-- Vue App Mount Point -->
 <div id="app" v-cloak="">
-<div id="goods-screen-content" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg">
+<div id="goods-screen-content" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg">
 <!-- TopAppBar (From JSON) -->
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -345,6 +349,7 @@
 <img alt="User Avatar" class="w-full h-full object-cover" :src="myProfile.photoPath" v-if="myProfile &amp;&amp; myProfile.photoPath"/>
 <span class="font-label-lg text-forest-deep" v-else-if="me">{{ me.charAt(0) }}</span>
 <span class="material-symbols-outlined text-muted-gray" v-else="">person</span>
+</div>
 </div>
 </div>
 </header>
@@ -480,7 +485,7 @@
 </div>
 </main>
 <!-- Floating Action Button -->
-<button @click="openCreate()" aria-label="物資を登録する" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button @click="openCreate()" aria-label="物資を登録する" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
 <span class="font-label-lg text-label-lg">物資を登録</span>
 </button>
@@ -903,20 +908,22 @@
         </div>
 </div>
 <!-- ===================== ホーム画面 ===================== -->
-<div id="root-home" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-home" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -926,6 +933,7 @@
 </button>
 <div id="home-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="home-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="home-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -993,20 +1001,22 @@
 </main>
 </div>
 <!-- ===================== 人探し（つながり）画面 ＝ Stitch _5 ===================== -->
-<div id="root-find" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-find" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -1016,6 +1026,7 @@
 </button>
 <div id="find-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="find-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="find-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -1042,26 +1053,28 @@
 </div>
 <div class="flex flex-col gap-2" id="find-list"></div>
 </main>
-<button onclick="openFindForm()" aria-label="さがすを登録する" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button onclick="openFindForm()" aria-label="さがすを登録する" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
 <span class="font-label-lg text-label-lg">さがすを登録</span>
 </button>
 </div>
 <!-- ===================== 動物を探す画面 ===================== -->
-<div id="root-pets" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-pets" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -1071,6 +1084,7 @@
 </button>
 <div id="pets-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="pets-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="pets-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -1097,26 +1111,28 @@
 </div>
 <div class="flex flex-col gap-2" id="pets-list"></div>
 </main>
-<button onclick="openPetForm()" aria-label="動物を登録する" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button onclick="openPetForm()" aria-label="動物を登録する" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
 <span class="font-label-lg text-label-lg">動物を登録</span>
 </button>
 </div>
 <!-- ===================== ニュース画面 ===================== -->
-<div id="root-news" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-news" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -1126,6 +1142,7 @@
 </button>
 <div id="news-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="news-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="news-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -1147,20 +1164,22 @@
 </main>
 </div>
 <!-- ===================== 掲示板（非ログイン利用） ===================== -->
-<div id="root-board" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-board" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -1170,6 +1189,7 @@
 </button>
 <div id="board-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="board-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="board-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -1187,26 +1207,28 @@
 </div>
 <div class="flex flex-col gap-2" id="board-list"></div>
 </main>
-<button onclick="openThreadForm()" aria-label="スレッドを立てる" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button onclick="openThreadForm()" aria-label="スレッドを立てる" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined">add</span>
 <span class="font-label-lg text-label-lg">スレッドを立てる</span>
 </button>
 </div>
 <!-- ===================== 行政からのお知らせ（非ログイン投稿・承認制） ===================== -->
-<div id="root-gov" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-gov" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -1216,6 +1238,7 @@
 </button>
 <div id="gov-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="gov-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="gov-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -1233,26 +1256,28 @@
 </div>
 <div class="flex flex-col gap-2" id="gov-list"></div>
 </main>
-<button onclick="openGovForm()" aria-label="行政の方はこちら" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
+<button onclick="openGovForm()" aria-label="行政の方はこちら" class="fixed bottom-8 right-4 md:right-8 z-50 bg-soft-terracotta text-white px-6 py-4 rounded-full flex items-center gap-2 premium-shadow transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-soft-terracotta/30">
 <span class="material-symbols-outlined">campaign</span>
 <span class="font-label-lg text-label-lg">行政の方はこちら</span>
 </button>
 </div>
 <!-- ===================== 安全情報（静的コンテンツ） ===================== -->
-<div id="root-safety" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-safety" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -1262,6 +1287,7 @@
 </button>
 <div id="safety-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="safety-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="safety-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -1358,20 +1384,22 @@
 </main>
 </div>
 <!-- ===================== 支援場所（外部サイト kumamoto-shien.jp 連携） ===================== -->
-<div id="root-places" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-places" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -1381,6 +1409,7 @@
 </button>
 <div id="places-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="places-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="places-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -1416,20 +1445,22 @@
 </main>
 </div>
 <!-- ===================== きょうの給水・断水情報（外部サイト kumamoto-shien.jp 連携） ===================== -->
-<div id="root-mizu" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-mizu" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -1439,6 +1470,7 @@
 </button>
 <div id="mizu-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="mizu-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="mizu-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -1461,20 +1493,22 @@
 </main>
 </div>
 <!-- ===================== ガソリンスタンドを探す（外部サイト kumamoto-shien.jp 連携） ===================== -->
-<div id="root-gasoline" class="antialiased min-h-screen flex flex-col pt-16 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
-<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div id="root-gasoline" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
 <div class="flex items-center gap-4">
 <button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
 <svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
 </button>
-<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
 <span class="flex flex-col items-center leading-tight">
 <span>Tsunagaru</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
 </span>
 <span class="flex flex-col items-center leading-tight">
 <span>Kumamoto</span>
-<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
 </span>
 </h1>
 </div>
@@ -1484,6 +1518,7 @@
 </button>
 <div id="gasoline-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
 <img id="gasoline-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="gasoline-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
 </div>
 </div>
 </header>
@@ -2273,7 +2308,7 @@ function openFindForm() {
         <label>市区町村（エリアで探せます）</label>
         <select id="f-city">${cityOpts}<optgroup label="その他"><option>県外・その他</option></optgroup></select>
         <label>写真 <span class="opt">（任意・照合成立後に表示されます）</span></label>
-        <label for="f-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:16px;">
+        <label for="f-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Noto Sans JP',sans-serif;font-size:16px;">
             <span class="material-symbols-outlined" style="font-size:20px;">photo_camera</span>
             <span id="f-photo-label">写真を選択</span>
         </label>
@@ -2588,7 +2623,7 @@ function openPetForm() {
         <label>詳細な場所 <span class="opt">（必須）</span></label>
         <input id="pet-location" placeholder="例）美里町中央公民館付近">
         <label>写真 <span class="opt">（必須）</span></label>
-        <label for="pet-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:16px;">
+        <label for="pet-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Noto Sans JP',sans-serif;font-size:16px;">
             <span class="material-symbols-outlined" style="font-size:20px;">photo_camera</span>
             <span id="pet-photo-label">写真を選択</span>
         </label>
@@ -2789,7 +2824,7 @@ function openThreadForm() {
         <label>市区町村 <span class="opt">（任意）</span></label>
         <select id="th-city"><option value="">選択なし</option>${cityOpts}<optgroup label="その他"><option>県外・その他</option></optgroup></select>
         <label>写真 <span class="opt">（任意・1枚まで）</span></label>
-        <label for="th-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:16px;">
+        <label for="th-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Noto Sans JP',sans-serif;font-size:16px;">
             <span class="material-symbols-outlined" style="font-size:20px;">photo_camera</span>
             <span>写真を選択</span>
         </label>
@@ -2836,7 +2871,7 @@ function threadDetailHtml(t) {
         <h2>${esc(t.title)}</h2>
         <p class="sub">${fmtRelTime(t.updated)}${cityLine}</p>
         ${photo}
-        <p style="white-space:pre-wrap;font-family:'Be Vietnam Pro',sans-serif;font-size:15px;color:#191C1A;line-height:1.6;margin-bottom:8px;">${esc(t.body)}</p>
+        <p style="white-space:pre-wrap;font-family:'Noto Sans JP',sans-serif;font-size:15px;color:#191C1A;line-height:1.6;margin-bottom:8px;">${esc(t.body)}</p>
         ${delThreadBtn}
         <div style="margin-top:24px;border-top:1px solid #E5E7E9;padding-top:24px">
             <label>コメントする <span class="opt">（名前は表示されません）</span></label>
@@ -2913,7 +2948,7 @@ function openGovDetail(id) {
         <h2>${esc(n.title)}</h2>
         <p class="sub">${esc(n.city || '熊本県')}・${fmtRelTime(n.created)}</p>
         ${photos}
-        <p style="white-space:pre-wrap;font-family:'Be Vietnam Pro',sans-serif;font-size:15px;color:#191C1A;line-height:1.6;margin-bottom:16px;">${esc(n.body)}</p>
+        <p style="white-space:pre-wrap;font-family:'Noto Sans JP',sans-serif;font-size:15px;color:#191C1A;line-height:1.6;margin-bottom:16px;">${esc(n.body)}</p>
         <div class="kv" style="border-bottom:0"><b>お問い合わせ</b><span>${esc(n.contact)}</span></div>
         <div class="actions"><button class="ghost" onclick="closeOverlay()">閉じる</button></div>`);
 }
@@ -2949,7 +2984,7 @@ function openGovForm() {
         <label>内容 <span class="opt">（必須）</span></label>
         <textarea id="gov-body" maxlength="2000" placeholder="例）断水地域を対象に給水車を巡回させています。"></textarea>
         <label>写真 <span class="opt">（任意・1枚まで）</span></label>
-        <label for="gov-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Be Vietnam Pro',sans-serif;font-size:16px;">
+        <label for="gov-photo" style="display:flex;align-items:center;gap:8px;cursor:pointer;color:#6A7178;width:100%;padding:14px 16px;border:1px solid #E5E7E9;border-radius:12px;background:#fff;font-family:'Noto Sans JP',sans-serif;font-size:16px;">
             <span class="material-symbols-outlined" style="font-size:20px;">photo_camera</span>
             <span>写真を選択</span>
         </label>
