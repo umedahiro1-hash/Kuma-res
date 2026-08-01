@@ -1466,6 +1466,26 @@
 </div>
 
 <div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">location_city</span>お住まいの市町村の情報</h3>
+<p class="font-body-sm text-body-sm text-muted-gray mb-3">市町村を選ぶと、公式サイトへのリンクと、その市町村の給水・断水などの最新情報を表示します。</p>
+<select id="safety-city-select" class="form-input mb-3" onchange="renderSafetyCitySection(this.value)"><option value="">市町村を選んでください</option></select>
+<div id="safety-city-content"></div>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">campaign</span>給水・り災証明などのお知らせ</h3>
+<p id="safety-live-fetched-at" class="font-label-sm text-label-sm text-muted-gray mb-2"></p>
+<div id="safety-live-notes" class="flex flex-col gap-3"></div>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">local_gas_station</span>営業中のガソリンスタンド</h3>
+<p id="safety-gas-summary" class="font-body-sm text-body-sm text-charcoal-text mb-2"></p>
+<div id="safety-gas-list" class="flex flex-col gap-2" style="max-height:20rem;overflow-y:auto;"></div>
+<p class="font-label-sm text-label-sm text-muted-gray mt-2">出典: 資源エネルギー庁「住民拠点SS等検索」（くまもと被災者支援ナビ経由で取得）。「営業可」は報告時点の情報で、在庫・混雑状況までは分かりません。</p>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px] text-[#ba1a1a]">warning</span>車中泊・熱中症にご注意ください</h3>
 <p class="font-body-sm text-body-sm text-charcoal-text">車中泊が続くと、同じ姿勢が長時間続くことでエコノミークラス症候群（血栓症）のリスクが高まります。こまめな水分補給と、1〜2時間おきに車外で体を動かすことを心がけてください。日中は車内・屋外とも高温になりやすいため、熱中症にも注意が必要です。</p>
 </div>
@@ -2255,6 +2275,7 @@ refreshPersons();
 
 /* ===================== 画面切替・設定 ===================== */
 let newsLoaded = false;
+let safetyLoaded = false;
 const SCREEN_META = {
     home: { path: '/', title: 'つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ', description: '熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認、迷子動物の捜索、熊本地震関連の最新ニュースを一つのアプリで。' },
     goods: { path: '/support', title: '物資の支援｜つながるくまもと', description: '水・食料・毛布などの物資を無料または有料でゆずる・もとめる掲示板。' },
@@ -2289,6 +2310,7 @@ function switchScreen(s, opts){
     if (s === 'pets') { refreshPets(); }
     if (s === 'board') { refreshThreads(); }
     if (s === 'gov') { refreshGovNotices(); }
+    if (s === 'safety' && !safetyLoaded) { safetyLoaded = true; loadSafetyScreen(); }
     if (s === 'home') { loadHomePreviews(); }
     track('screen_view', null, null, s);
     applyScreenMeta(s);
@@ -3206,6 +3228,129 @@ async function loadNews(){
         renderNewsInto('news-list', data);
     } catch (e) {
         el.innerHTML = `<div class="py-12 text-center text-muted-gray"><span class="material-symbols-outlined text-4xl mb-2 opacity-50">error</span><p>ニュースを取得できませんでした</p><button class="text-primary font-label-sm text-label-sm mt-3" onclick="loadNews()">再読み込み</button></div>`;
+    }
+}
+
+/* ---- 安全情報画面（外部サイト kumamoto-shien.jp 連携） ---- */
+function shienAttributionHtml(srcName, srcUrl) {
+    const primary = (srcName && srcUrl) ? `<a href="${esc(srcUrl)}" target="_blank" rel="noopener" class="text-primary">${esc(srcName)}</a>・` : '';
+    return `<p class="font-label-sm text-label-sm text-muted-gray mt-2">出典: ${primary}<a href="https://kumamoto-shien.jp/" target="_blank" rel="noopener" class="text-primary">くまもと被災者支援ナビ</a></p>`;
+}
+
+let safetyCityData = null;
+let safetyLiveData = null;
+
+async function loadSafetyScreen() {
+    try {
+        safetyCityData = await apiFetch('/city-links');
+        const select = document.getElementById('safety-city-select');
+        safetyCityData.cities.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.id;
+            opt.textContent = c.name;
+            select.appendChild(opt);
+        });
+    } catch (e) { /* 市町村セレクトは任意機能のため、失敗しても他のセクションは表示する */ }
+    loadSafetyLiveNotes();
+    loadSafetyGasStations();
+}
+
+function safetyCityLinkFields() {
+    return [
+        { key: 'url', label: '公式サイト' },
+        { key: 'kinkyu', label: '緊急情報' },
+        { key: 'disaster', label: '防災・災害情報' },
+        { key: 'water', label: '水道・給水情報' },
+        { key: 'risai', label: 'り災証明書の案内' },
+        { key: 'shelter', label: '避難所の開設・混雑状況' },
+        { key: 'x', label: '公式X（旧Twitter）' },
+    ];
+}
+
+function renderSafetyCitySection(cityId) {
+    const box = document.getElementById('safety-city-content');
+    if (!cityId || !safetyCityData) { box.innerHTML = ''; return; }
+    const city = safetyCityData.cities.find(c => c.id === cityId);
+    if (!city) { box.innerHTML = ''; return; }
+
+    const links = safetyCityLinkFields().map(f => {
+        if (!city[f.key]) return '';
+        const note = city[f.key + 'Note'] ? `<p class="font-label-sm text-label-sm text-muted-gray mt-0.5">${esc(city[f.key + 'Note'])}</p>` : '';
+        return `<div class="mb-2"><a href="${esc(city[f.key])}" target="_blank" rel="noopener" class="text-primary font-label-lg text-label-lg flex items-center gap-1">${esc(city.name)}の${esc(f.label)} <span class="material-symbols-outlined text-[16px]">open_in_new</span></a>${note}</div>`;
+    }).join('');
+
+    let liveHtml = '';
+    if (safetyLiveData) {
+        const entries = [...(safetyLiveData.water || []), ...(safetyLiveData.status || [])].filter(e => e.cityId === cityId);
+        if (entries.length) {
+            liveHtml = '<div class="mt-3 pt-3 border-t border-divider-line"><p class="font-label-lg text-label-lg text-charcoal-text mb-2">この市町村の最新情報</p>' +
+                entries.map(safetyLiveEntryHtml).join('') + '</div>';
+        }
+    }
+
+    box.innerHTML = `<div class="bg-surface-container-low rounded-lg p-3">${links}${liveHtml}</div>`;
+}
+
+function safetyLiveEntryHtml(e) {
+    const text = e.text ? `<p class="font-body-sm text-body-sm text-charcoal-text" style="white-space:pre-wrap;">${e.text}</p>` : '';
+    const places = (e.places || []).slice(0, 8).map(p => `<a href="${esc(p.gmapUrl)}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-primary font-label-sm text-label-sm mr-2 mb-1"><span class="material-symbols-outlined text-[14px]">location_on</span>${esc(p.name)}${p.time ? `（${esc(p.time)}）` : ''}</a>`).join('');
+    const note = e.note ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-1">${e.note}</p>` : '';
+    return `<div class="mb-3 pb-3 border-b border-divider-line last:border-b-0">
+        <p class="font-label-lg text-label-lg text-charcoal-text">${esc(e.city || '')}</p>
+        ${text}${places ? `<div class="mt-1">${places}</div>` : ''}${note}
+        <p class="font-label-sm text-label-sm text-muted-gray mt-1">${esc(e.published || '')}</p>
+        ${shienAttributionHtml(e.srcName, e.srcUrl)}
+    </div>`;
+}
+
+async function loadSafetyLiveNotes() {
+    const fetchedEl = document.getElementById('safety-live-fetched-at');
+    const listEl = document.getElementById('safety-live-notes');
+    listEl.innerHTML = `<p class="text-muted-gray font-body-sm text-body-sm">最新情報を取得しています…</p>`;
+    try {
+        const data = await apiFetch('/live-info');
+        safetyLiveData = data;
+        fetchedEl.textContent = `情報確認: ${data.fetchedAt}${data.stale ? '（最新の取得に失敗したため、前回取得時点の情報です）' : ''}`;
+        listEl.innerHTML = (data.notes || []).map(safetyNoteHtml).join('') || '<p class="text-muted-gray font-body-sm text-body-sm">現在、掲載しているお知らせはありません。</p>';
+    } catch (e) {
+        listEl.innerHTML = `<p class="text-muted-gray font-body-sm text-body-sm">最新情報を取得できませんでした。</p>`;
+    }
+}
+
+function safetyNoteHtml(n) {
+    const intro = n.intro ? `<p class="font-body-sm text-body-sm text-charcoal-text mb-2">${n.intro}</p>` : '';
+    let table = '';
+    if (n.headers && n.rows) {
+        table = `<div style="overflow-x:auto"><table class="w-full text-sm border-collapse mb-2"><thead><tr class="text-left text-muted-gray border-b border-divider-line">${n.headers.map(h => `<th class="py-1 pr-2">${esc(h)}</th>`).join('')}</tr></thead><tbody>${
+            n.rows.map(row => `<tr class="border-b border-divider-line align-top">${row.map(c => `<td class="py-1 pr-2">${c}</td>`).join('')}</tr>`).join('')
+        }</tbody></table></div>`;
+    }
+    const footer = n.footer ? `<p class="font-body-sm text-body-sm text-charcoal-text">${n.footer}</p>` : '';
+    return `<div class="border border-divider-line rounded-lg p-3">
+        <p class="font-label-lg text-label-lg text-charcoal-text mb-1">${esc(n.title || '')}</p>
+        ${intro}${table}${footer}
+        <p class="font-label-sm text-label-sm text-muted-gray mt-1">${esc(n.published || '')}</p>
+        ${shienAttributionHtml(n.srcName, n.srcUrl)}
+    </div>`;
+}
+
+async function loadSafetyGasStations() {
+    const summaryEl = document.getElementById('safety-gas-summary');
+    const listEl = document.getElementById('safety-gas-list');
+    summaryEl.textContent = '取得しています…';
+    try {
+        const data = await apiFetch('/gas-stations');
+        const off = data.official || {};
+        summaryEl.textContent = `熊本県内で「営業可」と報告されているスタンド: ${off.openCount ?? (off.stations || []).length}件（${off.fetchedAt || ''}時点）`;
+        listEl.innerHTML = (off.stations || []).slice(0, 30).map(s => {
+            const gmap = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.address || s.name)}`;
+            return `<a href="${gmap}" target="_blank" rel="noopener" class="block bg-surface-container-low rounded-lg p-2 hover:bg-surface-container transition-colors">
+                <span class="font-label-lg text-label-lg text-charcoal-text block">${esc(s.name)}</span>
+                <span class="font-label-sm text-label-sm text-muted-gray block">${esc(s.address || '')}${s.tel ? '・' + esc(s.tel) : ''}</span>
+            </a>`;
+        }).join('') || '<p class="text-muted-gray font-body-sm text-body-sm">現在、営業可の報告はありません。</p>';
+    } catch (e) {
+        summaryEl.textContent = '取得できませんでした。';
     }
 }
 

@@ -5,6 +5,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const express = require('express');
 const compression = require('compression');
+const JSON5 = require('json5');
 const db = require('./db');
 
 const PORT = process.env.PORT || 8787;
@@ -834,6 +835,56 @@ app.get('/api/news', ah(async (req, res) => {
     res.json({ items: [], fetchedAt: null, stale: true, error: 'ニュースを取得できませんでした' });
   }
 }));
+
+// ---------- 外部の公式情報まとめサイト（くまもと被災者支援ナビ / kumamoto-shien.jp）との連携 ----------
+// 市町村ごとの公式リンク集・給水/断水などのライブ情報・ガソリンスタンド情報は、熊本の民間企業が
+// 無償で運営する情報サイトが、公式発表を継続的に確認・検証して維持しているデータを取得して表示する。
+// 自社で独自収集したデータではないため、必ず出典（サイト名・元記事のURL）を明示して表示すること。
+// 個別レコードにも一次情報源（各市町村・資源エネルギー庁など）の名前とURLが含まれるため、
+// 表示側ではそれらもあわせて示す。
+
+const SHIEN_SOURCE = { name: 'くまもと被災者支援ナビ（kumamoto-shien.jp）', url: 'https://kumamoto-shien.jp/' };
+const SHIEN_CACHE_TTL_MS = 30 * 60 * 1000; // 先方の更新頻度（1日2〜3回）に合わせ、負荷をかけすぎないよう30分キャッシュ
+
+function extractConstObject(text, varName) {
+  const marker = `const ${varName} = `;
+  const start = text.indexOf(marker);
+  if (start === -1) throw new Error(`${varName} not found in response`);
+  const objStart = start + marker.length;
+  const end = text.lastIndexOf('};');
+  if (end === -1) throw new Error(`${varName}: no trailing "};" found`);
+  return text.slice(objStart, end + 1);
+}
+
+async function fetchShienJsData(urlPath, varName) {
+  const res = await fetch(`https://kumamoto-shien.jp${urlPath}`, { signal: AbortSignal.timeout(8000) });
+  if (!res.ok) throw new Error(`shien fetch failed: ${urlPath} ${res.status}`);
+  const text = await res.text();
+  return JSON5.parse(extractConstObject(text, varName));
+}
+
+function makeShienCachedRoute(routePath, urlPath, varName) {
+  let cache = { data: null, fetchedAt: 0 };
+  app.get(routePath, ah(async (req, res) => {
+    const now = Date.now();
+    if (cache.data && now - cache.fetchedAt < SHIEN_CACHE_TTL_MS) {
+      return res.json({ ...cache.data, source: SHIEN_SOURCE, stale: false });
+    }
+    try {
+      const data = await fetchShienJsData(urlPath, varName);
+      cache = { data, fetchedAt: now };
+      res.json({ ...data, source: SHIEN_SOURCE, stale: false });
+    } catch (e) {
+      console.error(`[shien] failed to fetch ${urlPath}`, e);
+      if (cache.data) return res.json({ ...cache.data, source: SHIEN_SOURCE, stale: true });
+      res.status(502).json({ error: '情報を取得できませんでした。時間をおいて再度お試しください。' });
+    }
+  }));
+}
+
+makeShienCachedRoute('/api/city-links', '/assets/js/data.js', 'NAVI_DATA');
+makeShienCachedRoute('/api/live-info', '/live', 'LIVE_DATA');
+makeShienCachedRoute('/api/gas-stations', '/live-fuel', 'FUEL_DATA');
 
 // ---------- pets（動物を探す・非ログイン利用） ----------
 
