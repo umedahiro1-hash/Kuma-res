@@ -293,6 +293,18 @@ CREATE TABLE IF NOT EXISTS gov_notices (
   created ${bigint} NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS analytics_events (
+  id ${pk},
+  session_id TEXT NOT NULL,
+  event_type TEXT NOT NULL,
+  target_type TEXT,
+  target_id TEXT,
+  screen TEXT,
+  at ${bigint} NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_analytics_events_target ON analytics_events(target_type, target_id);
+CREATE INDEX IF NOT EXISTS idx_analytics_events_type_at ON analytics_events(event_type, at);
 CREATE INDEX IF NOT EXISTS idx_goods_created ON goods(created DESC);
 CREATE INDEX IF NOT EXISTS idx_goods_nick ON goods(nick);
 CREATE INDEX IF NOT EXISTS idx_applicants_goods_id ON applicants(goods_id);

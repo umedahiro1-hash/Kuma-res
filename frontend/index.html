@@ -1414,6 +1414,7 @@
 <button class="btn-primary mt-3" onclick="adminLogin()">ログイン</button>
 </div>
 <div id="admin-review-box" style="display:none"></div>
+<div id="admin-analytics-box" style="display:none"></div>
 </div>
 </div>
 <!-- 人探し用オーバーレイ・トースト（グローバル） -->
@@ -1463,6 +1464,26 @@ async function apiFetch(path, opts) {
     try { body = await res.json(); } catch (e) { /* no body */ }
     if (!res.ok) throw new Error((body && body.error) || `リクエストに失敗しました (${res.status})`);
     return body;
+}
+
+/* ---- 匿名アクセス解析（個人を特定する情報は送らない。失敗しても操作は止めない） ---- */
+function getAnalyticsSessionId() {
+    let id = localStorage.getItem('kt_session_id');
+    if (!id) {
+        id = 'sess_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem('kt_session_id', id);
+    }
+    return id;
+}
+function track(eventType, targetType, targetId, screen) {
+    try {
+        fetch(API + '/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId: getAnalyticsSessionId(), eventType, targetType: targetType || null, targetId: targetId || null, screen: screen || null }),
+            keepalive: true
+        }).catch(() => {});
+    } catch (e) { /* noop */ }
 }
 
 const goodsApp = createApp({
@@ -1619,6 +1640,7 @@ const goodsApp = createApp({
         openItem(item) {
             this.activeItem = item;
             this.applyMsg = '';
+            track('goods_detail_open', 'goods', item.id);
             setTimeout(() => {
                 if (this.$refs.chatbox) {
                     this.$refs.chatbox.scrollTop = this.$refs.chatbox.scrollHeight;
@@ -1668,6 +1690,7 @@ const goodsApp = createApp({
                     body: JSON.stringify({ msg: this.applyMsg })
                 });
                 this.applyUpdatedGoods(updated);
+                track('goods_apply_click', 'goods', this.activeItem.id);
                 this.showToast('✅ 申し出ました。チャットで調整しましょう');
             } catch (e) {
                 this.showToast(`⚠️ ${e.message}`);
@@ -1685,6 +1708,7 @@ const goodsApp = createApp({
                     body: JSON.stringify({ text })
                 });
                 this.applyUpdatedGoods(updated);
+                track('goods_chat_send', 'goods', this.activeItem.id);
                 this.chatInput = '';
                 setTimeout(() => {
                     if (this.$refs.chatbox) {
@@ -1742,7 +1766,8 @@ const goodsApp = createApp({
                 this.applyUpdatedGoods(goods);
                 if (bothDone) {
                     await this.loadProfiles();
-                    this.showToast('🎉 受け渡し完了！相互評価をお願いします');
+                    track('goods_deal_complete', 'goods', this.activeItem.id);
+                    this.showToast('🎉 受け渡し完了！ご協力ありがとうございました');
                 } else {
                     this.showToast('確認しました。相手の確認をお待ちください');
                 }
@@ -2153,6 +2178,7 @@ function switchScreen(s, opts){
     if (s === 'board') { refreshThreads(); }
     if (s === 'gov') { refreshGovNotices(); }
     if (s === 'home') { loadHomePreviews(); }
+    track('screen_view', null, null, s);
     applyScreenMeta(s);
     if (pushHistory) {
         const meta = SCREEN_META[s] || SCREEN_META.home;
@@ -2624,7 +2650,7 @@ function threadDetailHtml(t) {
         <div style="margin-top:32px"><h3 class="font-label-lg text-label-lg" style="border-bottom:1px solid #E5E7E9;padding-bottom:8px">コメント（${t.comments.length}件）</h3>${comments}</div>`;
 }
 function openThreadDetail(id) {
-    boardApiFetch(`/board/${id}`).then(t => overlay(threadDetailHtml(t))).catch(e => toast(e.message));
+    boardApiFetch(`/board/${id}`).then(t => { overlay(threadDetailHtml(t)); track('board_detail_open', 'board', id); }).catch(e => toast(e.message));
 }
 async function sendThreadComment(id) {
     const textEl = document.getElementById('th-c-text');
@@ -2632,6 +2658,7 @@ async function sendThreadComment(id) {
     if (!text) { toast('コメントを入力してください'); return; }
     try {
         await boardApiFetch(`/board/${id}/comments`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text }) });
+        track('board_comment_post', 'board', id);
         await refreshThreads();
         openThreadDetail(id);
         toast('コメントしました');
@@ -2785,6 +2812,7 @@ async function loadAdminQueue() {
         document.getElementById('admin-login-box').style.display = 'none';
         box.style.display = '';
         box.innerHTML = rows.length ? rows.map(adminNoticeCardHtml).join('') : '<p class="text-muted-gray">お知らせはまだありません。</p>';
+        loadAdminAnalytics();
     } catch (e) {
         sessionStorage.removeItem('kt_admin_pw');
         document.getElementById('admin-login-box').style.display = '';
@@ -2797,6 +2825,47 @@ function adminLogin() {
     if (!pw) { toast('パスワードを入力してください'); return; }
     sessionStorage.setItem('kt_admin_pw', pw);
     loadAdminQueue();
+}
+
+const ADMIN_SCREEN_LABELS = { home: 'ホーム', support: '支援', find: 'さがす', pets: '動物', news: 'ニュース', board: '掲示板', gov: '行政' };
+const ADMIN_GOODS_STATUS_LABELS = { open: '募集中', nego: '交渉中', reserved: '予約済み', done: '受渡完了' };
+function adminAnalyticsHtml(data) {
+    const screenRows = data.screenViews.map(s => `<tr class="border-b border-divider-line">
+        <td class="py-2">${esc(ADMIN_SCREEN_LABELS[s.screen] || s.screen)}</td><td class="py-2">${s.views}</td><td class="py-2">${s.uniqueSessions}</td>
+    </tr>`).join('') || '<tr><td colspan="3" class="py-2 text-muted-gray">まだデータがありません。</td></tr>';
+
+    const goodsRows = data.goods.map(g => `<tr class="border-b border-divider-line">
+        <td class="py-2">${esc(g.title)}<br><span class="font-label-sm text-label-sm text-muted-gray">${esc(g.nick)}・${esc(ADMIN_GOODS_STATUS_LABELS[g.status] || g.status)}</span></td>
+        <td class="py-2">${g.detailOpens}</td><td class="py-2">${g.applyClicks}</td><td class="py-2">${g.chatSends}</td><td class="py-2">${g.dealCompletes}</td>
+    </tr>`).join('') || '<tr><td colspan="5" class="py-2 text-muted-gray">投稿がありません。</td></tr>';
+
+    const boardRows = data.board.map(t => `<tr class="border-b border-divider-line">
+        <td class="py-2">${esc(t.title)}</td><td class="py-2">${t.detailOpens}</td><td class="py-2">${t.commentPosts}</td>
+    </tr>`).join('') || '<tr><td colspan="3" class="py-2 text-muted-gray">投稿がありません。</td></tr>';
+
+    return `
+    <h2 class="font-headline-lg text-headline-lg text-forest-deep mt-10 mb-1">アクセス解析</h2>
+    <p class="font-body-sm text-body-sm text-muted-gray mb-6">匿名の操作ログに基づく画面別アクセス数・投稿ごとの反応（申込み・コメント）件数です。個人を特定する情報は含まれません。</p>
+
+    <h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2">画面別アクセス</h3>
+    <div class="overflow-x-auto mb-6"><table class="w-full text-sm border-collapse"><thead><tr class="text-left text-muted-gray border-b border-divider-line"><th class="py-2">画面</th><th class="py-2">閲覧数</th><th class="py-2">ユニーク訪問数</th></tr></thead><tbody>${screenRows}</tbody></table></div>
+
+    <h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2">支援（物資）の反応ファネル</h3>
+    <div class="overflow-x-auto mb-6"><table class="w-full text-sm border-collapse"><thead><tr class="text-left text-muted-gray border-b border-divider-line"><th class="py-2">投稿</th><th class="py-2">詳細閲覧</th><th class="py-2">申込み</th><th class="py-2">チャット</th><th class="py-2">受渡完了</th></tr></thead><tbody>${goodsRows}</tbody></table></div>
+
+    <h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2">掲示板の反応ファネル</h3>
+    <div class="overflow-x-auto"><table class="w-full text-sm border-collapse"><thead><tr class="text-left text-muted-gray border-b border-divider-line"><th class="py-2">スレッド</th><th class="py-2">詳細閲覧</th><th class="py-2">コメント</th></tr></thead><tbody>${boardRows}</tbody></table></div>
+    `;
+}
+async function loadAdminAnalytics() {
+    const box = document.getElementById('admin-analytics-box');
+    try {
+        const res = await fetch(API + '/admin/analytics', { headers: adminHeaders() });
+        if (!res.ok) return;
+        const data = await res.json();
+        box.style.display = '';
+        box.innerHTML = adminAnalyticsHtml(data);
+    } catch (e) { /* 承認キューの表示を優先し、解析データの取得失敗はサイレントに扱う */ }
 }
 async function adminApprove(id) {
     await fetch(`${API}/admin/gov/${id}/approve`, { method: 'POST', headers: adminHeaders() });

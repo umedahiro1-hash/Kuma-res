@@ -220,6 +220,26 @@ function requireAdmin(req, res, next) {
   next();
 }
 
+// ---------- アクセス解析（匿名イベントログ。個人を特定する情報は保存しない） ----------
+
+const ANALYTICS_EVENT_TYPES = new Set([
+  'screen_view',
+  'goods_detail_open',
+  'goods_apply_click',
+  'goods_chat_send',
+  'goods_deal_complete',
+  'board_detail_open',
+  'board_comment_post',
+]);
+
+async function logAnalyticsEvent({ sessionId, eventType, targetType, targetId, screen }) {
+  if (typeof sessionId !== 'string' || !sessionId || sessionId.length > 64) return;
+  if (!ANALYTICS_EVENT_TYPES.has(eventType)) return;
+  const clip = (s, n) => (typeof s === 'string' ? s.slice(0, n) : null);
+  await db.prepare(`INSERT INTO analytics_events (session_id, event_type, target_type, target_id, screen, at)
+    VALUES (?,?,?,?,?,?)`).run(sessionId, eventType, clip(targetType, 32), clip(targetId, 64), clip(screen, 32), Date.now());
+}
+
 function normTel(s) {
   return (s || '').replace(/[^0-9]/g, '');
 }
@@ -372,6 +392,19 @@ function ah(fn) {
 
 app.get('/api/profiles', ah(async (req, res) => {
   res.json(await getProfiles());
+}));
+
+// ---------- アクセス解析 ----------
+// ログイン有無に関わらず匿名セッションIDで記録する（個人情報・自由記述テキストは保存しない）。
+// 失敗しても画面操作をブロックしないよう、常に 204 を返す。
+
+app.post('/api/track', ah(async (req, res) => {
+  try {
+    await logAnalyticsEvent(req.body || {});
+  } catch (e) {
+    console.error('[analytics] failed to log event', e);
+  }
+  res.status(204).end();
 }));
 
 function toIntlPhone(phone) {
@@ -1046,6 +1079,46 @@ app.post('/api/admin/gov/:id/reject', requireAdmin, ah(async (req, res) => {
   if (!row) return res.status(404).json({ error: 'お知らせが見つかりません' });
   await db.prepare("UPDATE gov_notices SET status = 'rejected' WHERE id = ?").run(row.id);
   res.json(serializeGovNotice(await db.prepare('SELECT * FROM gov_notices WHERE id = ?').get(row.id)));
+}));
+
+app.get('/api/admin/analytics', requireAdmin, ah(async (req, res) => {
+  const totalsRows = await db.prepare('SELECT event_type, COUNT(*) c FROM analytics_events GROUP BY event_type').all();
+  const totals = {};
+  totalsRows.forEach(r => { totals[r.event_type] = Number(r.c); });
+
+  const screenViews = (await db.prepare(`SELECT screen, COUNT(*) views, COUNT(DISTINCT session_id) unique_sessions
+    FROM analytics_events WHERE event_type = 'screen_view' AND screen IS NOT NULL
+    GROUP BY screen ORDER BY views DESC`).all())
+    .map(r => ({ screen: r.screen, views: Number(r.views), uniqueSessions: Number(r.unique_sessions) }));
+
+  const goods = (await db.prepare(`SELECT g.id, g.title, g.nick, g.status, g.created,
+      COUNT(CASE WHEN e.event_type = 'goods_detail_open' THEN 1 END) detail_opens,
+      COUNT(CASE WHEN e.event_type = 'goods_apply_click' THEN 1 END) apply_clicks,
+      COUNT(CASE WHEN e.event_type = 'goods_chat_send' THEN 1 END) chat_sends,
+      COUNT(CASE WHEN e.event_type = 'goods_deal_complete' THEN 1 END) deal_completes
+    FROM goods g
+    LEFT JOIN analytics_events e ON e.target_type = 'goods' AND e.target_id = g.id
+    GROUP BY g.id, g.title, g.nick, g.status, g.created
+    ORDER BY g.created DESC`).all())
+    .map(r => ({
+      id: r.id, title: r.title, nick: r.nick, status: r.status, created: Number(r.created),
+      detailOpens: Number(r.detail_opens), applyClicks: Number(r.apply_clicks),
+      chatSends: Number(r.chat_sends), dealCompletes: Number(r.deal_completes),
+    }));
+
+  const board = (await db.prepare(`SELECT t.id, t.title, t.created,
+      COUNT(CASE WHEN e.event_type = 'board_detail_open' THEN 1 END) detail_opens,
+      COUNT(CASE WHEN e.event_type = 'board_comment_post' THEN 1 END) comment_posts
+    FROM board_threads t
+    LEFT JOIN analytics_events e ON e.target_type = 'board' AND e.target_id = t.id
+    GROUP BY t.id, t.title, t.created
+    ORDER BY t.created DESC`).all())
+    .map(r => ({
+      id: r.id, title: r.title, created: Number(r.created),
+      detailOpens: Number(r.detail_opens), commentPosts: Number(r.comment_posts),
+    }));
+
+  res.json({ totals, screenViews, goods, board });
 }));
 
 // ---------- エラーハンドリング ----------
