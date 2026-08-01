@@ -886,6 +886,63 @@ makeShienCachedRoute('/api/city-links', '/assets/js/data.js', 'NAVI_DATA');
 makeShienCachedRoute('/api/live-info', '/live', 'LIVE_DATA');
 makeShienCachedRoute('/api/gas-stations', '/live-fuel', 'FUEL_DATA');
 
+// 支援診断の制度データ（shindan.js）は「var CARDS = [ {...、test: function(a){...} }, ... ]」という
+// データと判定ロジックが混在した形なので、他の3つとは別処理にする：各カードの test 関数は
+// （中身を実行せず）安全に取り除いてから JSON5 でパースし、判定ロジックはフロント側で自前実装する。
+function findMatchingBracket(s, openIdx, openCh, closeCh) {
+  let depth = 0;
+  for (let i = openIdx; i < s.length; i++) {
+    if (s[i] === openCh) depth++;
+    else if (s[i] === closeCh) { depth--; if (depth === 0) return i; }
+  }
+  throw new Error('no matching bracket found');
+}
+
+function stripTestFunctions(s) {
+  const out = [];
+  let i = 0;
+  while (i < s.length) {
+    const idx = s.indexOf('test: function', i);
+    if (idx === -1) { out.push(s.slice(i)); break; }
+    out.push(s.slice(i, idx));
+    const braceStart = s.indexOf('{', idx);
+    const braceEnd = findMatchingBracket(s, braceStart, '{', '}');
+    out.push('test: null');
+    i = braceEnd + 1;
+  }
+  return out.join('');
+}
+
+async function fetchShienSupportCards() {
+  const res = await fetch('https://kumamoto-shien.jp/assets/js/shindan.js', { signal: AbortSignal.timeout(8000) });
+  if (!res.ok) throw new Error(`shindan.js fetch failed: ${res.status}`);
+  const text = await res.text();
+  const marker = 'var CARDS = ';
+  const start = text.indexOf(marker);
+  if (start === -1) throw new Error('CARDS not found in shindan.js');
+  const arrStart = start + marker.length;
+  const arrEnd = findMatchingBracket(text, arrStart, '[', ']');
+  const arrText = stripTestFunctions(text.slice(arrStart, arrEnd + 1));
+  return JSON5.parse(arrText);
+}
+
+let supportCardsCache = { data: null, fetchedAt: 0 };
+app.get('/api/support-cards', ah(async (req, res) => {
+  const now = Date.now();
+  if (supportCardsCache.data && now - supportCardsCache.fetchedAt < SHIEN_CACHE_TTL_MS) {
+    return res.json({ cards: supportCardsCache.data, source: SHIEN_SOURCE, stale: false });
+  }
+  try {
+    const cards = await fetchShienSupportCards();
+    supportCardsCache = { data: cards, fetchedAt: now };
+    res.json({ cards, source: SHIEN_SOURCE, stale: false });
+  } catch (e) {
+    console.error('[shien] failed to fetch support cards', e);
+    if (supportCardsCache.data) return res.json({ cards: supportCardsCache.data, source: SHIEN_SOURCE, stale: true });
+    res.status(502).json({ error: '支援制度の情報を取得できませんでした。時間をおいて再度お試しください。' });
+  }
+}));
+
 // ---------- pets（動物を探す・非ログイン利用） ----------
 
 function serializePetItem(row, messages) {

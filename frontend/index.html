@@ -1486,6 +1486,28 @@
 </div>
 
 <div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">fact_check</span>もらえる支援 かんたん診断</h3>
+<p class="font-body-sm text-body-sm text-muted-gray mb-3">5つの質問に答えると、使える可能性が高い支援制度が分かります。回答はこの端末の中だけで判定し、送信されません。</p>
+<form id="shindan-form" class="flex flex-col gap-4" onsubmit="return runShindan(event)">
+<div id="shindan-questions"></div>
+<button type="submit" class="bg-forest-deep text-white font-label-lg text-label-lg px-6 py-3 rounded-full hover:bg-opacity-90 transition-colors self-start">診断する</button>
+</form>
+<div id="shindan-results" style="display:none" class="flex flex-col gap-3 mt-4">
+<div class="flex items-center justify-between">
+<p class="font-label-lg text-label-lg text-charcoal-text">診断結果</p>
+<button type="button" onclick="resetShindan()" class="text-primary font-label-sm text-label-sm">やり直す</button>
+</div>
+<div id="shindan-result-list" class="flex flex-col gap-3"></div>
+</div>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">checklist</span>やることリスト</h3>
+<p class="font-body-sm text-body-sm text-muted-gray mb-3">チェックした内容はこの端末に保存されます。</p>
+<div id="todo-list" class="flex flex-col gap-1"></div>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px] text-[#ba1a1a]">warning</span>車中泊・熱中症にご注意ください</h3>
 <p class="font-body-sm text-body-sm text-charcoal-text">車中泊が続くと、同じ姿勢が長時間続くことでエコノミークラス症候群（血栓症）のリスクが高まります。こまめな水分補給と、1〜2時間おきに車外で体を動かすことを心がけてください。日中は車内・屋外とも高温になりやすいため、熱中症にも注意が必要です。</p>
 </div>
@@ -3253,6 +3275,8 @@ async function loadSafetyScreen() {
     } catch (e) { /* 市町村セレクトは任意機能のため、失敗しても他のセクションは表示する */ }
     loadSafetyLiveNotes();
     loadSafetyGasStations();
+    renderShindanQuestions();
+    renderTodoList();
 }
 
 function safetyCityLinkFields() {
@@ -3352,6 +3376,181 @@ async function loadSafetyGasStations() {
     } catch (e) {
         summaryEl.textContent = '取得できませんでした。';
     }
+}
+
+/* ---- もらえる支援 かんたん診断 ----
+   質問・選択肢はkumamoto-shien.jpの構成を参考にしているが、判定ロジックは自前実装。
+   （制度カードの本文データのみ /api/support-cards から取得し、この画面内だけで判定する） */
+const SHINDAN_QUESTIONS = [
+    { name: 'q1', type: 'radio', label: 'Q1. 住まいの被害はどのくらいですか？', options: [
+        { value: 'zenkai', label: '全壊（住めない）' },
+        { value: 'hankai', label: '半壊など、大きな被害がある' },
+        { value: 'ichibu', label: '一部損壊（壁のひび・瓦の落下など）' },
+        { value: 'none', label: '大きな被害はない／まだ分からない' },
+    ]},
+    { name: 'q2', type: 'radio', label: 'Q2. 住まいの形態は？', options: [
+        { value: 'mochiie', label: '持ち家' },
+        { value: 'chintai', label: '賃貸' },
+        { value: 'other', label: 'その他（社宅・間借りなど）' },
+    ]},
+    { name: 'q3', type: 'checkbox', label: 'Q3. 世帯について（あてはまるものすべて）', options: [
+        { value: 'single', label: 'ひとり暮らし' },
+        { value: 'child', label: '小学生〜大学生の子どもがいる' },
+        { value: 'elderly', label: '65歳以上の家族がいる／介護が必要な家族がいる' },
+        { value: 'none', label: 'あてはまるものはない' },
+    ]},
+    { name: 'q4', type: 'checkbox', label: 'Q4. ご家族の人的被害（あてはまるものすべて）', options: [
+        { value: 'death', label: '亡くなった家族がいる' },
+        { value: 'disability', label: '重いけが・障害が残る見込みの家族がいる' },
+        { value: 'injury', label: 'けがをして治療中の家族がいる' },
+        { value: 'none', label: 'ない' },
+    ]},
+    { name: 'q5', type: 'checkbox', label: 'Q5. お仕事・その他（あてはまるものすべて）', options: [
+        { value: 'employee', label: '会社員・パートなど雇われて働いている' },
+        { value: 'selfemployed', label: '自営業・会社を経営している' },
+        { value: 'loan', label: '住宅ローンが残っている' },
+        { value: 'insurance', label: '地震保険（または火災保険）に入っている・入っているか分からない' },
+        { value: 'none', label: 'あてはまるものはない' },
+    ]},
+];
+
+let shindanCards = null;
+
+function renderShindanQuestions() {
+    const el = document.getElementById('shindan-questions');
+    if (!el) return;
+    el.innerHTML = SHINDAN_QUESTIONS.map(q => `
+        <div>
+            <p class="font-label-lg text-label-lg text-charcoal-text mb-2">${esc(q.label)}</p>
+            <div class="flex flex-col gap-1">
+                ${q.options.map(o => `<label class="flex items-center gap-2 py-1.5 px-2 rounded-lg hover:bg-surface-container-low cursor-pointer">
+                    <input type="${q.type}" name="${q.name}" value="${o.value}" ${q.type === 'radio' ? 'required' : ''} data-none="${o.value === 'none'}"/>
+                    <span class="font-body-sm text-body-sm text-charcoal-text">${esc(o.label)}</span>
+                </label>`).join('')}
+            </div>
+        </div>
+    `).join('');
+    // 「あてはまるものはない」を選ぶと他のチェックを外す（逆も同様）
+    el.querySelectorAll('input[type=checkbox]').forEach(box => {
+        box.addEventListener('change', () => {
+            if (!box.checked) return;
+            const siblings = el.querySelectorAll(`input[name="${box.name}"]`);
+            const isNone = box.dataset.none === 'true';
+            siblings.forEach(sib => {
+                if (sib === box) return;
+                if (isNone || sib.dataset.none === 'true') sib.checked = false;
+            });
+        });
+    });
+}
+
+function q1IsDamaged(a) { return !!a.q1 && a.q1 !== 'none'; }
+function q1IsMajor(a) { return a.q1 === 'zenkai' || a.q1 === 'hankai'; }
+function shindanHas(list, v) { return list.indexOf(v) !== -1; }
+
+const SHINDAN_MATCHERS = {
+    C1: () => true,
+    C2: a => q1IsMajor(a),
+    C3: a => q1IsMajor(a) && a.q2 === 'mochiie',
+    C4: a => q1IsMajor(a),
+    C5: a => shindanHas(a.q4, 'death'),
+    C6: a => shindanHas(a.q4, 'disability'),
+    C17: a => q1IsMajor(a) || shindanHas(a.q4, 'injury'),
+    C7: a => q1IsMajor(a) || shindanHas(a.q4, 'injury'),
+    C8: a => q1IsDamaged(a),
+    C9: a => shindanHas(a.q5, 'loan') && q1IsDamaged(a),
+    C10: a => shindanHas(a.q5, 'insurance'),
+    C11: a => shindanHas(a.q5, 'selfemployed'),
+    C12: a => shindanHas(a.q5, 'employee'),
+    C15: a => shindanHas(a.q3, 'child'),
+    C16: a => shindanHas(a.q3, 'elderly'),
+    C13: () => true,
+    C14: () => true,
+};
+
+function shindanCardHtml(card) {
+    const tag = card.status === 'ok'
+        ? '<span class="status-badge sb-open">利用できます</span>'
+        : card.status === 'wait' ? '<span class="status-badge sb-nego">発表待ち</span>' : '';
+    const oneline = card.oneline ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-1">${card.oneline}</p>` : '';
+    const detail = card.detail ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-2">${card.detail}</p>` : '';
+    const window_ = card.windowText ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-2"><strong>窓口:</strong> ${esc(card.windowText)}</p>` : '';
+    const deadline = card.deadline ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-1"><strong>期限:</strong> ${esc(card.deadline)}</p>` : '';
+    const note = card.note ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-2 bg-surface-container-low rounded-lg p-2"><strong>${esc(card.noteLabel || '注意')}:</strong> ${card.note}</p>` : '';
+    const extra = card.extra ? `<p class="font-body-sm text-body-sm text-charcoal-text mt-2">${card.extra}</p>` : '';
+    const sources = (card.sources || []).length
+        ? `<p class="font-label-sm text-label-sm text-muted-gray mt-2">出典: ${card.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener" class="text-primary">${esc(s.name)}</a>`).join('／')}・<a href="https://kumamoto-shien.jp/" target="_blank" rel="noopener" class="text-primary">くまもと被災者支援ナビ</a></p>`
+        : '';
+    return `<div class="border border-divider-line rounded-lg p-3">
+        <div class="flex items-center justify-between gap-2"><p class="font-label-lg text-label-lg text-charcoal-text">${esc(card.title)}</p>${tag}</div>
+        ${oneline}${detail}${window_}${deadline}${note}${extra}${sources}
+    </div>`;
+}
+
+async function runShindan(event) {
+    event.preventDefault();
+    const form = document.getElementById('shindan-form');
+    const answers = {
+        q1: (form.querySelector('input[name="q1"]:checked') || {}).value || null,
+        q2: (form.querySelector('input[name="q2"]:checked') || {}).value || null,
+        q3: Array.from(form.querySelectorAll('input[name="q3"]:checked')).map(el => el.value),
+        q4: Array.from(form.querySelectorAll('input[name="q4"]:checked')).map(el => el.value),
+        q5: Array.from(form.querySelectorAll('input[name="q5"]:checked')).map(el => el.value),
+    };
+    const resultsBox = document.getElementById('shindan-results');
+    const listEl = document.getElementById('shindan-result-list');
+    resultsBox.style.display = '';
+    listEl.innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm">判定しています…</p>';
+    resultsBox.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    try {
+        if (!shindanCards) shindanCards = (await apiFetch('/support-cards')).cards;
+        const matched = shindanCards.filter(c => (SHINDAN_MATCHERS[c.id] || (() => false))(answers));
+        listEl.innerHTML = matched.length ? matched.map(shindanCardHtml).join('') : '<p class="text-muted-gray font-body-sm text-body-sm">該当する制度が見つかりませんでした。</p>';
+    } catch (e) {
+        listEl.innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm">支援制度の情報を取得できませんでした。時間をおいて再度お試しください。</p>';
+    }
+    return false;
+}
+
+function resetShindan() {
+    document.getElementById('shindan-form').reset();
+    document.getElementById('shindan-results').style.display = 'none';
+    document.getElementById('shindan-form').scrollIntoView({ block: 'start' });
+}
+
+/* ---- やることリスト（この端末に保存） ---- */
+const TODO_ITEMS = [
+    { id: 'photo-outside', label: '家の外観を4方向から写真に撮る' },
+    { id: 'photo-damage', label: '被害箇所を近くと遠くから写真に撮る（片付けの前に）' },
+    { id: 'risai', label: 'り災証明書をお住まいの市町村へ申請する' },
+    { id: 'shindan', label: '「もらえる支援 かんたん診断」で使える制度を確認する' },
+    { id: 'shelter', label: '避難所・給水所の最新情報を確認する' },
+    { id: 'insurance', label: '火災保険・地震保険の保険会社へ連絡する' },
+    { id: 'repair', label: '修理業者と契約する前に、複数の見積もりを取る' },
+];
+
+function loadTodoState() {
+    try { return JSON.parse(localStorage.getItem('kt_todo_state') || '{}'); } catch (e) { return {}; }
+}
+function saveTodoState(state) {
+    localStorage.setItem('kt_todo_state', JSON.stringify(state));
+}
+function renderTodoList() {
+    const el = document.getElementById('todo-list');
+    if (!el) return;
+    const state = loadTodoState();
+    el.innerHTML = TODO_ITEMS.map(item => `
+        <label class="flex items-center gap-2 py-2 px-2 rounded-lg hover:bg-surface-container-low cursor-pointer">
+            <input type="checkbox" onchange="toggleTodo('${item.id}', this.checked)" ${state[item.id] ? 'checked' : ''}/>
+            <span class="font-body-sm text-body-sm ${state[item.id] ? 'text-muted-gray line-through' : 'text-charcoal-text'}">${esc(item.label)}</span>
+        </label>
+    `).join('');
+}
+function toggleTodo(id, checked) {
+    const state = loadTodoState();
+    state[id] = checked;
+    saveTodoState(state);
+    renderTodoList();
 }
 
 if (location.pathname === '/admin') {
