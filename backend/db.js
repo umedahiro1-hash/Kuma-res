@@ -330,6 +330,11 @@ async function ensureSchema() {
 }
 
 async function seedIfEmpty() {
+  // デモ用シードはローカル開発（SQLite）専用。本番(Supabase/Postgres)では、運用中に
+  // 実データが全件削除されて各テーブルが一時的に空になった場合でもデモデータを
+  // 絶対に自動投入しない（過去に本番でこれが原因でシードが復活する事故があった）。
+  if (USE_POSTGRES) return;
+
   const profileCount = (await db.prepare('SELECT COUNT(*) c FROM profiles').get()).c;
   if (Number(profileCount) === 0) {
     const insertProfile = db.prepare(`INSERT INTO profiles (name, phone, password_hash, salt, city, completed, noshow, praises)
