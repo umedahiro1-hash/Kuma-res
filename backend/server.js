@@ -26,6 +26,7 @@ const ROUTE_META = {
   '/board': { title: '掲示板｜つながるくまもと', description: 'みんなの声・情報交換掲示板。ログイン不要でスレッドを立て、匿名でコメントできます。' },
   '/gov': { title: '行政からのお知らせ｜つながるくまもと', description: '自治体・行政からのお知らせを掲載。給水・避難所・罹災証明など最新情報をお届けします。' },
   '/safety': { title: '安全情報｜つながるくまもと', description: '緊急連絡先、車中泊・熱中症の注意点、悪質商法への警戒など、被災時に役立つ安全情報をまとめています。' },
+  '/support-map': { title: '支援場所｜つながるくまもと', description: '給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレの場所を一覧で確認できます。' },
 };
 
 function renderIndexForRoute(pathname) {
@@ -837,57 +838,42 @@ app.get('/api/news', ah(async (req, res) => {
 }));
 
 // ---------- 外部の公式情報まとめサイト（くまもと被災者支援ナビ / kumamoto-shien.jp）との連携 ----------
-// 市町村ごとの公式リンク集・給水/断水などのライブ情報・ガソリンスタンド情報は、熊本の民間企業が
-// 無償で運営する情報サイトが、公式発表を継続的に確認・検証して維持しているデータを取得して表示する。
-// 自社で独自収集したデータではないため、必ず出典（サイト名・元記事のURL）を明示して表示すること。
-// 個別レコードにも一次情報源（各市町村・資源エネルギー庁など）の名前とURLが含まれるため、
-// 表示側ではそれらもあわせて示す。
+// 市町村ごとの公式リンク集・給水/断水などのライブ情報・ガソリンスタンド情報・支援場所・支援診断の
+// データは、熊本の民間企業が無償で運営する情報サイトが、公式発表を継続的に確認・検証して維持している
+// データを取得して表示する。自社で独自収集したデータではないため、必ず出典（サイト名・元記事のURL）を
+// 明示して表示すること。個別レコードにも一次情報源（各市町村・資源エネルギー庁など）の名前とURLが
+// 含まれるため、表示側ではそれらもあわせて示す。
+//
+// 取得したデータは external_cache テーブル（DB）に永続化し、Vercel Cron
+// （/api/cron/refresh-external-data、30〜60分間隔）が定期的に更新する。読み出し側のAPIは
+// 基本的にDBキャッシュを返すだけで、外部サイトへ都度アクセスしない。cronが長時間動いていない
+// 等でキャッシュが古すぎる場合のみ、そのリクエストの中で即時取得してフォールバックする。
 
 const SHIEN_SOURCE = { name: 'くまもと被災者支援ナビ（kumamoto-shien.jp）', url: 'https://kumamoto-shien.jp/' };
-const SHIEN_CACHE_TTL_MS = 30 * 60 * 1000; // 先方の更新頻度（1日2〜3回）に合わせ、負荷をかけすぎないよう30分キャッシュ
+const SHIEN_CACHE_TTL_MS = 60 * 60 * 1000; // cronでの定期更新が前提。読み出し時のフォールバック判定用
 
-function extractConstObject(text, varName) {
-  const marker = `const ${varName} = `;
-  const start = text.indexOf(marker);
-  if (start === -1) throw new Error(`${varName} not found in response`);
-  const objStart = start + marker.length;
-  const end = text.lastIndexOf('};');
-  if (end === -1) throw new Error(`${varName}: no trailing "};" found`);
-  return text.slice(objStart, end + 1);
+function extractDeclaredLiteral(text, varName) {
+  for (const kw of ['const', 'var']) {
+    const marker = `${kw} ${varName} = `;
+    const start = text.indexOf(marker);
+    if (start === -1) continue;
+    const objStart = start + marker.length;
+    const end = text.lastIndexOf('};');
+    if (end === -1) throw new Error(`${varName}: no trailing "};" found`);
+    return text.slice(objStart, end + 1);
+  }
+  throw new Error(`${varName} not found in response`);
 }
 
 async function fetchShienJsData(urlPath, varName) {
-  const res = await fetch(`https://kumamoto-shien.jp${urlPath}`, { signal: AbortSignal.timeout(8000) });
+  const res = await fetch(`https://kumamoto-shien.jp${urlPath}`, { signal: AbortSignal.timeout(15000) });
   if (!res.ok) throw new Error(`shien fetch failed: ${urlPath} ${res.status}`);
   const text = await res.text();
-  return JSON5.parse(extractConstObject(text, varName));
+  return JSON5.parse(extractDeclaredLiteral(text, varName));
 }
-
-function makeShienCachedRoute(routePath, urlPath, varName) {
-  let cache = { data: null, fetchedAt: 0 };
-  app.get(routePath, ah(async (req, res) => {
-    const now = Date.now();
-    if (cache.data && now - cache.fetchedAt < SHIEN_CACHE_TTL_MS) {
-      return res.json({ ...cache.data, source: SHIEN_SOURCE, stale: false });
-    }
-    try {
-      const data = await fetchShienJsData(urlPath, varName);
-      cache = { data, fetchedAt: now };
-      res.json({ ...data, source: SHIEN_SOURCE, stale: false });
-    } catch (e) {
-      console.error(`[shien] failed to fetch ${urlPath}`, e);
-      if (cache.data) return res.json({ ...cache.data, source: SHIEN_SOURCE, stale: true });
-      res.status(502).json({ error: '情報を取得できませんでした。時間をおいて再度お試しください。' });
-    }
-  }));
-}
-
-makeShienCachedRoute('/api/city-links', '/assets/js/data.js', 'NAVI_DATA');
-makeShienCachedRoute('/api/live-info', '/live', 'LIVE_DATA');
-makeShienCachedRoute('/api/gas-stations', '/live-fuel', 'FUEL_DATA');
 
 // 支援診断の制度データ（shindan.js）は「var CARDS = [ {...、test: function(a){...} }, ... ]」という
-// データと判定ロジックが混在した形なので、他の3つとは別処理にする：各カードの test 関数は
+// データと判定ロジックが混在した形なので、他の4つとは別処理にする：各カードの test 関数は
 // （中身を実行せず）安全に取り除いてから JSON5 でパースし、判定ロジックはフロント側で自前実装する。
 function findMatchingBracket(s, openIdx, openCh, closeCh) {
   let depth = 0;
@@ -914,7 +900,7 @@ function stripTestFunctions(s) {
 }
 
 async function fetchShienSupportCards() {
-  const res = await fetch('https://kumamoto-shien.jp/assets/js/shindan.js', { signal: AbortSignal.timeout(8000) });
+  const res = await fetch('https://kumamoto-shien.jp/assets/js/shindan.js', { signal: AbortSignal.timeout(15000) });
   if (!res.ok) throw new Error(`shindan.js fetch failed: ${res.status}`);
   const text = await res.text();
   const marker = 'var CARDS = ';
@@ -923,24 +909,87 @@ async function fetchShienSupportCards() {
   const arrStart = start + marker.length;
   const arrEnd = findMatchingBracket(text, arrStart, '[', ']');
   const arrText = stripTestFunctions(text.slice(arrStart, arrEnd + 1));
-  return JSON5.parse(arrText);
+  return { cards: JSON5.parse(arrText) };
 }
 
-let supportCardsCache = { data: null, fetchedAt: 0 };
-app.get('/api/support-cards', ah(async (req, res) => {
+async function getExternalCache(key) {
+  const row = await db.prepare('SELECT payload, fetched_at FROM external_cache WHERE cache_key = ?').get(key);
+  if (!row) return null;
+  return { data: JSON.parse(row.payload), fetchedAt: Number(row.fetched_at) };
+}
+
+async function setExternalCache(key, data) {
   const now = Date.now();
-  if (supportCardsCache.data && now - supportCardsCache.fetchedAt < SHIEN_CACHE_TTL_MS) {
-    return res.json({ cards: supportCardsCache.data, source: SHIEN_SOURCE, stale: false });
+  await db.prepare(`INSERT INTO external_cache (cache_key, payload, fetched_at) VALUES (?,?,?)
+    ON CONFLICT (cache_key) DO UPDATE SET payload = excluded.payload, fetched_at = excluded.fetched_at`)
+    .run(key, JSON.stringify(data), now);
+  return now;
+}
+
+const EXTERNAL_FEEDS = [
+  { key: 'city-links', fetch: () => fetchShienJsData('/assets/js/data.js', 'NAVI_DATA') },
+  { key: 'live-info', fetch: () => fetchShienJsData('/live', 'LIVE_DATA') },
+  { key: 'gas-stations', fetch: () => fetchShienJsData('/live-fuel', 'FUEL_DATA') },
+  { key: 'support-map', fetch: () => fetchShienJsData('/assets/data/support-map-data.js', 'SUPPORT_MAP_DATA') },
+  { key: 'support-cards', fetch: () => fetchShienSupportCards() },
+];
+
+async function refreshExternalFeed(feed) {
+  const data = await feed.fetch();
+  await setExternalCache(feed.key, data);
+  return data;
+}
+
+async function refreshAllExternalFeeds() {
+  const results = {};
+  for (const feed of EXTERNAL_FEEDS) {
+    try {
+      await refreshExternalFeed(feed);
+      results[feed.key] = 'ok';
+    } catch (e) {
+      console.error(`[shien] refresh failed for ${feed.key}`, e);
+      results[feed.key] = `error: ${e.message}`;
+    }
   }
-  try {
-    const cards = await fetchShienSupportCards();
-    supportCardsCache = { data: cards, fetchedAt: now };
-    res.json({ cards, source: SHIEN_SOURCE, stale: false });
-  } catch (e) {
-    console.error('[shien] failed to fetch support cards', e);
-    if (supportCardsCache.data) return res.json({ cards: supportCardsCache.data, source: SHIEN_SOURCE, stale: true });
-    res.status(502).json({ error: '支援制度の情報を取得できませんでした。時間をおいて再度お試しください。' });
+  return results;
+}
+
+function makeShienRoute(routePath, feedKey, shape) {
+  const feed = EXTERNAL_FEEDS.find(f => f.key === feedKey);
+  app.get(routePath, ah(async (req, res) => {
+    const now = Date.now();
+    let cached = await getExternalCache(feedKey);
+    if (!cached || now - cached.fetchedAt > SHIEN_CACHE_TTL_MS) {
+      try {
+        const data = await refreshExternalFeed(feed);
+        cached = { data, fetchedAt: now };
+      } catch (e) {
+        console.error(`[shien] on-demand refresh failed for ${feedKey}`, e);
+        if (!cached) return res.status(502).json({ error: '情報を取得できませんでした。時間をおいて再度お試しください。' });
+      }
+    }
+    const stale = now - cached.fetchedAt > SHIEN_CACHE_TTL_MS;
+    const body = shape ? shape(cached.data) : cached.data;
+    res.json({ ...body, source: SHIEN_SOURCE, fetchedAt: cached.fetchedAt, stale });
+  }));
+}
+
+makeShienRoute('/api/city-links', 'city-links');
+makeShienRoute('/api/live-info', 'live-info');
+makeShienRoute('/api/gas-stations', 'gas-stations');
+makeShienRoute('/api/support-map', 'support-map');
+makeShienRoute('/api/support-cards', 'support-cards');
+
+// Vercel Cron（vercel.json の crons 設定）から定期的に叩かれる更新エンドポイント。
+// 誰でも叩けると外部サイトへの負荷源・意図しない再取得の原因になるため、CRON_SECRET を
+// 設定している場合は Authorization ヘッダーを検証する（Vercel はCron実行時にこれを自動付与する）。
+app.get('/api/cron/refresh-external-data', ah(async (req, res) => {
+  const expected = process.env.CRON_SECRET;
+  if (expected && req.get('authorization') !== `Bearer ${expected}`) {
+    return res.status(401).json({ error: 'unauthorized' });
   }
+  const results = await refreshAllExternalFeeds();
+  res.json({ results, refreshedAt: Date.now() });
 }));
 
 // ---------- pets（動物を探す・非ログイン利用） ----------

@@ -1465,6 +1465,15 @@
 <p class="font-label-sm text-label-sm text-muted-gray mt-3">回線が混み合うことがあります。安否確認は171や本アプリの「さがす」機能も活用し、電話は緊急の用件を優先してください。</p>
 </div>
 
+<button onclick="switchScreen('places')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl p-4 premium-shadow hover:bg-surface-container-low transition-colors text-left">
+<span class="material-symbols-outlined text-forest-deep text-[24px] flex-none">location_on</span>
+<span class="flex-1">
+<span class="font-headline-sm text-headline-sm text-charcoal-text block">支援場所を探す</span>
+<span class="font-body-sm text-body-sm text-muted-gray block">給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレを一覧で確認</span>
+</span>
+<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
+</button>
+
 <div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">location_city</span>お住まいの市町村の情報</h3>
 <p class="font-body-sm text-body-sm text-muted-gray mb-3">市町村を選ぶと、公式サイトへのリンクと、その市町村の給水・断水などの最新情報を表示します。</p>
@@ -1523,6 +1532,82 @@
 </div>
 
 <p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">このページは一般的な安全情報の案内です。最新の公式情報は、お住まいの市区町村・熊本県の発表を必ずご確認ください。</p>
+</main>
+<nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
+<button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">ホーム</span>
+</button>
+<button onclick="switchScreen('board')" aria-label="掲示板" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-label-sm text-label-sm mt-1">掲示板</span>
+</button>
+<button onclick="switchScreen('gov')" aria-label="行政" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-sm text-label-sm mt-1">行政</span>
+</button>
+<button onclick="switchScreen('goods')" aria-label="支援" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-label-sm text-label-sm mt-1">支援</span>
+</button>
+<button onclick="switchScreen('find')" aria-label="さがす" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">diversity_1</span>
+<span class="font-label-sm text-label-sm mt-1">さがす</span>
+</button>
+<button onclick="switchScreen('pets')" aria-label="動物" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-label-sm text-label-sm mt-1">動物</span>
+</button>
+<button onclick="switchScreen('news')" aria-label="ニュース" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
+<span class="material-symbols-outlined">newspaper</span>
+<span class="font-label-sm text-label-sm mt-1">ニュース</span>
+</button>
+</nav>
+</div>
+<!-- ===================== 支援場所（外部サイト kumamoto-shien.jp 連携） ===================== -->
+<div id="root-places" class="antialiased min-h-screen flex flex-col pt-16 pb-[100px] md:pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex items-center justify-between px-4 h-16 bg-surface-container shadow-sm">
+<div class="flex items-center gap-4">
+<button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<h1 class="font-headline-md text-headline-md italic text-forest-deep leading-tight flex items-start gap-1.5">
+<span class="flex flex-col items-center leading-tight">
+<span>Tsunagaru</span>
+<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">つながる</span>
+</span>
+<span class="flex flex-col items-center leading-tight">
+<span>Kumamoto</span>
+<span class="text-forest-deep/70 tracking-[0.1em] not-italic" style="font-family:'Shippori Mincho',serif;font-size:12px;font-weight:500;">くまもと</span>
+</span>
+</h1>
+</div>
+<div class="flex items-center">
+<div id="places-header-avatar" onclick="openUserSwitcher()" aria-label="User profile photo" class="w-10 h-10 rounded-full overflow-hidden border-2 border-surface-container bg-surface-variant flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+<img id="places-header-avatar-img" alt="" class="w-full h-full object-cover" style="display:none;"/><span id="places-header-avatar-label" class="font-label-lg text-forest-deep"></span>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">location_on</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">支援場所</h2>
+<p class="font-label-sm text-label-sm text-muted-gray">給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレ</p>
+</div>
+</div>
+
+<div class="flex gap-2 overflow-x-auto hide-scrollbar pb-1" id="places-type-filters"></div>
+
+<input id="places-search" type="search" inputmode="search" placeholder="例：八代市、シャワー、熊本市南区" class="form-input" oninput="renderPlacesList()"/>
+
+<p id="places-count" class="font-label-sm text-label-sm text-muted-gray"></p>
+<div id="places-list" class="flex flex-col gap-2"></div>
+<button id="places-more-btn" onclick="showMorePlaces()" style="display:none" class="text-primary font-label-lg text-label-lg py-2.5">続きを表示する</button>
+
+<p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">出典: 各市町村・資源エネルギー庁など一次情報源・<a href="https://kumamoto-shien.jp/" target="_blank" rel="noopener" class="text-primary">くまもと被災者支援ナビ</a>。営業・開設状況は変わることがあるため、出発前に発表日時をご確認ください。</p>
 </main>
 <nav aria-label="Bottom Navigation" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 flex justify-around items-center px-4 pb-safe h-20 bg-surface border-t border-divider-line shadow-lg">
 <button onclick="switchScreen('home')" aria-label="ホーム" class="flex flex-col items-center justify-center text-muted-gray hover:text-primary transition-colors touch-target-min w-16">
@@ -2298,6 +2383,7 @@ refreshPersons();
 /* ===================== 画面切替・設定 ===================== */
 let newsLoaded = false;
 let safetyLoaded = false;
+let placesLoaded = false;
 const SCREEN_META = {
     home: { path: '/', title: 'つながるくまもと｜熊本地震 被災者支援・安否確認・物資マッチングアプリ', description: '熊本地震の被災者支援アプリ「つながるくまもと」。物資の譲渡・募集、安否確認、迷子動物の捜索、熊本地震関連の最新ニュースを一つのアプリで。' },
     goods: { path: '/support', title: '物資の支援｜つながるくまもと', description: '水・食料・毛布などの物資を無料または有料でゆずる・もとめる掲示板。' },
@@ -2307,6 +2393,7 @@ const SCREEN_META = {
     board: { path: '/board', title: '掲示板｜つながるくまもと', description: 'みんなの声・情報交換掲示板。ログイン不要でスレッドを立て、匿名でコメントできます。' },
     gov: { path: '/gov', title: '行政からのお知らせ｜つながるくまもと', description: '自治体・行政からのお知らせを掲載。給水・避難所・罹災証明など最新情報をお届けします。' },
     safety: { path: '/safety', title: '安全情報｜つながるくまもと', description: '緊急連絡先、車中泊・熱中症の注意点、悪質商法への警戒など、被災時に役立つ安全情報をまとめています。' },
+    places: { path: '/support-map', title: '支援場所｜つながるくまもと', description: '給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレの場所を一覧で確認できます。' },
 };
 function screenForPath(pathname) {
     const found = Object.entries(SCREEN_META).find(([, m]) => m.path === pathname);
@@ -2328,11 +2415,13 @@ function switchScreen(s, opts){
     document.getElementById('root-board').style.display = s === 'board' ? '' : 'none';
     document.getElementById('root-gov').style.display = s === 'gov' ? '' : 'none';
     document.getElementById('root-safety').style.display = s === 'safety' ? '' : 'none';
+    document.getElementById('root-places').style.display = s === 'places' ? '' : 'none';
     if (s === 'news' && !newsLoaded) { newsLoaded = true; loadNews(); }
     if (s === 'pets') { refreshPets(); }
     if (s === 'board') { refreshThreads(); }
     if (s === 'gov') { refreshGovNotices(); }
     if (s === 'safety' && !safetyLoaded) { safetyLoaded = true; loadSafetyScreen(); }
+    if (s === 'places' && !placesLoaded) { placesLoaded = true; loadPlacesScreen(); }
     if (s === 'home') { loadHomePreviews(); }
     track('screen_view', null, null, s);
     applyScreenMeta(s);
@@ -2352,7 +2441,7 @@ function syncHeaderAvatars(){
     if (!window.vm) return;
     const me = window.vm.me;
     const photo = window.vm.myProfile && window.vm.myProfile.photoPath;
-    ['home', 'find', 'pets', 'news', 'board', 'gov', 'safety'].forEach(prefix => {
+    ['home', 'find', 'pets', 'news', 'board', 'gov', 'safety', 'places'].forEach(prefix => {
         const label = document.getElementById(prefix + '-header-avatar-label');
         const img = document.getElementById(prefix + '-header-avatar-img');
         if (!label) return;
@@ -3551,6 +3640,110 @@ function toggleTodo(id, checked) {
     state[id] = checked;
     saveTodoState(state);
     renderTodoList();
+}
+
+/* ---- 支援場所（給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレ）画面 ---- */
+const PLACES_TYPES = [
+    { value: 'all', label: 'すべて', icon: 'apps' },
+    { value: 'water', label: '給水', icon: 'water_drop' },
+    { value: 'bath', label: 'お風呂', icon: 'bathtub' },
+    { value: 'takidashi', label: '炊き出し・食料', icon: 'restaurant' },
+    { value: 'well', label: '協力井戸', icon: 'water' },
+    { value: 'fuel', label: 'ガソリン', icon: 'local_gas_station' },
+    { value: 'toilet', label: '災害用トイレ', icon: 'wc' },
+];
+const PLACES_PAGE_SIZE = 30;
+let placesData = null;
+let placesActiveType = 'all';
+let placesShownCount = PLACES_PAGE_SIZE;
+
+async function loadPlacesScreen() {
+    const filtersEl = document.getElementById('places-type-filters');
+    filtersEl.innerHTML = PLACES_TYPES.map(t => `
+        <button onclick="setPlacesType('${t.value}')" data-places-type="${t.value}" class="places-type-btn px-4 py-2 rounded-full font-label-lg text-label-lg shadow-sm whitespace-nowrap transition-colors flex items-center gap-1 ${t.value === 'all' ? 'bg-forest-deep text-white' : 'bg-white text-muted-gray border border-divider-line'}">
+            <span class="material-symbols-outlined text-[16px]">${t.icon}</span>${t.label}<span id="places-count-${t.value}" class="font-label-sm text-label-sm opacity-70"></span>
+        </button>
+    `).join('');
+    document.getElementById('places-list').innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">支援場所を読み込んでいます…</p>';
+    try {
+        placesData = await apiFetch('/support-map');
+        PLACES_TYPES.forEach(t => {
+            const el = document.getElementById(`places-count-${t.value}`);
+            if (!el) return;
+            const count = t.value === 'all' ? placesData.locations.length : placesData.locations.filter(l => l.type === t.value).length;
+            el.textContent = `（${count}）`;
+        });
+        renderPlacesList();
+    } catch (e) {
+        document.getElementById('places-list').innerHTML = '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">支援場所の情報を取得できませんでした。</p>';
+    }
+}
+
+function setPlacesType(type) {
+    placesActiveType = type;
+    placesShownCount = PLACES_PAGE_SIZE;
+    document.querySelectorAll('.places-type-btn').forEach(btn => {
+        const active = btn.dataset.placesType === type;
+        btn.classList.toggle('bg-forest-deep', active);
+        btn.classList.toggle('text-white', active);
+        btn.classList.toggle('bg-white', !active);
+        btn.classList.toggle('text-muted-gray', !active);
+        btn.classList.toggle('border', !active);
+        btn.classList.toggle('border-divider-line', !active);
+    });
+    renderPlacesList();
+}
+
+function placesFiltered() {
+    if (!placesData) return [];
+    const q = (document.getElementById('places-search').value || '').trim().toLowerCase();
+    return placesData.locations.filter(l => {
+        if (placesActiveType !== 'all' && l.type !== placesActiveType) return false;
+        if (!q) return true;
+        return (l.name || '').toLowerCase().includes(q) || (l.area || '').toLowerCase().includes(q);
+    });
+}
+
+function placeRowHtml(loc) {
+    const typeInfo = PLACES_TYPES.find(t => t.value === loc.type) || {};
+    const summary = loc.summary ? `<p class="font-body-sm text-body-sm text-muted-gray mt-1 line-clamp-2">${esc(loc.summary)}</p>` : '';
+    const time = loc.time ? `<span class="font-label-sm text-label-sm text-muted-gray">${esc(loc.time)}</span>` : '';
+    const privateTag = loc.privateSource ? '<span class="font-label-sm text-label-sm text-mustard-accent">・施設/企業の発表</span>' : '';
+    return `<div class="bg-surface-container-lowest border border-divider-line rounded-xl p-3">
+        <div class="flex items-center gap-2 mb-1">
+            <span class="material-symbols-outlined text-[16px] text-forest-deep">${typeInfo.icon || 'location_on'}</span>
+            <span class="font-label-sm text-label-sm text-muted-gray">${esc(typeInfo.label || loc.type)}${privateTag}</span>
+        </div>
+        <p class="font-label-lg text-label-lg text-charcoal-text">${esc(loc.name)}</p>
+        <p class="font-body-sm text-body-sm text-muted-gray">${esc(loc.area || '')}</p>
+        ${time}${summary}
+        <div class="flex items-center justify-between mt-2 pt-2 border-t border-divider-line">
+            <span class="font-label-sm text-label-sm text-muted-gray">${esc(loc.published || loc.checkedAt || '')}</span>
+            ${loc.googleMapUrl ? `<a href="${esc(loc.googleMapUrl)}" target="_blank" rel="noopener" class="text-primary font-label-sm text-label-sm flex items-center gap-1">Google Mapsで開く <span class="material-symbols-outlined text-[16px]">open_in_new</span></a>` : ''}
+        </div>
+        ${loc.sourceName ? `<p class="font-label-sm text-label-sm text-muted-gray mt-1">出典: ${loc.sourceUrl ? `<a href="${esc(loc.sourceUrl)}" target="_blank" rel="noopener" class="text-primary">${esc(loc.sourceName)}</a>` : esc(loc.sourceName)}</p>` : ''}
+    </div>`;
+}
+
+function renderPlacesList() {
+    if (!placesData) return;
+    placesShownCount = PLACES_PAGE_SIZE;
+    renderPlacesListInner();
+}
+
+function renderPlacesListInner() {
+    const all = placesFiltered();
+    const shown = all.slice(0, placesShownCount);
+    document.getElementById('places-count').textContent = `${all.length}件中 ${shown.length}件を表示`;
+    document.getElementById('places-list').innerHTML = shown.length
+        ? shown.map(placeRowHtml).join('')
+        : '<p class="text-muted-gray font-body-sm text-body-sm py-8 text-center">該当する場所が見つかりませんでした。</p>';
+    document.getElementById('places-more-btn').style.display = all.length > shown.length ? '' : 'none';
+}
+
+function showMorePlaces() {
+    placesShownCount += PLACES_PAGE_SIZE;
+    renderPlacesListInner();
 }
 
 if (location.pathname === '/admin') {

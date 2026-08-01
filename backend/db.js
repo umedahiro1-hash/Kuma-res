@@ -303,6 +303,12 @@ CREATE TABLE IF NOT EXISTS analytics_events (
   at ${bigint} NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS external_cache (
+  cache_key TEXT PRIMARY KEY,
+  payload TEXT NOT NULL,
+  fetched_at ${bigint} NOT NULL
+);
+
 CREATE INDEX IF NOT EXISTS idx_analytics_events_target ON analytics_events(target_type, target_id);
 CREATE INDEX IF NOT EXISTS idx_analytics_events_type_at ON analytics_events(event_type, at);
 CREATE INDEX IF NOT EXISTS idx_goods_created ON goods(created DESC);
