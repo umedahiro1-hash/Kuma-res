@@ -1,0 +1,12 @@
+{
+  "name": "kumamoto-tsunagaru-assets",
+  "version": "1.0.0",
+  "private": true,
+  "description": "フロントエンドの静的アセット（Tailwind CSS）のビルド専用。アプリ本体は backend/ を参照。",
+  "scripts": {
+    "build:css": "tailwindcss -i ./frontend/tailwind-src.css -o ./frontend/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
