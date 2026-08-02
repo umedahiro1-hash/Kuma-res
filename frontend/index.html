@@ -849,6 +849,22 @@
 </span>
 <span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
 </button>
+<button onclick="switchScreen('mizu')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl px-4 py-3 premium-shadow hover:bg-surface-container-low transition-colors text-left">
+<span class="material-symbols-outlined text-forest-deep text-[22px] flex-none">water_drop</span>
+<span class="flex-1">
+<span class="font-headline-sm text-headline-sm text-charcoal-text block">きょうの給水・断水情報</span>
+<span class="font-body-sm text-body-sm text-muted-gray block">給水所・断水状況・炊き出し・協力井戸・災害ボランティアを市町村別に確認</span>
+</span>
+<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
+</button>
+<button onclick="switchScreen('notices')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl px-4 py-3 premium-shadow hover:bg-surface-container-low transition-colors text-left">
+<span class="material-symbols-outlined text-forest-deep text-[22px] flex-none">campaign</span>
+<span class="flex-1">
+<span class="font-headline-sm text-headline-sm text-charcoal-text block">給水・り災証明などのお知らせ</span>
+<span class="font-body-sm text-body-sm text-muted-gray block">地震情報・り災証明の受付状況などの最新情報を確認</span>
+</span>
+<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
+</button>
 <!-- 掲示板（常時表示） -->
 <div class="flex flex-col gap-1">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">forum</span>掲示板</h3>
@@ -1169,31 +1185,12 @@
 <p class="font-label-sm text-label-sm text-muted-gray mt-3">回線が混み合うことがあります。安否確認は171や本アプリの「さがす」機能も活用し、電話は緊急の用件を優先してください。</p>
 </div>
 
-
 <div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">location_city</span>お住まいの市町村の情報</h3>
 <p class="font-body-sm text-body-sm text-muted-gray mb-3">市町村を選ぶと、公式サイトへのリンクと、その市町村の給水・断水などの最新情報を表示します。</p>
 <select id="safety-city-select" class="form-input mb-3" onchange="renderSafetyCitySection(this.value)"><option value="">市町村を選んでください</option></select>
 <div id="safety-city-content"></div>
 </div>
-
-<button onclick="switchScreen('mizu')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl p-4 premium-shadow hover:bg-surface-container-low transition-colors text-left">
-<span class="material-symbols-outlined text-forest-deep text-[24px] flex-none">water_drop</span>
-<span class="flex-1">
-<span class="font-headline-sm text-headline-sm text-charcoal-text block">きょうの給水・断水情報</span>
-<span class="font-body-sm text-body-sm text-muted-gray block">給水所・断水状況・炊き出し・協力井戸・災害ボランティアを市町村別に確認</span>
-</span>
-<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
-</button>
-
-<button onclick="switchScreen('notices')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl p-4 premium-shadow hover:bg-surface-container-low transition-colors text-left">
-<span class="material-symbols-outlined text-forest-deep text-[24px] flex-none">campaign</span>
-<span class="flex-1">
-<span class="font-headline-sm text-headline-sm text-charcoal-text block">給水・り災証明などのお知らせ</span>
-<span class="font-body-sm text-body-sm text-muted-gray block">地震情報・り災証明の受付状況などの最新情報を確認</span>
-</span>
-<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
-</button>
 
 <button onclick="switchScreen('gasoline')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl p-4 premium-shadow hover:bg-surface-container-low transition-colors text-left">
 <span class="material-symbols-outlined text-forest-deep text-[24px] flex-none">local_gas_station</span>
