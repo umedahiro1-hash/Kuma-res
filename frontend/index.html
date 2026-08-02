@@ -832,22 +832,7 @@
 <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">ホーム</h2>
 </div>
 </div>
-<!-- 人気順に並び替え（アクセス解析: 安全情報43 > 掲示板42 > 支援場所28 > 支援23 > ニュース17≒さがす17 > 動物16 > 給水断水9 > り災お知らせ4） -->
-<!-- 安全情報・支援場所への導線（常時表示） -->
-<button onclick="switchScreen('safety')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl px-4 py-3 premium-shadow hover:bg-surface-container-low transition-colors text-left">
-<span class="material-symbols-outlined text-[#ba1a1a] text-[22px] flex-none">health_and_safety</span>
-<span class="flex-1">
-<span class="font-headline-sm text-headline-sm text-charcoal-text block">安全情報</span>
-<span class="font-body-sm text-body-sm text-muted-gray block">緊急連絡先・熱中症対策・詐欺への注意</span>
-</span>
-<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
-</button>
-<!-- 掲示板（常時表示） -->
-<div class="flex flex-col gap-1">
-<h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">forum</span>掲示板</h3>
-<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-board-list"></div>
-<button onclick="switchScreen('board')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
-</div>
+<!-- 指定順: 支援場所を探す・安全情報・天気予報・掲示板・ニュース(タブ初期値)・給水・り災 -->
 <button onclick="switchScreen('places')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl px-4 py-3 premium-shadow hover:bg-surface-container-low transition-colors text-left">
 <span class="material-symbols-outlined text-primary text-[22px] flex-none">location_on</span>
 <span class="flex-1">
@@ -856,26 +841,40 @@
 </span>
 <span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
 </button>
+<button onclick="switchScreen('safety')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl px-4 py-3 premium-shadow hover:bg-surface-container-low transition-colors text-left">
+<span class="material-symbols-outlined text-[#ba1a1a] text-[22px] flex-none">health_and_safety</span>
+<span class="flex-1">
+<span class="font-headline-sm text-headline-sm text-charcoal-text block">安全情報</span>
+<span class="font-body-sm text-body-sm text-muted-gray block">緊急連絡先・熱中症対策・詐欺への注意</span>
+</span>
+<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
+</button>
 <!-- 1週間の天気予報 -->
 <section class="flex flex-col">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[18px]">partly_cloudy_day</span>1週間の天気予報（熊本）</h3>
 <div class="flex gap-2 overflow-x-auto hide-scrollbar bg-surface-container-lowest rounded-xl border border-divider-line p-3 premium-shadow" id="home-weather-list"></div>
 </section>
-<!-- セクションタブ（人気順: 支援23 > ニュース17 > さがす17 > 動物16） -->
+<!-- 掲示板（常時表示） -->
+<div class="flex flex-col gap-1">
+<h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1"><span class="material-symbols-outlined text-[18px]">forum</span>掲示板</h3>
+<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-board-list"></div>
+<button onclick="switchScreen('board')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+<!-- セクションタブ（初期値: ニュース） -->
 <div class="flex items-center border-b border-divider-line" id="home-tabs">
-<button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-primary border-primary" data-tab="goods" type="button"><span class="material-symbols-outlined text-[16px] flex-none">volunteer_activism</span><span class="truncate">支援</span></button>
-<button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="news" type="button"><span class="material-symbols-outlined text-[16px] flex-none">newspaper</span><span class="truncate">ニュース</span></button>
+<button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-primary border-primary" data-tab="news" type="button"><span class="material-symbols-outlined text-[16px] flex-none">newspaper</span><span class="truncate">ニュース</span></button>
+<button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="goods" type="button"><span class="material-symbols-outlined text-[16px] flex-none">volunteer_activism</span><span class="truncate">支援</span></button>
 <button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="find" type="button"><span class="material-symbols-outlined text-[16px] flex-none">diversity_1</span><span class="truncate">さがす</span></button>
 <button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="pets" type="button"><span class="material-symbols-outlined text-[16px] flex-none">pets</span><span class="truncate">動物</span></button>
 </div>
 <!-- タブ内容 -->
-<div class="flex flex-col" id="home-tab-panel-goods">
-<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-goods-list"></div>
-<button onclick="switchScreen('goods')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
-</div>
-<div class="flex flex-col" id="home-tab-panel-news" style="display:none">
+<div class="flex flex-col" id="home-tab-panel-news">
 <div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-news-list"></div>
 <button onclick="switchScreen('news')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
+</div>
+<div class="flex flex-col" id="home-tab-panel-goods" style="display:none">
+<div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-goods-list"></div>
+<button onclick="switchScreen('goods')" class="text-primary font-label-sm text-label-sm flex items-center justify-center gap-1 py-2.5 hover:opacity-80 transition-opacity">すべて表示 <span class="material-symbols-outlined text-[16px]">chevron_right</span></button>
 </div>
 <div class="flex flex-col" id="home-tab-panel-find" style="display:none">
 <div class="flex flex-col bg-surface-container-lowest rounded-xl border border-divider-line px-4 premium-shadow" id="home-find-list"></div>
