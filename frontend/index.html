@@ -1730,7 +1730,7 @@ const goodsApp = createApp({
         },
 
         openCreate() {
-            if (!this.me) { this.openAccountSheet(); return; }
+            if (!this.me) { this.showToast('物資を登録するには、まず会員登録（またはログイン）をお願いします'); this.openAccountSheet(); return; }
             this.ng = { type: 'offer', cat: '水', title: '', qty: '', place: '', when: '', isFree: true, price: null, imageDataUrl: null };
             this.showCreateForm = true;
         },
@@ -1760,7 +1760,7 @@ const goodsApp = createApp({
 
         async applyGoods() {
             if (!this.activeItem) return;
-            if (!this.me) { this.closeItem(); this.openAccountSheet(); return; }
+            if (!this.me) { this.closeItem(); this.showToast('申し込むには、まず会員登録（またはログイン）をお願いします'); this.openAccountSheet(); return; }
             try {
                 const updated = await apiFetch(`/goods/${this.activeItem.id}/apply`, {
                     method: 'POST',
@@ -1777,7 +1777,7 @@ const goodsApp = createApp({
 
         async sendChat() {
             if (!this.activeItem || !this.chatInput.trim()) return;
-            if (!this.me) { this.closeItem(); this.openAccountSheet(); return; }
+            if (!this.me) { this.closeItem(); this.showToast('メッセージを送るには、まず会員登録（またはログイン）をお願いします'); this.openAccountSheet(); return; }
             const text = this.chatInput.trim();
             try {
                 const updated = await apiFetch(`/goods/${this.activeItem.id}/chat`, {
@@ -2750,7 +2750,7 @@ function threadDetailHtml(t) {
             <span>${fmtDate(c.created)}</span>
             ${c.canDelete ? `<button onclick="deleteComment('${t.id}', ${c.id})" class="text-[#ba1a1a] flex items-center gap-1 hover:opacity-70">削除</button>` : ''}
         </div>
-    </div>`).join('') || '<div class="hint" style="margin-top:16px">まだコメントはありません。</div>';
+    </div>`).join('') || '<div class="hint" style="margin-top:16px">まだコメントはありません。最新の状況をご存知でしたら、ぜひ教えてください。</div>';
     const delThreadBtn = t.canDelete ? `<button onclick="deleteThread('${t.id}')" class="ghost" style="color:#ba1a1a;border-color:#ffdad6;">スレッドを削除</button>` : '';
     const cityLine = t.city ? `・${esc(t.city)}` : '';
     const photo = t.photoPath ? `<img src="${esc(t.photoPath)}" alt="" style="width:100%;border-radius:12px;margin-bottom:8px;object-fit:cover;max-height:260px;" onerror="this.outerHTML=imgFallbackBlock()">` : '';
