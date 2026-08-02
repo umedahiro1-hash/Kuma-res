@@ -861,11 +861,11 @@
 <div class="flex gap-2 overflow-x-auto hide-scrollbar bg-surface-container-lowest rounded-xl border border-divider-line p-3 premium-shadow" id="home-weather-list"></div>
 </section>
 <!-- セクションタブ -->
-<div class="flex items-center gap-1 overflow-x-auto hide-scrollbar border-b border-divider-line" id="home-tabs">
-<button class="px-4 py-2.5 font-label-lg text-label-lg whitespace-nowrap transition-colors flex items-center gap-1.5 home-tab-btn border-b-2 -mb-px text-primary border-primary" data-tab="news" type="button"><span class="material-symbols-outlined text-[16px]">newspaper</span>ニュース</button>
-<button class="px-4 py-2.5 font-label-lg text-label-lg whitespace-nowrap transition-colors flex items-center gap-1.5 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="goods" type="button"><span class="material-symbols-outlined text-[16px]">volunteer_activism</span>支援</button>
-<button class="px-4 py-2.5 font-label-lg text-label-lg whitespace-nowrap transition-colors flex items-center gap-1.5 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="find" type="button"><span class="material-symbols-outlined text-[16px]">diversity_1</span>さがす</button>
-<button class="px-4 py-2.5 font-label-lg text-label-lg whitespace-nowrap transition-colors flex items-center gap-1.5 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="pets" type="button"><span class="material-symbols-outlined text-[16px]">pets</span>動物</button>
+<div class="flex items-center border-b border-divider-line" id="home-tabs">
+<button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-primary border-primary" data-tab="news" type="button"><span class="material-symbols-outlined text-[16px] flex-none">newspaper</span><span class="truncate">ニュース</span></button>
+<button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="goods" type="button"><span class="material-symbols-outlined text-[16px] flex-none">volunteer_activism</span><span class="truncate">支援</span></button>
+<button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="find" type="button"><span class="material-symbols-outlined text-[16px] flex-none">diversity_1</span><span class="truncate">さがす</span></button>
+<button class="flex-1 min-w-0 px-1 py-2.5 font-label-lg text-label-lg transition-colors flex items-center justify-center gap-1 home-tab-btn border-b-2 -mb-px text-muted-gray border-transparent hover:text-charcoal-text" data-tab="pets" type="button"><span class="material-symbols-outlined text-[16px] flex-none">pets</span><span class="truncate">動物</span></button>
 </div>
 <!-- タブ内容 -->
 <div class="flex flex-col" id="home-tab-panel-news">
@@ -1186,11 +1186,14 @@
 <span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
 </button>
 
-<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-4 premium-shadow">
-<h3 class="font-headline-sm text-headline-sm text-charcoal-text mb-2 flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">campaign</span>給水・り災証明などのお知らせ</h3>
-<p id="safety-live-fetched-at" class="font-label-sm text-label-sm text-muted-gray mb-2"></p>
-<div id="safety-live-notes" class="flex flex-col gap-3"></div>
-</div>
+<button onclick="switchScreen('notices')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl p-4 premium-shadow hover:bg-surface-container-low transition-colors text-left">
+<span class="material-symbols-outlined text-forest-deep text-[24px] flex-none">campaign</span>
+<span class="flex-1">
+<span class="font-headline-sm text-headline-sm text-charcoal-text block">給水・り災証明などのお知らせ</span>
+<span class="font-body-sm text-body-sm text-muted-gray block">地震情報・り災証明の受付状況などの最新情報を確認</span>
+</span>
+<span class="material-symbols-outlined text-muted-gray flex-none">chevron_right</span>
+</button>
 
 <button onclick="switchScreen('gasoline')" class="flex items-center gap-3 bg-surface-container-lowest border border-divider-line rounded-xl p-4 premium-shadow hover:bg-surface-container-low transition-colors text-left">
 <span class="material-symbols-outlined text-forest-deep text-[24px] flex-none">local_gas_station</span>
@@ -1384,6 +1387,45 @@
 <p class="font-label-sm text-label-sm text-muted-gray text-center mt-2">出典: 資源エネルギー庁「住民拠点SS等検索」（くまもと被災者支援ナビ経由で取得）。「営業可」は報告時点の情報で、在庫・混雑状況までは分かりません。セルフスタンドでの携行缶への給油は法律で禁止されています。</p>
 </main>
 </div>
+<!-- ===================== 給水・り災証明などのお知らせ（外部サイト kumamoto-shien.jp 連携） ===================== -->
+<div id="root-notices" class="antialiased min-h-screen flex flex-col pt-20 pb-8 max-w-[640px] mx-auto relative bg-cream-bg" style="display:none">
+<header aria-label="Top Navigation" class="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[640px] z-50 bg-surface-container shadow-sm">
+<p class="text-center font-label-sm text-label-sm text-muted-gray pt-1 pb-0.5 tracking-wide border-b border-divider-line/60">くまもと地震総合支援ポータルサイト</p>
+<div class="flex items-center justify-between px-4 h-14">
+<div class="flex items-center gap-4">
+<button aria-label="メニュー" onclick="openNavDrawer()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal-text hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<button aria-label="ホームに戻る" onclick="switchScreen('home')" class="hover:opacity-80 transition-opacity scale-95 duration-200 touch-target-min flex items-center justify-center rounded-full flex-none">
+<svg class="w-9 h-9"><use href="#kt-logo"></use></svg>
+</button>
+<h1 class="font-headline-md text-headline-md text-forest-deep leading-tight flex items-start gap-1.5">
+<span class="flex flex-col items-center leading-tight">
+<span>Tsunagaru</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">つながる</span>
+</span>
+<span class="flex flex-col items-center leading-tight">
+<span>Kumamoto</span>
+<span class="text-forest-deep/70 tracking-[0.1em]" style="font-family:'Noto Sans JP',serif;font-size:12px;font-weight:500;">くまもと</span>
+</span>
+</h1>
+</div>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile md:px-margin-desktop pt-6 pb-stack-gap flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="w-11 h-11 rounded-2xl bg-forest-deep/10 flex items-center justify-center flex-none">
+<span class="material-symbols-outlined text-forest-deep text-[22px]">campaign</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-forest-deep tracking-tight">給水・り災証明などのお知らせ</h2>
+<p id="notices-fetched-at" class="font-label-sm text-label-sm text-muted-gray"></p>
+</div>
+</div>
+
+<div id="notices-list" class="flex flex-col gap-3"></div>
+</main>
+</div>
 <!-- ===================== 管理者ページ（行政お知らせの承認・非公開導線） ===================== -->
 <div id="root-admin" style="display:none" class="min-h-screen bg-cream-bg">
 <div class="max-w-[640px] mx-auto px-margin-mobile py-8">
@@ -1458,6 +1500,10 @@
 <button onclick="switchScreen('gasoline'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
 <span class="material-symbols-outlined text-forest-deep">local_gas_station</span>
 <span class="font-label-lg text-label-lg text-charcoal-text">ガソリンスタンド</span>
+</button>
+<button onclick="switchScreen('notices'); closeNavDrawer();" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-surface-container-low text-left transition-colors">
+<span class="material-symbols-outlined text-forest-deep">campaign</span>
+<span class="font-label-lg text-label-lg text-charcoal-text">給水・り災証明お知らせ</span>
 </button>
 </nav>
 </div>
@@ -2205,6 +2251,7 @@ const SCREEN_META = {
     places: { path: '/support-map', title: '支援場所｜つながるくまもと', description: '給水・お風呂・炊き出し・井戸・ガソリン・災害用トイレの場所を一覧で確認できます。' },
     mizu: { path: '/mizu', title: 'きょうの給水・断水情報｜つながるくまもと', description: '給水所・断水の状況・炊き出し・災害時協力井戸・災害ボランティアの最新情報を市町村の公式発表からまとめています。' },
     gasoline: { path: '/gasoline', title: 'ガソリンスタンドを探す｜つながるくまもと', description: '資源エネルギー庁の検索システムに「営業可」と報告された熊本県内のガソリンスタンドを地域別に確認できます。' },
+    notices: { path: '/notices', title: '給水・り災証明などのお知らせ｜つながるくまもと', description: '地震情報・り災証明の受付状況など、市町村の公式発表からまとめた最新のお知らせを確認できます。' },
 };
 function screenForPath(pathname) {
     const found = Object.entries(SCREEN_META).find(([, m]) => m.path === pathname);
@@ -2229,6 +2276,7 @@ function switchScreen(s, opts){
     document.getElementById('root-places').style.display = s === 'places' ? '' : 'none';
     document.getElementById('root-mizu').style.display = s === 'mizu' ? '' : 'none';
     document.getElementById('root-gasoline').style.display = s === 'gasoline' ? '' : 'none';
+    document.getElementById('root-notices').style.display = s === 'notices' ? '' : 'none';
     if (s === 'news' && !newsLoaded) { newsLoaded = true; loadNews(); }
     if (s === 'pets') { refreshPets(); }
     if (s === 'board') { refreshThreads(); }
@@ -2237,6 +2285,7 @@ function switchScreen(s, opts){
     if (s === 'places' && !placesLoaded) { placesLoaded = true; loadPlacesScreen(); }
     if (s === 'mizu' && !mizuLoaded) { mizuLoaded = true; loadMizuScreen(); }
     if (s === 'gasoline' && !gasolineScreenLoaded) { gasolineScreenLoaded = true; loadGasolineScreen(); }
+    if (s === 'notices' && !noticesScreenLoaded) { noticesScreenLoaded = true; loadNoticesScreen(); }
     if (s === 'home') { loadHomePreviews(); }
     track('screen_view', null, null, s);
     applyScreenMeta(s);
@@ -3241,8 +3290,15 @@ function safetyLiveEntryHtml(e) {
 }
 
 async function loadSafetyLiveNotes() {
-    const fetchedEl = document.getElementById('safety-live-fetched-at');
-    const listEl = document.getElementById('safety-live-notes');
+    try {
+        safetyLiveData = await apiFetch('/live-info');
+    } catch (e) { /* 市町村欄の最新情報は任意機能のため、失敗しても他のセクションは表示する */ }
+}
+
+let noticesScreenLoaded = false;
+async function loadNoticesScreen() {
+    const fetchedEl = document.getElementById('notices-fetched-at');
+    const listEl = document.getElementById('notices-list');
     listEl.innerHTML = `<p class="text-muted-gray font-body-sm text-body-sm">最新情報を取得しています…</p>`;
     try {
         const data = await apiFetch('/live-info');
