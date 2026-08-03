@@ -852,7 +852,10 @@
 <!-- 1週間の天気予報 -->
 <section class="flex flex-col">
 <h3 class="font-headline-sm text-headline-sm text-charcoal-text flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[18px]">partly_cloudy_day</span>1週間の天気予報（熊本）</h3>
-<div class="flex gap-2 overflow-x-auto hide-scrollbar bg-surface-container-lowest rounded-xl border border-divider-line p-3 premium-shadow" id="home-weather-list"></div>
+<div class="bg-surface-container-lowest rounded-xl border border-divider-line p-3 premium-shadow">
+<div class="flex gap-2 overflow-x-auto hide-scrollbar" id="home-weather-list"></div>
+<div id="home-weather-advice"></div>
+</div>
 </section>
 <!-- 掲示板（常時表示） -->
 <div class="flex flex-col gap-1">
@@ -3094,9 +3097,25 @@ function weatherCardHtml(day, idx) {
         <span class="font-label-sm text-label-sm text-muted-gray">${Math.round(day.min)}°</span>
     </div>`;
 }
+const WEATHER_RAINY_CODES = [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99];
+function todayAdviceHtml(day) {
+    const tips = [];
+    if (day.max >= 35) {
+        tips.push('猛烈な暑さです。屋外での作業や車中泊は避け、こまめな水分・塩分補給を心がけてください。');
+    } else if (day.max >= 30) {
+        tips.push('気温が高くなります。熱中症に注意し、涼しい場所でこまめに休憩を取りましょう。');
+    }
+    if (WEATHER_RAINY_CODES.includes(day.code)) {
+        tips.push('雨が降りやすい一日です。地震で傷んだ屋根・外壁は雨でさらに崩れやすくなっているため、ひび割れ箇所には近づかないでください。');
+    }
+    if (!tips.length) tips.push('体調管理に気をつけて、無理のない範囲でお過ごしください。');
+    return `<div class="flex items-start gap-2 mt-2 px-1"><span class="material-symbols-outlined text-forest-deep text-[18px] flex-none">tips_and_updates</span><p class="font-body-sm text-body-sm text-charcoal-text">${tips.join(' ')}</p></div>`;
+}
 function renderWeather(days) {
     const el = document.getElementById('home-weather-list');
     if (el) el.innerHTML = days.map(weatherCardHtml).join('');
+    const adviceEl = document.getElementById('home-weather-advice');
+    if (adviceEl && days.length) adviceEl.innerHTML = todayAdviceHtml(days[0]);
 }
 /* localStorage の stale-while-revalidate キャッシュ: 再訪時に即表示し、裏で最新化する */
 function readLocalCache(key, ttlMs) {
